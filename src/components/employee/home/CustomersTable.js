@@ -1,20 +1,20 @@
-import {
-  useColorModeValue,
+import { 
   Flex,
   IconButton,
+  Heading,
   Table,
   Thead,
-  Tbody,
   Tr,
   Th,
-  Heading
+  Tbody,
+  useColorModeValue,
+
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons';
 
-const ConstructionsTable = () => {
+const CustomerTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
   return(
-
     <Flex 
     background={tableBackgroud} 
     border="1px" 
@@ -29,15 +29,15 @@ const ConstructionsTable = () => {
       <IconButton m={1} colorScheme="teal" variant="outline" aria-label="Add" icon={<AddIcon/>} >
       </IconButton>
 
-      <Heading as="h4" size="md" width="50%">Mis Construcciones</Heading>
+      <Heading as="h4" size="md" width="50%">Clientes</Heading>
       
       <Table variant="simple" colorScheme="teal" size="lg">
       
         <Thead>
           <Tr>
-            <Th>Descripcion</Th>
-            <Th>Direccion</Th>
-            <Th isNumeric>Empresa</Th>
+            <Th>Something</Th>
+            <Th>Something</Th>
+            <Th isNumeric>Something</Th>
           </Tr>
         </Thead>
 
@@ -50,5 +50,4 @@ const ConstructionsTable = () => {
     </Flex>
   )
 }
-export default ConstructionsTable; 
-
+export default CustomerTable;

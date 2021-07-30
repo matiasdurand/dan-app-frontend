@@ -25,7 +25,7 @@ const DeliveryTable = () => {
     ml={1} mt={2}
     >
 
-      <Heading as="h4" size="md" p={3.5}>Mis Envios</Heading>
+      <Heading as="h4" size="md" p={3.5}>Envios</Heading>
 
       <Table variant="simple" colorScheme="teal" size="lg">
 

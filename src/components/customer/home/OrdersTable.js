@@ -29,7 +29,7 @@ const OrdersTable = () => {
       <IconButton m={1} colorScheme="teal" variant="outline" aria-label="Add" icon={<AddIcon/>} >
       </IconButton>
 
-      <Heading as="h4" size="md" width="50%">Mis Pedidos</Heading>
+      <Heading as="h4" size="md" width="50%">Pedidos</Heading>
       
       <Table variant="simple" colorScheme="teal" size="lg">
 
