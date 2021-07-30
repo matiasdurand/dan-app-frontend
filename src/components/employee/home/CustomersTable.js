@@ -8,7 +8,6 @@ import {
   Th,
   Tbody,
   useColorModeValue,
-
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons';
 

@@ -18,7 +18,6 @@ import {
 function DrawerHome() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-
   return (
     <>
       
@@ -44,10 +43,10 @@ function DrawerHome() {
 
           <DrawerBody>
             <Flex direction="column">
-              <Button variant="unstyled" mt={10}>PERFIL</Button>
-              <Button variant="unstyled" mt={10}>PAGOS</Button>
-              <Button variant="unstyled" mt={10}>CAMIONES</Button>
-              <Button variant="unstyled" mt={10}>PRODUCTOS</Button>
+              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PERFIL</Button>
+              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PAGOS</Button>
+              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>CAMIONES</Button>
+              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PRODUCTOS</Button>
             </Flex>
           </DrawerBody>
 
