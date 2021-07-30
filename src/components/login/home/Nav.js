@@ -2,7 +2,7 @@ import {
   useColorModeValue,
   Flex,
   Button,
-  Text
+  Heading
 } from '@chakra-ui/react'
 
 const Nav = () => {
@@ -18,9 +18,9 @@ const Nav = () => {
       mb={8} p={8}
       >
 
-      <Text>
+      <Heading>
         Home
-      </Text>
+      </Heading>
 
       <Flex alignItems="center" justifyContent="space-between" align="center">
         <Button colorScheme="teal" variant="solid" mr={6}>Mis Pagos</Button>

@@ -6,7 +6,7 @@ function App() {
   return (
     <ChakraProvider>
       <CSSReset />
-      <CustomerHome />
+      <CustomerHome></CustomerHome>
     </ChakraProvider>
   );
 }
