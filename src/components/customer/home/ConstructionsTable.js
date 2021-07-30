@@ -26,7 +26,7 @@ const ConstructionsTable = () => {
     wrap="wrap"
     >
 
-      <IconButton m={1} colorScheme="teal" variant="outline" aria-label="Add" icon={<AddIcon/>} >
+      <IconButton m={1} colorScheme="teal" variant="ghost" aria-label="Add" icon={<AddIcon/>} >
       </IconButton>
 
       <Heading as="h4" size="md" width="50%">Construcciones</Heading>

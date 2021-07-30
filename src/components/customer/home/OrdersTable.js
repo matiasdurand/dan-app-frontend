@@ -26,7 +26,7 @@ const OrdersTable = () => {
       mr={1} mt={2}
       >
 
-      <IconButton m={1} colorScheme="teal" variant="outline" aria-label="Add" icon={<AddIcon/>} >
+      <IconButton m={1} colorScheme="teal" variant="ghost" aria-label="Add" icon={<AddIcon/>} >
       </IconButton>
 
       <Heading as="h4" size="md" width="50%">Pedidos</Heading>
