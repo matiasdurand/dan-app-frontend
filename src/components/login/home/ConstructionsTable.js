@@ -15,7 +15,16 @@ const ConstructionsTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
   return(
 
-    <Flex background={tableBackgroud} border="1px" borderColor={tableBackgroud} rounded={6} w="100%" alignItems="center" direction="row-reverse" wrap="wrap">
+    <Flex 
+    background={tableBackgroud} 
+    border="1px" 
+    borderColor={tableBackgroud} 
+    rounded={6} 
+    w="100%" 
+    alignItems="center" 
+    direction="row-reverse" 
+    wrap="wrap"
+    >
 
       <IconButton m={1} colorScheme="teal" variant="outline" aria-label="Add" icon={<AddIcon/>} >
       </IconButton>

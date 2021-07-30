@@ -9,14 +9,14 @@ const Nav = () => {
   const navBackground = useColorModeValue("gray.100", "gray.700")
   return (
     <Flex as="nav" 
-      align="center" 
-      alignItems="center" 
-      justify="space-between" 
-      wrap="wrap" 
-      w="100%" 
-      background={navBackground}
-      mb={8} p={8}
-      >
+    align="center" 
+    alignItems="center" 
+    justify="space-between" 
+    wrap="wrap" 
+    w="100%" 
+    background={navBackground}
+    mb={8} p={8}
+    >
 
       <Heading>
         Home
@@ -28,10 +28,6 @@ const Nav = () => {
       </Flex>
         
     </Flex>
-
   )
-
-  
-
 }
 export default Nav;

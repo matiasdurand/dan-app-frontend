@@ -33,6 +33,5 @@ const CustomerHome = () => {
     </Flex>
   )
 }
-
 export default CustomerHome;
 
