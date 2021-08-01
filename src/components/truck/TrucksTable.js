@@ -21,15 +21,12 @@ const TruckTable = () => {
     borderColor={tableBackgroud} 
     rounded={6}  
     alignItems="center" 
-    direction="row-reverse" 
+    justify="center"
     wrap="wrap"
     m={2}
     >
 
-      <IconButton m={1} colorScheme="teal" variant="ghost" aria-label="Add" icon={<AddIcon/>} >
-      </IconButton>
-
-      <Heading as="h4" size="md" width="50%">Camiones</Heading>
+      <Heading as="h4" size="md" m={2}>Camiones</Heading>
       
       <Table variant="simple" colorScheme="teal" size="lg">
       

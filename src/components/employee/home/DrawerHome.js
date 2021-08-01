@@ -14,10 +14,12 @@ import {
   Heading
  } from '@chakra-ui/react'
  import { HamburgerIcon } from '@chakra-ui/icons';
+ import { useHistory } from 'react-router-dom'
 
 function DrawerHome() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+  const history = useHistory();
   return (
     <>
       
@@ -44,9 +46,9 @@ function DrawerHome() {
           <DrawerBody>
             <Flex direction="column">
               <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PERFIL</Button>
-              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PAGOS</Button>
-              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>CAMIONES</Button>
-              <Button _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PRODUCTOS</Button>
+              <Button onClick = {() => history.push("/pagos")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PAGOS</Button>
+              <Button onClick = {() => history.push("/camiones")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>CAMIONES</Button>
+              <Button onClick = {() => history.push("/productos")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PRODUCTOS</Button>
             </Flex>
           </DrawerBody>
 

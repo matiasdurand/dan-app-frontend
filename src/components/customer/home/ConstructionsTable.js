@@ -10,9 +10,11 @@ import {
   Heading
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons';
+import { useHistory } from 'react-router-dom';
 
 const ConstructionsTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
+  const history = useHistory()
   return(
 
     <Flex 
@@ -26,7 +28,13 @@ const ConstructionsTable = () => {
     wrap="wrap"
     >
 
-      <IconButton m={1} colorScheme="teal" variant="ghost" aria-label="Add" icon={<AddIcon/>} >
+      <IconButton 
+      onClick={()=>history.push("/construcciones/agregar")} 
+      m={1} 
+      colorScheme="teal" 
+      variant="ghost" 
+      aria-label="Add" 
+      icon={<AddIcon/>} >
       </IconButton>
 
       <Heading as="h4" size="md" width="50%">Construcciones</Heading>

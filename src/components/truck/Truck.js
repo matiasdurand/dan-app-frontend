@@ -2,7 +2,7 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import TruckForm from './TruckForm'
-import TruckTable from './TrucksTabke'
+import TruckTable from './TrucksTable'
 
 
 const Truck = () => {

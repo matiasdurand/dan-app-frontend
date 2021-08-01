@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import ProductTable from "../product/ProductTable";
 import ProductTableFilter from "../product/ProductTableFilter";
-import Buttons from "./../Buttons";
 import OrderItemTable from "./OrderItemTable"
 
 function OrderGeneration() {
@@ -61,7 +60,11 @@ function OrderGeneration() {
         <OrderItemTable></OrderItemTable>
       </Flex>
 
-      <Buttons></Buttons>
+      <Flex direction="row-reverse">
+        <Button mr="32px" variant="solid" colorScheme="blue">Aceptar</Button>
+        <Button mr="32px" variant="ghost">Cancelar</Button>
+      </Flex>
+
     </Flex>
   );
 }
