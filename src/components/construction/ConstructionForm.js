@@ -6,13 +6,19 @@ import {
   Input,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Select
 } from "@chakra-ui/react"
 
-function ConstructionForm() {
+function ConstructionForm({construction, setConstruction}) {
+
+  const handleInputChange = (event) => {
+    console.log(event.target.value)
+    setConstruction({
+      ...construction,
+      [event.target.name] : event.target.value
+    })
+  };
+
   return (
     <VStack w="40%" spacing={3}>
 
@@ -20,45 +26,42 @@ function ConstructionForm() {
 
       <FormControl id="description" isRequired>
         <FormLabel fontSize="xs">Descripción</FormLabel>
-        <Input size="sm"/>
+        <Input name="description" onChange={handleInputChange} size="sm"/>
       </FormControl>
 
       <FormControl id="constructionType" isRequired>
         <FormLabel fontSize="xs">Tipo de Construcción</FormLabel>
-        <Select size="sm">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+        <Select name="constructionType" onChange={handleInputChange} size="sm">
+          <option value="0">Reforma</option>
+          <option value="1">Casa</option>
+          <option value="2">Edificio</option>
+          <option value="3">Vial</option>
         </Select>
       </FormControl>
 
       <FormControl id="area" isRequired>
         <FormLabel fontSize="xs">Superficie</FormLabel>
         <NumberInput size="sm" defaultValue={10} min={0} max={100000}>
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-          </NumberInput>
+          <NumberInputField name="area" onChange={handleInputChange}/>
+        </NumberInput>
       </FormControl>
 
       <FormControl id="address" isRequired>
         <FormLabel fontSize="xs">Dirección</FormLabel>
-        <Input size="sm"/>
+        <Input name="address" onChange={handleInputChange} size="sm"/>
       </FormControl>
 
       <FormControl id="latitude" isRequired>
         <FormLabel fontSize="xs">Latitud</FormLabel>
         <NumberInput size="sm">
-          <NumberInputField />
+          <NumberInputField name="latitude" onChange={handleInputChange}/>
         </NumberInput>
       </FormControl>
 
       <FormControl id="longitude" isRequired>
         <FormLabel fontSize="xs">Longitud</FormLabel>
         <NumberInput size="sm">
-          <NumberInputField />
+          <NumberInputField name="longitude" onChange={handleInputChange}/>
         </NumberInput>
       </FormControl>
 

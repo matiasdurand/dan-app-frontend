@@ -5,12 +5,13 @@ import EmployeeForm from './components/employee/EmployeeForm';
 import Login from './components/login/Login';
 import TruckForm from './components/truck/TruckForm';
 import Truck from './components/truck/Truck';
+import CustomerRegistration from './components/CustomerRegistration';
 
 function App() {
   return (
     <ChakraProvider>
       <CSSReset />
-      <Truck></Truck>
+      <CustomerRegistration></CustomerRegistration>
     </ChakraProvider>
   );
 }
