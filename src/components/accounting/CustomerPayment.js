@@ -8,7 +8,7 @@ import {
   Tbody,
   Thead 
 } from "@chakra-ui/react";
-import PaymentTable from "../accounting/PaymentTable";
+import PaymentTable from "./PaymentTable";
 
 function CustomerPayments() {
   return (

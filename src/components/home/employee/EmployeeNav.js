@@ -3,7 +3,7 @@ import {
   Flex,
   Heading
 } from '@chakra-ui/react'
-import DrawerHome from './DrawerHome'
+import DrawerHome from './EmployeeDrawer'
 
 const Nav = () => {
   const navBackground = useColorModeValue("gray.100", "gray.700")

@@ -1,6 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import Buttons from "./Buttons";
-import EmployeeForm from "./employee/EmployeeForm";
+import Buttons from "../Buttons";
+import EmployeeForm from "./EmployeeForm";
 
 function EmployeeRegistration() {
   return (

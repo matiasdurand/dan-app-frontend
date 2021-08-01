@@ -6,8 +6,8 @@ import {
   Heading,
   Button
 } from "@chakra-ui/react";
-import CustomerForm from "./customer/CustomerForm";
-import ConstructionForm from "./construction/ConstructionForm";
+import CustomerForm from "./CustomerForm";
+import ConstructionForm from "../construction/ConstructionForm";
 import { useHistory } from 'react-router-dom';
 
 function CustomerRegistration() {

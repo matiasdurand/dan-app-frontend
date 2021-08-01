@@ -49,6 +49,7 @@ function DrawerHome() {
               <Button onClick = {() => history.push("/pagos")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PAGOS</Button>
               <Button onClick = {() => history.push("/camiones")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>CAMIONES</Button>
               <Button onClick = {() => history.push("/productos")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>PRODUCTOS</Button>
+              <Button onClick = {() => history.push("/empleados")} _hover={{ bg: "gray.600" }} variant="unstyled" mt={10}>EMPLEADOS</Button>
             </Flex>
           </DrawerBody>
 
