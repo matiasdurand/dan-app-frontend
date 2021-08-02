@@ -1,16 +1,19 @@
 import {
-  VStack,
+  Flex,
+  Button,
   FormControl,
   FormLabel,
   Input,
   NumberInput,
   NumberInputField,
-  Select
+  Select,
+  Heading,
+  useColorModeValue
 } from "@chakra-ui/react"
 import React from 'react'
 
 function ProductForm({product, setProduct}) {
-
+  const formBackground = useColorModeValue("gray.100", "gray.700")
   const handleInputChange = (event) => {
     setProduct({
       ...product,
@@ -19,59 +22,76 @@ function ProductForm({product, setProduct}) {
   };
 
   return (
-    <VStack spacing={2}>
+    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
 
-      <FormControl id="name" isRequired>
-        <FormLabel fontSize="xs">Nombre</FormLabel>
-        <Input value={product.name} name="name" onChange={handleInputChange} size="sm"/>
-      </FormControl>
+      <Heading nb={6}>Productos</Heading>
 
-      <FormControl id="description" isRequired>
-        <FormLabel fontSize="xs">Descripción</FormLabel>
-        <Input value={product.description} name="description" onChange={handleInputChange} size="sm"/>
-      </FormControl>
+      <Flex>
+        <Flex direction="column" p={8}>
+        
+          <FormControl id="name" mt={6} isRequired>
+            <FormLabel>Nombre</FormLabel>
+            <Input value={product.name} name="name" onChange={handleInputChange} variant="filled" placeholder="Nombre"/>
+          </FormControl>
 
-      <FormControl id="price" isRequired>
-        <FormLabel fontSize="xs">Precio</FormLabel>
-        <NumberInput 
-          value={product.price}
-          max={1000000} 
-          precision="2"
-          size="sm">
-          <NumberInputField name="price" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+          <FormControl id="description" mt={4} isRequired>
+            <FormLabel>Descripción</FormLabel>
+            <Input value={product.description} name="description" onChange={handleInputChange} variant="filled" placeholder="Descripción"/>
+          </FormControl>
 
-      <FormControl id="currentStock" isRequired>
-        <FormLabel fontSize="xs">Stock actual</FormLabel>
-        <NumberInput 
-          value={product.currentStock}
-          max={1000000} 
-          size="sm">
-          <NumberInputField name="currentStock" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+          <FormControl id="price" mt={4} isRequired>
+            <FormLabel>Precio</FormLabel>
+            <NumberInput 
+              value={product.price}
+              max={1000000} 
+              precision="2"
+              variant="filled">
+              <NumberInputField name="price" onChange={handleInputChange}/>
+            </NumberInput>
+          </FormControl>
 
-      <FormControl id="minimumStock" isRequired>
-        <FormLabel fontSize="xs">Stock mínimo</FormLabel>
-        <NumberInput 
-          value={product.minimumStock}
-          max={1000000} 
-          size="sm">
-          <NumberInputField name="minimumStock" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+        </Flex>
 
-      <FormControl id="unit" isRequired>
-        <FormLabel fontSize="xs">Unidad de medida</FormLabel>
-        <Select value={product.unitId} name="unitId" onChange={handleInputChange} size="sm">
-          <option value="1">Kilos</option>
-          <option value="2">Litros</option>
-          <option value="3">Metros</option>
-        </Select>
-      </FormControl>
-    
-    </VStack>
+        <Flex direction="column" p={8}>
+
+          <FormControl id="currentStock" mt={6} isRequired>
+            <FormLabel>Stock actual</FormLabel>
+            <NumberInput 
+              value={product.currentStock}
+              max={1000000} 
+              variant="filled">
+              <NumberInputField name="currentStock" onChange={handleInputChange}/>
+            </NumberInput>
+          </FormControl>
+
+          <FormControl id="minimumStock" mt={4} isRequired>
+            <FormLabel>Stock mínimo</FormLabel>
+            <NumberInput 
+              value={product.minimumStock}
+              max={1000000} 
+              variant="filled">
+              <NumberInputField name="minimumStock" onChange={handleInputChange}/>
+            </NumberInput>
+          </FormControl>
+
+          <FormControl id="unit" mt={4} isRequired>
+            <FormLabel>Unidad de medida</FormLabel>
+            <Select value={product.unitId} name="unitId" onChange={handleInputChange} variant="filled">
+              <option value="1">Kilos</option>
+              <option value="2">Litros</option>
+              <option value="3">Metros</option>
+            </Select>
+          </FormControl>
+
+        </Flex>
+      </Flex>
+
+      <Flex direction="row-reverse">
+        <Button mr={8} variant="solid" colorScheme="blue">Aceptar</Button>
+        <Button mr={8} variant="ghost">Cancelar</Button>
+      </Flex>
+      
+    </Flex>
   );
 }
 

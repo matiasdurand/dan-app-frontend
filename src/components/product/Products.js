@@ -1,4 +1,4 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
@@ -122,13 +122,11 @@ function Products() {
   }, []);
 
   return (
-    <Flex direction="column" h="100vh" p="32px">
+    <Flex h="100vh" justify="center" p={8}>
 
-      <Heading size="lg" align="center">Productos</Heading>
-
-      <Flex p="16px">
+      <Flex p={4}>
         
-        <Flex direction="column" w="40%" p="16px">
+        <Flex direction="column" w="40%" p={4}>
 
           <ProductForm product={product} setProduct={setProduct}></ProductForm>
 
@@ -136,6 +134,7 @@ function Products() {
             <Button variant="solid" colorScheme="blue" onClick={postOrPut}>Aceptar</Button>
             <Button mr="16px" variant="ghost" onClick={clean}>Cancelar</Button>
           </Flex>
+          
         </Flex>
         
         <Flex direction="column" p="16px">

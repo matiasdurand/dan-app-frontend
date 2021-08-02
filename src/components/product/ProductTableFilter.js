@@ -1,17 +1,18 @@
 import {
-  VStack,
-  Text,
+  Flex,
+  Heading,
   FormControl,
   FormLabel,
   Input,
   NumberInput,
   NumberInputField,
-  Flex,
+  Button,
+  useColorModeValue
 } from "@chakra-ui/react"
 import React from 'react';
 
 function ProductTableFilter({productFilters, setProductFilters}) {
-
+  const formBackground = useColorModeValue("gray.100", "gray.700")
   const handleInputChange = (event) => {
     setProductFilters({
       ...productFilters,
@@ -20,57 +21,63 @@ function ProductTableFilter({productFilters, setProductFilters}) {
   }
 
   return (
-    <VStack spacing={3}>
+    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
 
-      <Text>Filtros</Text>
+      <Heading nb={6}>Filtros</Heading>
 
-      <Flex>
+      <Flex mt={6}>
+        
         <FormControl id="name">
-          <FormLabel fontSize="xs">Nombre</FormLabel>
-          <Input name="name" onChange={handleInputChange} size="sm"/>
+          <FormLabel>Nombre</FormLabel>
+          <Input name="name" onChange={handleInputChange} variant="filled" placeholder="Nombre"/>
         </FormControl>
 
-        <FormControl id="minimumPrice" ml="16px">
-          <FormLabel fontSize="xs">Precio Mínimo</FormLabel>
+        <FormControl id="minimumPrice" ml={4}>
+          <FormLabel>Precio Mínimo</FormLabel>
           <NumberInput 
             max={100000} 
             precision="2"
-            size="sm">
-            <NumberInputField name="minimumPrice" onChange={handleInputChange} />
+            variant="filled">
+            <NumberInputField name="minimumPrice" onChange={handleInputChange} placeholder="Precio Mínimo"/>
           </NumberInput>
         </FormControl>
 
-        <FormControl id="maximumPrice" ml="16px">
-          <FormLabel fontSize="xs">Precio Máximo</FormLabel>
+        <FormControl id="maximumPrice" ml={4}>
+          <FormLabel>Precio Máximo</FormLabel>
           <NumberInput 
             max={100000}
             precision="2"
-            size="sm">
-            <NumberInputField name="maximumPrice" onChange={handleInputChange} />
+            variant="filled">
+            <NumberInputField name="maximumPrice" onChange={handleInputChange} placeholder="Precio Máximo"/>
           </NumberInput>
         </FormControl>
 
-        <FormControl id="minimumStock" ml="16px">
-          <FormLabel fontSize="xs">Stock Mínimo</FormLabel>
+        <FormControl id="minimumStock" ml={4}>
+          <FormLabel>Stock Mínimo</FormLabel>
           <NumberInput
             max={100000}
             defaultValue="0"
-            size="sm">
+            variant="filled">
             <NumberInputField name="minimumStock" onChange={handleInputChange} />
           </NumberInput>
         </FormControl>
 
-        <FormControl id="maximumStock" ml="16px">
-          <FormLabel fontSize="xs">Stock Máximo</FormLabel>
+        <FormControl id="maximumStock" ml={4}>
+          <FormLabel>Stock Máximo</FormLabel>
           <NumberInput
             max={100000}
             defaultValue="1000"
-            size="sm">
+            variant="filled">
             <NumberInputField name="maximumStock" onChange={handleInputChange} />
           </NumberInput>
         </FormControl>
       </Flex>
-    </VStack>
+      
+      <Flex direction="row-reverse">
+        <Button mt={6} variant="solid" colorScheme="blue">Buscar</Button>
+      </Flex>
+
+    </Flex>
   );
 }
 
