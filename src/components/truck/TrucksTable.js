@@ -1,6 +1,5 @@
 import { 
   Flex,
-  IconButton,
   Heading,
   Table,
   Thead,
@@ -10,7 +9,6 @@ import {
   Tbody,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { AddIcon } from '@chakra-ui/icons';
 
 const TruckTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")

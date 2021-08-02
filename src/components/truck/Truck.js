@@ -4,7 +4,6 @@ import {
 import TruckForm from './TruckForm'
 import TruckTable from './TrucksTable'
 
-
 const Truck = () => {
   return (
 

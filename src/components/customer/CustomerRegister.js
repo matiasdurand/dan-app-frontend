@@ -2,17 +2,12 @@ import {
   useState
 } from "react";
 import { 
-  Flex, 
-  Heading,
-  Button
+  Flex
 } from "@chakra-ui/react";
 import CustomerForm from "./CustomerForm";
 import ConstructionForm from "../construction/ConstructionForm";
-import { useHistory } from 'react-router-dom';
 
 function CustomerRegistration() {
-
-  const history=useHistory();
   
   const emptyCustomer = {
     businessName: "", 
@@ -43,16 +38,13 @@ function CustomerRegistration() {
   }
 
   return (
-    <Flex direction="column" justify="space-between" h="100vh" p="32px">
-      <Heading size="lg" color="tomato" align="center">Registro de Usuario</Heading>
-      <Flex justify="space-around">
-        <CustomerForm customer={customer} setCustomer={setCustomer}></CustomerForm>
-        <ConstructionForm construction={construction} setConstruction={setConstruction}></ConstructionForm>
-      </Flex>
-      <Flex direction="row-reverse">
-        <Button onClick={() => {history.goBack(); post()}} mr="32px" variant="solid" colorScheme="blue">Aceptar</Button>
-        <Button onCancel={clean} mr="32px" variant="ghost">Cancelar</Button>
-      </Flex>
+    <Flex h="100vh" justifyContent="center" p={8}>
+     
+      
+      <CustomerForm customer={customer} setCustomer={setCustomer}></CustomerForm>
+      
+      <ConstructionForm construction={construction} setConstruction={setConstruction}></ConstructionForm>
+      
     </Flex>
   );
 }
