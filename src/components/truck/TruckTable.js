@@ -17,16 +17,20 @@ const TruckTable = () => {
     background={tableBackgroud} 
     border="1px" 
     borderColor={tableBackgroud} 
-    rounded={6}  
-    alignItems="center" 
-    justify="center"
-    wrap="wrap"
+    rounded={6} 
+    w="100%"
+    h="fit-content" 
     m={2}
+    boxSizing="border-box"
+    align="center" 
+    direction="column"
+    justify="center" 
+    wrap="wrap"
     >
 
-      <Heading as="h4" size="md" m={2}>Camiones</Heading>
+      <Heading as="h4" size="md" p={1}>Camiones</Heading>
       
-      <Table variant="simple" colorScheme="teal" size="lg">
+      <Table variant="simple" colorScheme="blue" size="lg">
       
         <Thead>
           <Tr>
@@ -57,6 +61,7 @@ const TruckTable = () => {
             <Td>Data</Td>
             <Td>Data</Td>
           </Tr>
+          
         </Tbody>
 
       </Table>  

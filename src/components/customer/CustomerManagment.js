@@ -33,9 +33,9 @@ const CustomerManagment = () => {
 
   return(
 
-    <Flex h="100vh" justifyContent="center" p={8}> 
+    <Flex h="100vh" justify="center" p={8}> 
 
-      <Flex direction="column">
+      <Flex direction="column" align="center">
 
         <CustomerForm customer={customer} setCustomer={setCustomer}></CustomerForm>
 
@@ -43,7 +43,7 @@ const CustomerManagment = () => {
 
       </Flex>
 
-      <Flex direction="column">
+      <Flex direction="column" align="center">
 
         <CustomerFilter></CustomerFilter>
 

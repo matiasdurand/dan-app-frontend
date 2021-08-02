@@ -1,6 +1,7 @@
 import {
   Stack,
   Heading,
+  Button,
   FormControl,
   FormLabel,
   Input,
@@ -9,87 +10,100 @@ import {
   Textarea,
   RadioGroup,
   NumberInput,
-  NumberInputField
+  NumberInputField,
+  useColorModeValue
 } from "@chakra-ui/react"
 import React from 'react';
-import Buttons from '../Buttons'
 
 function PaymentForm() {
-  
+  const formBackground = useColorModeValue("gray.100", "gray.700")
   const [value, setValue] = React.useState("cash")
 
   return (
-    <Flex w="40%" h="100%" justify="space-between" p="16px" direction="column">
-      <Heading as="h5" size="md">Nuevo Pago</Heading>
+    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
+      
+      <Heading nb={6}>Pagos</Heading>
 
-      <FormControl id="cuit" isRequired>
-        <FormLabel fontSize="xs">CUIT</FormLabel>
-        <Input size="sm"/>
-      </FormControl>
-
-      <FormControl id="comment" isRequired>
-        <FormLabel fontSize="xs">Comentario</FormLabel>
-        <Textarea placeholder="Ingresar un comentario" size="sm" resize="none"/>
-      </FormControl>
-
-      <FormControl id="paymentMethod" isRequired>
-        <FormLabel fontSize="xs">Método de Pago</FormLabel>
-        <RadioGroup onChange={setValue} value={value}>
-          <Stack direction="row">
-            <Radio value="cash">Efectivo</Radio>
-            <Radio value="transfer">Transferencia</Radio>
-            <Radio value="check">Cheque</Radio>
-          </Stack>
-        </RadioGroup>
-      </FormControl>
-
-      {value === "cash" && 
-      <Flex w="100%">
-        <FormControl id="billNumber" isRequired>
-          <FormLabel fontSize="xs">Código</FormLabel>
-          <NumberInput size="sm" w="50%">
-            <NumberInputField />
-          </NumberInput>
+      <Flex direction="column" p={8}>
+        <FormControl id="cuit" mt={6} isRequired>
+          <FormLabel>CUIT</FormLabel>
+          <Input variant="filled" placeholder="CUIT"/>
         </FormControl>
-      </Flex>}
 
-      {value === "transfer" && 
-      <Flex w="100%">
-        <FormControl id="cbuOrigin" isRequired>
-            <FormLabel fontSize="xs">CBU Cliente</FormLabel>
-            <NumberInput size="sm" mr="16px">
-              <NumberInputField />
-            </NumberInput>
-          </FormControl>
-          <FormControl id="code" isRequired>
-            <FormLabel fontSize="xs">Código</FormLabel>
-            <NumberInput size="sm">
-              <NumberInputField />
-            </NumberInput>
-          </FormControl>
-      </Flex>}
-
-      {value === "check" && 
-      <Flex w="100%" wrap="wrap">
-        <Flex>
-          <FormControl id="number" isRequired>
-            <FormLabel fontSize="xs">Número</FormLabel>
-            <NumberInput size="sm" mr="16px">
-              <NumberInputField />
-            </NumberInput>
-          </FormControl>
-          <FormControl id="date" isRequired>
-            <FormLabel fontSize="xs">Fecha Pago</FormLabel>
-            <Input type="date" size="sm"/>
-          </FormControl>
-        </Flex>
-        <FormControl id="bank" isRequired>
-          <FormLabel fontSize="xs" mt="8px">Banco</FormLabel>
-          <Input size="sm" w="50%"/>
+        <FormControl id="comment" mt={4} isRequired>
+          <FormLabel>Comentario</FormLabel>
+          <Textarea variant="filled" placeholder="Ingresa un comentario" resize="none"/>
         </FormControl>
-      </Flex>}
 
-      <Buttons></Buttons>
+        <FormControl id="paymentMethod" mt={4} isRequired>
+          <FormLabel>Método de Pago</FormLabel>
+          <RadioGroup onChange={setValue} value={value}>
+            <Stack direction="row">
+              <Radio value="cash">Efectivo</Radio>
+              <Radio value="transfer">Transferencia</Radio>
+              <Radio value="check">Cheque</Radio>
+            </Stack>
+          </RadioGroup>
+        </FormControl>
+
+        {value === "cash" && 
+        <Flex w="100%">
+          <FormControl id="billNumber" mt={4} isRequired>
+            <FormLabel>Código</FormLabel>
+            <NumberInput variant="filled" placeholder="Código">
+              <NumberInputField />
+            </NumberInput>
+          </FormControl>
+        </Flex>}
+
+        {value === "transfer" && 
+        <Flex w="100%">
+          <FormControl id="cbuOrigin" mt={4} isRequired>
+              <FormLabel>CBU Cliente</FormLabel>
+              <NumberInput mr={4} variant="filled">
+                <NumberInputField />
+              </NumberInput>
+            </FormControl>
+            
+            <FormControl id="code" mt={4} isRequired>
+              <FormLabel>Código</FormLabel>
+              <NumberInput variant="filled">
+                <NumberInputField />
+              </NumberInput>
+            </FormControl>
+        </Flex>}
+
+        {value === "check" && 
+        <Flex w="100%" wrap="wrap">
+          <Flex>
+            
+            <FormControl id="number" mt={4} mr={4} isRequired>
+              <FormLabel>Número</FormLabel>
+              <NumberInput variant="filled">
+                <NumberInputField />
+              </NumberInput>
+            </FormControl>
+            
+            <FormControl id="date" mt={4} isRequired>
+              <FormLabel>Fecha Pago</FormLabel>
+              <Input type="date" variant="filled"/>
+            </FormControl>
+
+          </Flex>
+          
+          <FormControl id="bank" mt={4} isRequired>
+            <FormLabel>Banco</FormLabel>
+            <Input width="50%" variant="filled"/>
+          </FormControl>
+
+        </Flex>}
+      
+      </Flex>
+
+      <Flex direction="row-reverse">
+        <Button mr={8} variant="solid" colorScheme="blue">Aceptar</Button>
+        <Button mr={8} variant="ghost">Cancelar</Button>
+      </Flex>
     </Flex>
   );
 }

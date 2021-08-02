@@ -28,7 +28,7 @@ function DrawerHome() {
         size="lg"
         variant="ghost"
         ref={btnRef} 
-        colorScheme="teal" 
+        colorScheme="blue" 
         onClick={onOpen}>
       </IconButton>
 

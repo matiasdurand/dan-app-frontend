@@ -1,21 +1,24 @@
-import {
-  useColorModeValue,
+import { 
   Flex,
   IconButton,
+  Heading,
   Table,
   Thead,
-  Tbody,
   Tr,
   Td,
   Th,
-  Heading
+  Tbody,
+  FormControl,
+  FormLabel,
+  Input,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom';
 
-const ConstructionsTable = () => {
+const EmployeeTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
-  const history = useHistory()
+  const history = useHistory();
   return(
     <Flex 
     background={tableBackgroud} 
@@ -32,15 +35,19 @@ const ConstructionsTable = () => {
     wrap="wrap"
     >
 
-      <Heading as="h4" size="md" p={1}>Construcciones</Heading>
+      <FormControl id="name" p={2}>
+        <Input variant="filled" placeholder="Buscar por nombre..."></Input>
+      </FormControl>
+
+      <Heading as="h4" size="md" p={1}>Personal</Heading>
       
       <Table variant="simple" colorScheme="blue" size="lg">
       
         <Thead>
           <Tr>
-            <Th>Descripcion</Th>
-            <Th>Direccion</Th>
-            <Th isNumeric>Empresa</Th>
+            <Th>Something</Th>
+            <Th>Something</Th>
+            <Th isNumeric>Something</Th>
           </Tr>
         </Thead>
 
@@ -72,5 +79,4 @@ const ConstructionsTable = () => {
     </Flex>
   )
 }
-export default ConstructionsTable; 
-
+export default EmployeeTable;

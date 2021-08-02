@@ -13,7 +13,6 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 
-
 const TruckForm = () => {
   const formBackground = useColorModeValue("gray.100", "gray.700")
   return (

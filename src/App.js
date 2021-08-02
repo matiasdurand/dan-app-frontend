@@ -4,13 +4,13 @@ import Login from './components/login/Login'
 import EmployeeHome from './components/home/employee/EmployeeHome';
 import CustomerHome from './components/home/customer/CustomerHome';
 import CustomerRegister from './components/customer/CustomerRegister';
-import EmployeeRegister from './components/employee/EmployeeRegister';
 import Payment from './components/accounting/Payment';
 import OrderRegister from './components/order/OrderRegister';
 import Truck from './components/truck/Truck';
 import CustomerPayments from './components/accounting/CustomerPayment';
 import EmployeeProfile from './components/employee/EmployeeProfile';
 import CustomerManagment from './components/customer/CustomerManagment';
+import EmployeeManagment from './components/employee/EmployeeManagment';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
 
         <Route path='/camiones' exact component={Truck}></Route>
 
-        <Route path='/empleados' exact component={EmployeeRegister}></Route>
+        <Route path='/empleados' exact component={EmployeeManagment}></Route>
 
         <Route path='/perfil' exact component={EmployeeProfile}></Route>
 

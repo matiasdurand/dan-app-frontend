@@ -28,7 +28,7 @@ function EmployeeForm() {
 
       <Flex direction="row-reverse">
         <Button mt={6} variant="solid" colorScheme="blue">Aceptar</Button>
-        <Button mt={6} variant="ghost">Cancelar</Button>
+        <Button mt={6} mr={2} variant="ghost">Cancelar</Button>
       </Flex>
 
     </Flex>

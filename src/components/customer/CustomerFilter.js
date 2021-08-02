@@ -28,18 +28,11 @@ const CustomerFilter = () => {
         <FormControl id="name" m={6} >
           <FormLabel>Buscar...</FormLabel>
           <Input variant="filled" placeholder="Buscar..."></Input>
-         </FormControl>
+        </FormControl>
 
       </Flex>
       
-
-
-
     </Flex>
-
-
-
-
   )
 }
 export default CustomerFilter;

@@ -14,7 +14,7 @@ const EmployeeHome = () => {
       <Nav>
       </Nav>
 
-      <Flex direction="column" p={2}>
+      <Flex direction="column" p={4}>
 
         <CustomerTable>
         </CustomerTable>
