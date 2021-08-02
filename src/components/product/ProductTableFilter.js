@@ -6,65 +6,70 @@ import {
   Input,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Flex,
-  Button
 } from "@chakra-ui/react"
 import React from 'react';
 
-function ProductTableFilter() {
-  const format = (val) => `$` + val
-  const parse = (val) => val.replace(/^\$/, "")
+function ProductTableFilter({productFilters, setProductFilters}) {
 
-  const [minimumPrice, setMinimumPrice] = React.useState("1.00")
-  const [maximumPrice, setMaximumPrice] = React.useState("1.00")
+  const handleInputChange = (event) => {
+    setProductFilters({
+      ...productFilters,
+      [event.target.name] : event.target.value
+    })
+  }
 
   return (
-    <VStack spacing={2} w="50%">
+    <VStack spacing={3}>
 
-      <Text>Filtrar productos</Text>
+      <Text>Filtros</Text>
 
-      <Flex alignItems="center">
+      <Flex>
         <FormControl id="name">
           <FormLabel fontSize="xs">Nombre</FormLabel>
-          <Input size="sm"/>
+          <Input name="name" onChange={handleInputChange} size="sm"/>
         </FormControl>
 
         <FormControl id="minimumPrice" ml="16px">
           <FormLabel fontSize="xs">Precio Mínimo</FormLabel>
           <NumberInput 
-            onChange={(valueString) => setMinimumPrice(parse(valueString))} 
-            value={format(minimumPrice)} 
             max={100000} 
             precision="2"
             size="sm">
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
+            <NumberInputField name="minimumPrice" onChange={handleInputChange} />
           </NumberInput>
         </FormControl>
 
         <FormControl id="maximumPrice" ml="16px">
           <FormLabel fontSize="xs">Precio Máximo</FormLabel>
           <NumberInput 
-            onChange={(valueString) => setMaximumPrice(parse(valueString))}
-            value={format(maximumPrice)}
             max={100000}
             precision="2"
             size="sm">
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
+            <NumberInputField name="maximumPrice" onChange={handleInputChange} />
+          </NumberInput>
+        </FormControl>
+
+        <FormControl id="minimumStock" ml="16px">
+          <FormLabel fontSize="xs">Stock Mínimo</FormLabel>
+          <NumberInput
+            max={100000}
+            defaultValue="0"
+            size="sm">
+            <NumberInputField name="minimumStock" onChange={handleInputChange} />
+          </NumberInput>
+        </FormControl>
+
+        <FormControl id="maximumStock" ml="16px">
+          <FormLabel fontSize="xs">Stock Máximo</FormLabel>
+          <NumberInput
+            max={100000}
+            defaultValue="1000"
+            size="sm">
+            <NumberInputField name="maximumStock" onChange={handleInputChange} />
           </NumberInput>
         </FormControl>
       </Flex>
-      <Button size="sm" variant="link" colorScheme="blue">Filtrar</Button>
     </VStack>
   );
 }
