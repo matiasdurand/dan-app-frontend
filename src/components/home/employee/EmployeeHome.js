@@ -1,10 +1,10 @@
 import { 
   Flex
 } from '@chakra-ui/react'
-import DeliveryTable from '../../customer/home/DeliveryTable'
-import OrdersTable from '../../customer/home/OrdersTable'
-import CustomerTable from './CustomersTable'
-import Nav from './Nav'
+import DeliveryTable from '../../delivery/DeliveryTable'
+import OrderTable from '../../order/OrderTable'
+import CustomerTable from '../../customer/CustomerTable'
+import Nav from './EmployeeNav'
 
 const EmployeeHome = () => {
   return (
@@ -14,15 +14,15 @@ const EmployeeHome = () => {
       <Nav>
       </Nav>
 
-      <Flex direction="column" p={2}>
+      <Flex direction="column" p={4}>
 
         <CustomerTable>
         </CustomerTable>
 
         <Flex justify="space-between">
 
-          <OrdersTable>
-          </OrdersTable>
+          <OrderTable>
+          </OrderTable>
 
           <DeliveryTable>
           </DeliveryTable>

@@ -10,28 +10,39 @@ import {
   Heading
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons';
+import { useHistory } from 'react-router-dom'
 
 const OrdersTable = () => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
+  const history = useHistory();
   return (
     
     <Flex 
-      background={tableBackgroud} 
-      border="1px" 
-      borderColor={tableBackgroud} 
-      rounded={6} w="100%" 
-      alignItems="center" 
-      direction="row-reverse" 
-      wrap="wrap" 
-      mr={1} mt={2}
-      >
+    background={tableBackgroud} 
+    border="1px" 
+    borderColor={tableBackgroud} 
+    rounded={6} 
+    w="100%"
+    h="fit-content" 
+    m={2}
+    boxSizing="border-box"
+    alignItems="center" 
+    direction="row-reverse" 
+    wrap="wrap" 
+    >
 
-      <IconButton m={1} colorScheme="teal" variant="ghost" aria-label="Add" icon={<AddIcon/>} >
+      <IconButton 
+      onClick={() => history.push('pedidos/agregar')} 
+      m={1} 
+      colorScheme="blue" 
+      variant="ghost" 
+      aria-label="Add" 
+      icon={<AddIcon/>} >
       </IconButton>
 
       <Heading as="h4" size="md" width="50%">Pedidos</Heading>
       
-      <Table variant="simple" colorScheme="teal" size="lg">
+      <Table variant="simple" colorScheme="blue" size="lg">
 
         <Thead>
           <Tr>

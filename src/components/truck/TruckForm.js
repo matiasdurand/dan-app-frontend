@@ -9,20 +9,19 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Button,
   useColorModeValue
 } from '@chakra-ui/react'
-import Buttons from '../Buttons'
-
 
 const TruckForm = () => {
   const formBackground = useColorModeValue("gray.100", "gray.700")
   return (
     
-    <Flex direction="column" background={formBackground} p={12} rounded={6} m={2}>
+    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
 
       <Heading nb={6}>Camiones</Heading>
         
-      <Flex width="100%">
+      <Flex>
         <Flex direction="column" p={8}>
             
           <FormControl id="registration" mt={6} isRequired>
@@ -32,12 +31,12 @@ const TruckForm = () => {
 
           <FormControl id="model" mt={4} isRequired>
             <FormLabel>Modelo</FormLabel>
-            <Input  variant="filled" placeholder="Modelo"></Input>
+            <Input variant="filled" placeholder="Modelo"></Input>
           </FormControl>
 
           <FormControl id="description" mt={4} isRequired>
             <FormLabel>Descripcion</FormLabel>
-            <Input  variant="filled" placeholder="Descripcion"></Input>
+            <Input variant="filled" placeholder="Descripcion"></Input>
           </FormControl>
 
         </Flex>
@@ -80,7 +79,10 @@ const TruckForm = () => {
         </Flex>
       </Flex>
 
-      <Buttons></Buttons>
+      <Flex direction="row-reverse">
+        <Button mr={8} variant="solid" colorScheme="blue">Aceptar</Button>
+        <Button mr={8} variant="ghost">Cancelar</Button>
+      </Flex>
         
     </Flex>
 

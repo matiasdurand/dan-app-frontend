@@ -4,9 +4,11 @@ import {
   Button,
   Heading
 } from '@chakra-ui/react'
+import { useHistory } from 'react-router'
 
 const Nav = () => {
   const navBackground = useColorModeValue("gray.100", "gray.700")
+  const history = useHistory()
   return (
     <Flex as="nav" 
     align="center" 
@@ -23,7 +25,7 @@ const Nav = () => {
       </Heading>
 
       <Flex alignItems="center" justifyContent="space-between" align="center">
-        <Button colorScheme="teal" variant="solid" mr={6}>Mis Pagos</Button>
+        <Button onClick={() => history.push('/mis-pagos')} colorScheme="teal" variant="solid" mr={6}>Mis Pagos</Button>
         <Button colorScheme="teal" variant="outline" mr={6}>Perfil</Button>
       </Flex>
         

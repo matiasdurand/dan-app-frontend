@@ -1,16 +1,18 @@
 import {
-  VStack,
+  Flex,
+  Button,
   Heading,
   FormControl,
   FormLabel,
   Input,
   NumberInput,
   NumberInputField,
-  Select
+  Select,
+  useColorModeValue
 } from "@chakra-ui/react"
 
 function ConstructionForm({construction, setConstruction}) {
-
+  const formBackground = useColorModeValue("gray.100", "gray.700")
   const handleInputChange = (event) => {
     console.log(event.target.value)
     setConstruction({
@@ -20,52 +22,69 @@ function ConstructionForm({construction, setConstruction}) {
   };
 
   return (
-    <VStack w="40%" spacing={3}>
+    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
 
-      <Heading as="h5" size="md" mb="16px">Datos de la Obra</Heading>
+      <Heading nb={6}>Obra</Heading>
 
-      <FormControl id="description" isRequired>
-        <FormLabel fontSize="xs">Descripción</FormLabel>
-        <Input name="description" onChange={handleInputChange} size="sm"/>
-      </FormControl>
+      <Flex>
+        <Flex direction="column" p={8}>
 
-      <FormControl id="constructionType" isRequired>
-        <FormLabel fontSize="xs">Tipo de Construcción</FormLabel>
-        <Select name="constructionType" onChange={handleInputChange} size="sm">
-          <option value="0">Reforma</option>
-          <option value="1">Casa</option>
-          <option value="2">Edificio</option>
-          <option value="3">Vial</option>
-        </Select>
-      </FormControl>
+          <FormControl id="description" mt={6} isRequired>
+            <FormLabel>Descripción</FormLabel>
+            <Input name="description" onChange={handleInputChange} variant="filled" placeholder="Descripción"/>
+          </FormControl>
 
-      <FormControl id="area" isRequired>
-        <FormLabel fontSize="xs">Superficie</FormLabel>
-        <NumberInput size="sm" defaultValue={10} min={0} max={100000}>
-          <NumberInputField name="area" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+          <FormControl id="constructionType" mt={4} isRequired>
+            <FormLabel>Tipo de Construcción</FormLabel>
+            <Select name="constructionType" onChange={handleInputChange} variant="filled">
+              <option value="0">Reforma</option>
+              <option value="1">Casa</option>
+              <option value="2">Edificio</option>
+              <option value="3">Vial</option>
+            </Select>
+          </FormControl>
 
-      <FormControl id="address" isRequired>
-        <FormLabel fontSize="xs">Dirección</FormLabel>
-        <Input name="address" onChange={handleInputChange} size="sm"/>
-      </FormControl>
+          <FormControl id="area" mt={4} isRequired>
+            <FormLabel>Superficie</FormLabel>
+            <NumberInput defaultValue={10} min={0} max={100000}>
+              <NumberInputField name="area" onChange={handleInputChange} variant="filled" placeholder="Superficie"/>
+            </NumberInput>
+          </FormControl>
 
-      <FormControl id="latitude" isRequired>
-        <FormLabel fontSize="xs">Latitud</FormLabel>
-        <NumberInput size="sm">
-          <NumberInputField name="latitude" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+        </Flex>
+        
+        <Flex direction="column" p={8}>
 
-      <FormControl id="longitude" isRequired>
-        <FormLabel fontSize="xs">Longitud</FormLabel>
-        <NumberInput size="sm">
-          <NumberInputField name="longitude" onChange={handleInputChange}/>
-        </NumberInput>
-      </FormControl>
+          <FormControl id="address" mt={6} isRequired>
+            <FormLabel>Dirección</FormLabel>
+            <Input name="address" onChange={handleInputChange} variant="filled" placeholder="Dirección"/>
+          </FormControl>
 
-  </VStack>
+          <FormControl id="latitude" mt={4} isRequired>
+            <FormLabel>Latitud</FormLabel>
+            <NumberInput variant="filled">
+              <NumberInputField name="latitude" onChange={handleInputChange} placeholder="Latitud"/>
+            </NumberInput>
+          </FormControl>
+
+          <FormControl id="longitude"  mt={4} isRequired>
+            <FormLabel>Longitud</FormLabel>
+            <NumberInput variant="filled" >
+              <NumberInputField name="longitude" onChange={handleInputChange} placeholder="Longitud"/>
+            </NumberInput>
+          </FormControl>
+
+        </Flex>
+      </Flex>
+
+      {
+      //<Flex direction="row-reverse">
+        //<Button mr={8} variant="solid" colorScheme="blue">Aceptar</Button>
+        //<Button mr={8} variant="ghost">Cancelar</Button>
+      //</Flex>
+      }
+
+    </Flex>
   );
 }
 

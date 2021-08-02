@@ -1,18 +1,50 @@
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
-import CustomerHome from './components/customer/home/CustomerHome';
-import EmployeeHome from './components/employee/home/EmployeeHome';
-import EmployeeForm from './components/employee/EmployeeForm';
-import Login from './components/login/Login';
-import TruckForm from './components/truck/TruckForm';
+import { Route, Switch } from 'react-router-dom';
+import Login from './components/login/Login'
+import EmployeeHome from './components/home/employee/EmployeeHome';
+import CustomerHome from './components/home/customer/CustomerHome';
+import CustomerRegister from './components/customer/CustomerRegister';
+import Payment from './components/accounting/Payment';
+import OrderRegister from './components/order/OrderRegister';
 import Truck from './components/truck/Truck';
-import CustomerRegistration from './components/CustomerRegistration';
+import CustomerPayments from './components/accounting/CustomerPayment';
+import EmployeeProfile from './components/employee/EmployeeProfile';
+import CustomerManagment from './components/customer/CustomerManagment';
+import EmployeeManagment from './components/employee/EmployeeManagment';
 
 function App() {
   return (
+ 
     <ChakraProvider>
-      <CSSReset />
-      <CustomerRegistration></CustomerRegistration>
+      <CSSReset /> 
+      <Switch>
+
+        <Route path='/login' exact component={Login}></Route>
+
+        <Route path='/' exact component={EmployeeHome}></Route>
+
+        <Route path='/login/registro' exact component={CustomerRegister}></Route> 
+
+        <Route path='/cliente/registro' exact component={CustomerRegister}></Route> 
+
+        <Route path='/pagos' exact component={Payment}></Route>
+
+        <Route path='/mis-pagos' exact component={CustomerPayments}></Route>
+
+        <Route path='/pedidos/agregar' exact component={OrderRegister}></Route>
+
+        <Route path='/camiones' exact component={Truck}></Route>
+
+        <Route path='/empleados' exact component={EmployeeManagment}></Route>
+
+        <Route path='/perfil' exact component={EmployeeProfile}></Route>
+
+        <Route path='/clientes' exact component={CustomerManagment}></Route>
+
+      </Switch>
+
     </ChakraProvider>
+
   );
 }
 export default App;

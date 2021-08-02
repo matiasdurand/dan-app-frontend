@@ -7,10 +7,12 @@ import { Flex,
   FormLabel, 
   Button, 
 } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const { toggleColorMode } = useColorMode()
   const formBackground = useColorModeValue("gray.100", "gray.700")
+  const history = useHistory();
   return (
 
     <Flex h="100vh" alignItems="center" justifyContent="center">
@@ -29,9 +31,10 @@ const Login = () => {
           <Input variant="filled" placeholder="Contraseña" type="password" />      
         </FormControl>
 
-        <Button mt={6} colorScheme="teal" variant="solid" type="submit">Ingresa</Button>
-        <Button mt={2} mb={6} colorScheme="teal" variant="outline" type="submit">Registrate</Button>
-
+        <Button onClick={() => history.push("/")} mt={6} colorScheme="teal" variant="solid" type="submit">Ingresa</Button>
+        
+        <Button onClick={() => history.push("/login/registro")} mt={2} mb={6} colorScheme="teal" variant="outline" type="submit">Registrate</Button>
+        
         <Button colorScheme="teal" variant="ghost" onClick={toggleColorMode}>Modo</Button>
 
       </Flex> 
