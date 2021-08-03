@@ -23,13 +23,13 @@ function App() {
 
         <Route path='/login' exact component={Login}></Route>
 
-        <Route path='/' exact component={CustomerHome}></Route>
+        <Route path='/' exact component={EmployeeHome}></Route>
 
         <Route path='/login/registro' exact component={CustomerRegister}></Route>
 
         <Route path='/mis-pagos' exact component={CustomerPayments}></Route>
 
-        <Route path='/mi-perfil' exact component={CustomerProfile}></Route>
+        <Route path='/mi-perfil' exact component={EmployeeProfile}></Route>
 
         <Route path='/perfil' exact component={EmployeeProfile}></Route>
 

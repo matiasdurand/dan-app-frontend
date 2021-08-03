@@ -5,8 +5,10 @@ import { Flex,
   Heading, 
   FormControl, 
   FormLabel, 
-  Button, 
+  Button,
+  IconButton, 
 } from '@chakra-ui/react';
+import { MoonIcon } from '@chakra-ui/icons'
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -35,7 +37,10 @@ const Login = () => {
         
         <Button onClick={() => history.push("/login/registro")} mt={2} mb={6} colorScheme="teal" variant="outline" type="submit">Registrate</Button>
         
-        <Button colorScheme="teal" variant="ghost" onClick={toggleColorMode}>Modo</Button>
+        <Flex direction="row-reverse">
+          <IconButton icon={<MoonIcon/>} colorScheme="teal" variant="ghost" onClick={toggleColorMode}>Modo</IconButton>
+        </Flex>
+        
 
       </Flex> 
 
