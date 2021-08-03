@@ -2,7 +2,7 @@ import { Button, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
-import ProductTableFilter from "./ProductTableFilter";
+import ProductFilter from "./ProductFilter";
 import axios from 'axios';
 
 function Products() {
@@ -126,7 +126,7 @@ function Products() {
 
       <Flex p={4}>
         
-        <Flex direction="column" w="40%" p={4}>
+        <Flex direction="column" p={4}>
 
           <ProductForm product={product} setProduct={setProduct}></ProductForm>
 
@@ -138,7 +138,7 @@ function Products() {
         </Flex>
         
         <Flex direction="column" p="16px">
-          <ProductTableFilter productFilters={productFilters} setProductFilters={setProductFilters}></ProductTableFilter>
+          <ProductFilter productFilters={productFilters} setProductFilters={setProductFilters}></ProductFilter>
           <Button size="sm" variant="link" colorScheme="blue" m="16px" onClick={filter}>Buscar</Button>
           <ProductTable employeeUser={true} products={products} edit={edit} remove={remove}></ProductTable>
         </Flex>
