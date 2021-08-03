@@ -25,8 +25,8 @@ const Nav = () => {
       </Heading>
 
       <Flex alignItems="center" justifyContent="space-between" align="center">
-        <Button onClick={() => history.push('/mis-pagos')} colorScheme="teal" variant="solid" mr={6}>Mis Pagos</Button>
-        <Button colorScheme="teal" variant="outline" mr={6}>Perfil</Button>
+        <Button onClick={() => history.push('/mis-pagos')} colorScheme="blue" variant="solid" mr={6}>Mis Pagos</Button>
+        <Button onClick={() => history.push('/mi-perfil')} colorScheme="blue" variant="outline" mr={6}>Perfil</Button>
       </Flex>
         
     </Flex>
