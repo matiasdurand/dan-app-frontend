@@ -12,6 +12,7 @@ import EmployeeProfile from './components/employee/EmployeeProfile';
 import CustomerManagment from './components/customer/CustomerManagment';
 import EmployeeManagment from './components/employee/EmployeeManagment';
 import Products from './components/product/Products'
+import CustomerProfile from './components/customer/CustomerProfile';
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
 
         <Route path='/login/registro' exact component={CustomerRegister}></Route>
 
+        <Route path='/mis-pagos' exact component={CustomerPayments}></Route>
+
+        <Route path='/mi-perfil' exact component={EmployeeProfile}></Route>
+
         <Route path='/perfil' exact component={EmployeeProfile}></Route>
 
         <Route path='/clientes' exact component={CustomerManagment}></Route>
@@ -39,8 +44,6 @@ function App() {
         <Route path='/empleados' exact component={EmployeeManagment}></Route> 
 
         <Route path='/cliente/registro' exact component={CustomerRegister}></Route> 
-
-        <Route path='/mis-pagos' exact component={CustomerPayments}></Route>
 
         <Route path='/pedidos/agregar' exact component={OrderRegister}></Route>
         
