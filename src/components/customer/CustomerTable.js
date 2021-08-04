@@ -10,12 +10,22 @@ import {
   Tbody,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { useHistory } from 'react-router-dom';
+import { DeleteIcon } from '@chakra-ui/icons';
 
-const CustomerTable = () => {
-  const tableBackgroud = useColorModeValue("gray.100", "gray.700")
-  const history = useHistory();
+const CustomerTable = ({customers, deleteCustomer, deleteOption, getConstructions}) => {
+
+  const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const handleRowClick = (event, customerId) => {
+    event.preventDefault();
+    getConstructions(customerId);
+  };
+
+  const handleDeleteClick = (event, customerId) => {
+    event.preventDefault();
+    deleteCustomer(customerId);
+  };
+
   return(
     <Flex 
     background={tableBackgroud} 
@@ -38,33 +48,16 @@ const CustomerTable = () => {
       
         <Thead>
           <Tr>
-            <Th>Something</Th>
-            <Th>Something</Th>
-            <Th isNumeric>Something</Th>
+            <Th>Razón social</Th>
+            <Th>Cuit</Th>
+            <Th>Email</Th>
+            <Th>Max. monto desc.</Th>
           </Tr>
         </Thead>
 
         <Tbody>
-          <Td>DATA</Td>
-          <Td>DATA</Td>
-          <Td>
-            <IconButton
-              onClick={()=>history.push("/clientes")} 
-              colorScheme="blue" 
-              variant="ghost" 
-              aria-label="Edit" 
-              icon={<EditIcon/>} 
-            ></IconButton>
-
-            <IconButton
-              onClick
-              colorScheme="blue" 
-              variant="ghost" 
-              aria-label="Delete" 
-              icon={<DeleteIcon/>} 
-            ></IconButton> 
-            
-          </Td>
+          {!deleteOption && renderBody(customers)}
+          {deleteOption && renderBodyWithDeleteOption(customers, handleRowClick, handleDeleteClick)}
         </Tbody>
 
       </Table>  
@@ -72,4 +65,40 @@ const CustomerTable = () => {
     </Flex>
   )
 }
+
+function renderBody(customers) {
+  return customers.map((customer) => {
+    return (
+      <Tr key={customer.id}>
+        <Td>{customer.businessName}</Td>
+        <Td>{customer.cuit}</Td>
+        <Td>{customer.email}</Td>
+        <Td>{customer.maxCurrentAccount}</Td>
+      </Tr>
+    )
+  })
+}
+
+function renderBodyWithDeleteOption(customers, handleRowClick, handleDeleteClick) {
+  return customers.map((customer) => {
+    return (
+      <Tr key={customer.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, customer.id)}>
+        <Td>{customer.businessName}</Td>
+        <Td>{customer.cuit}</Td>
+        <Td>{customer.email}</Td>
+        <Td>{customer.maxCurrentAccount}</Td>
+        <Td>
+          <IconButton
+            onClick={(event) => handleDeleteClick(event, customer.id)}
+            colorScheme="blue" 
+            variant="ghost" 
+            aria-label="Delete" 
+            icon={<DeleteIcon/>}>
+          </IconButton> 
+        </Td>
+      </Tr>
+    )
+  })
+}
+
 export default CustomerTable;

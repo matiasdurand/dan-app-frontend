@@ -1,35 +1,83 @@
 import {
+  useEffect,
   useState
 } from 'react'
 import { 
   Flex 
 } from '@chakra-ui/react'
-import CustomerForm from './CustomerForm'
 import CustomerTable from './CustomerTable'
 import CustomerFilter from './CustomerFilter'
 import ConstructionTable from '../construction/ConstructionTable'
+import axios from 'axios';
 
 const CustomerManagment = () => {
 
-  const emptyCustomer = {
-    businessName: "", 
-    cuit: "", 
-    email: "",
-    maxCurrentAccount: 0.0,
-    constructions: null 
+  const defaultFilters = {
+    type: "cuit",
+    value: ""
   };
 
-  const emptyConstruction = {
-    description: "",
-    latitude: 0.0, 
-    longitude: 0.0,
-    area: 0,
-    constructionTypeId: 0
+  const [customers, setCustomers] = useState([]);
+
+  const [filters, setFilters] = useState(defaultFilters);
+
+  const [constructions, setConstructions] = useState([]);
+
+  useEffect(() => {
+
+    axios
+      .get("http://localhost:9100/customers")
+      .then(response => {
+        console.log(response.data);
+        setCustomers(response.data);
+      });
+
+  }, []);
+
+  const remove = (customerId) => {
+
+    console.log("delete " + customerId);
+
+    axios
+      .delete("http://localhost:9100/customers/" + customerId)
+      .then(() => {
+        setCustomers(customers.slice().filter(c => c.id !== customerId));
+      });
+
+    ;
   };
 
-  const [customer, setCustomer] = useState(emptyCustomer);
+  const getConstructions = (customerId) => {
 
-  const [construction, setConstruction] = useState(emptyConstruction);
+    axios
+      .get("http://localhost:9100/constructions?customerId=" + customerId)
+      .then(response => {
+        console.log(response.data);
+        setConstructions(response.data);
+      });
+  }
+
+  const filter = () => {
+
+    console.log("filter " + filters.type)
+
+    if (filters.type === "cuit") {
+      axios
+        .get("http://localhost:9100/customers?cuit=" + filters.value)
+        .then(response => {
+          console.log(response.data);
+          setCustomers(response.data);
+        });
+    }
+    else if (filters.type === "businessName") {
+      axios
+        .get("http://localhost:9100/customers?businessName=" + filters.value)
+        .then(response => {
+          console.log(response.data);
+          setCustomers(response.data);
+        });
+    }
+  };
 
   return(
 
@@ -37,25 +85,13 @@ const CustomerManagment = () => {
 
       <Flex direction="column" align="center">
 
-        <CustomerForm customer={customer} setCustomer={setCustomer}></CustomerForm>
-
-        <ConstructionTable></ConstructionTable>
-
-      </Flex>
-
-      <Flex direction="column" align="center">
-
-        <CustomerFilter></CustomerFilter>
-
-        <CustomerTable></CustomerTable>
+        <CustomerFilter filters={filters} setFilters={setFilters} filter={filter}></CustomerFilter>
+        <CustomerTable customers={customers} deleteCustomer={remove} deleteOption={true} getConstructions={getConstructions}></CustomerTable>
+        <ConstructionTable constructions={constructions} edit={() => {}} remove={() => {}} options={false} setContructionId={() => {}}></ConstructionTable>
 
       </Flex>
-      
 
     </Flex>
-
-
-
   )
 }
 export default CustomerManagment;

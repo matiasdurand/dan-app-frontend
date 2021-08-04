@@ -5,6 +5,7 @@ import {
   Thead,
   Tbody,
   Tr,
+  Td,
   Th,
   IconButton,
   Heading
@@ -12,7 +13,7 @@ import {
 import { AddIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom'
 
-const OrdersTable = () => {
+const OrdersTable = ({orders}) => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
   const history = useHistory();
   return (
@@ -46,16 +47,16 @@ const OrdersTable = () => {
 
         <Thead>
           <Tr>
-            <Th>Fecha de envio</Th>
+            <Th>Fecha de envío</Th>
             <Th>Estado</Th>
-            <Th isNumeric>Costruccion</Th>
-            <Th isNumeric>Cantidad de items</Th>
-            <Th isNumeric>Total</Th>
+            <Th>Costrucción</Th>
+            <Th>Cantidad de ítems</Th>
+            <Th>Total</Th>
           </Tr>
         </Thead>
 
         <Tbody>
-        
+          {renderBody(orders)}
         </Tbody>
 
       </Table>
@@ -63,4 +64,19 @@ const OrdersTable = () => {
     </Flex>
   )
 }
+
+function renderBody(orders) {
+  return orders.map((order) => {
+    return (
+      <Tr key={order.id}>
+        <Td>{order.shippingDate}</Td>
+        <Td>{order.stateDescription}</Td>
+        <Td>{order.constructionDescription}</Td>
+        <Td>{order.itemCount}</Td>
+        <Td>{order.totalPrice}</Td>
+      </Tr>
+    )
+  })
+}
+
 export default OrdersTable;

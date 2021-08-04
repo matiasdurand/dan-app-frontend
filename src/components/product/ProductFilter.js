@@ -12,14 +12,16 @@ import {
 } from "@chakra-ui/react"
 import React from 'react';
 
-function ProductFilter({productFilters, setProductFilters}) {
-  const formBackground = useColorModeValue("gray.100", "gray.700")
+function ProductFilter({productFilters, setProductFilters, filter}) {
+
+  const formBackground = useColorModeValue("gray.100", "gray.700");
+
   const handleInputChange = (event) => {
     setProductFilters({
       ...productFilters,
       [event.target.name] : event.target.value
     })
-  }
+  };
 
   return (
     <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
@@ -29,12 +31,12 @@ function ProductFilter({productFilters, setProductFilters}) {
       <Flex>
         <Flex direction="column" p={8}>
 
-          <FormControl id="constructionType" mt={6} isRequired>
+          <FormControl id="type" mt={6} isRequired>
             <FormLabel>Parámetro de búsqueda</FormLabel>
-            <Select name="constructionType" variant="filled">
-              <option value="0">Precio</option>
-              <option value="1">Stock</option>
-              <option value="2">Nombre</option>
+            <Select name="type" onChange={handleInputChange} variant="filled">
+              <option value="name">Nombre</option>
+              <option value="priceRange">Rango de precio</option>
+              <option value="stockRange">Rango de stock</option>
             </Select>
           </FormControl>
         
@@ -93,7 +95,7 @@ function ProductFilter({productFilters, setProductFilters}) {
       </Flex>
       
       <Flex direction="row-reverse">
-        <Button mt={6} variant="solid" colorScheme="blue">Buscar</Button>
+        <Button mt={6} variant="solid" colorScheme="blue" onClick={filter}>Buscar</Button>
       </Flex>
 
     </Flex>

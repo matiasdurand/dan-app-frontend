@@ -5,12 +5,15 @@ import {
   Thead,
   Tr,
   Th,
+  Td,
   Tbody,
   useColorModeValue
 } from "@chakra-ui/react";
 
-function PaymentTable() {
-  const tableBackgroud = useColorModeValue("gray.100", "gray.700")
+function PaymentTable({payments}) {
+
+  const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
   return (
     
     <Flex 
@@ -41,11 +44,25 @@ function PaymentTable() {
           </Tr>
         </Thead>
         <Tbody>
+          {renderBody(payments)}
         </Tbody>
       </Table>
 
     </Flex>
   );
+}
+
+function renderBody(payments) {
+  return payments.map((payment) => {
+    return (
+      <Tr key={payment.id}>
+        <Td>{payment.id}</Td>
+        <Td>{payment.customerId}</Td>
+        <Td>{payment.date}</Td>
+        <Td>{payment.method.type}</Td>
+      </Tr>
+    )
+  })
 }
 
 export default PaymentTable;

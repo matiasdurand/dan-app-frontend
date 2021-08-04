@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
@@ -18,6 +18,7 @@ function Products() {
   };
 
   const defaultFilters = {
+    type: "name",
     name: "",
     minimumPrice: 0,
     maximumPrice: 1000,
@@ -50,75 +51,79 @@ function Products() {
   const postOrPut = () => {
 
     if (editMode) {
+
+      console.log("put " + product);
+      
       axios
-        .put("url/id", product)
-        .then(response => {
-          let updatedProducts = products.slice();
-          updatedProducts.push(response.data);
-          setProducts(updatedProducts);
+        .put("http://localhost:9100/products/" + product.id, product)
+        .then(() => {
+          clean();
         });
     }
     else {
+      
+      console.log("post " + product);
+
       axios
-        .post("url", product)
+        .post("http://localhost:9100/products", product)
         .then(response => {
           let updatedProducts = products.slice();
           updatedProducts.push(response.data);
           setProducts(updatedProducts);
+          clean();
         });
     }
   };
 
   const remove = (productId) => {
 
-    axios.delete("url/id");
+    axios
+      .delete("http://localhost:9100/products/" + productId)
+      .then(() => {
+        setProducts(products.slice().filter(p => p.id !== productId));
+        clean();
+      });
 
-    setProducts(products.slice().filter(p => p.id !== productId));
-
-    clean();
   };
 
   const filter = () => {
 
-    // get by filters
-    // axios
-    //   .post('http://localhost:8100/products/api/products', product)
-    //   .then(response => console.log(response.data));
+    if (productFilters.type === "name") {
+        axios
+          .get("http://localhost:9100/products?name=" + productFilters.name)
+          .then(response => {
+            console.log(response.data);
+            setProducts(products);
+          });
+    }
+    else if (productFilters.type === "stockRange") {
+        axios
+          .get("http://localhost:9100/products?minimumStock=" + productFilters.minimumStock
+            + "&maximumStock=" + productFilters.maximumStock)
+          .then(response => {
+            console.log(response.data);
+            setProducts(products);
+          });
+    }
+    else if (productFilters.type === "priceRange") {
+        axios
+          .get("http://localhost:9100/products?minimumPrice=" + productFilters.minimumPrice
+            + "&maximumPrice=" + productFilters.maximumPrice)
+          .then(response => {
+            console.log(response.data);
+            setProducts(products);
+          });
+    }
   };
 
   useEffect(() => {
 
-    // get all
-    // axios
-    //   .get('http://localhost:8100/products/api/products')
-    //   .then(response => console.log(response.data));
-
-    // For testing
-    const products = [
-      {
-        id: 1,
-        name: "name",
-        description: "desc",
-        unitDescription: "Litros",
-        price: 10,
-        minimumStock: 1,
-        currentStock: 10,
-        unitId: 2
-      },
-      {
-        id: 2,
-        name: "name2",
-        description: "desc2",
-        unitDescription: "Metros",
-        price: 11,
-        minimumStock: 2,
-        currentStock: 20,
-        unitId: 3
-      }
-    ];
-
-    setProducts(products);
-
+    axios
+      .get("http://localhost:9100/products")
+      .then(response => {
+        console.log(response.data);
+        setProducts(response.data);
+      });
   }, []);
 
   return (
@@ -128,19 +133,13 @@ function Products() {
         
         <Flex direction="column" p={4}>
 
-          <ProductForm product={product} setProduct={setProduct}></ProductForm>
-
-          <Flex direction="row-reverse" mt="32px">
-            <Button variant="solid" colorScheme="blue" onClick={postOrPut}>Aceptar</Button>
-            <Button mr="16px" variant="ghost" onClick={clean}>Cancelar</Button>
-          </Flex>
+          <ProductForm product={product} setProduct={setProduct} postOrPut={postOrPut} clean={clean}></ProductForm>
           
         </Flex>
         
         <Flex direction="column" p="16px">
-          <ProductFilter productFilters={productFilters} setProductFilters={setProductFilters}></ProductFilter>
-          <Button size="sm" variant="link" colorScheme="blue" m="16px" onClick={filter}>Buscar</Button>
-          <ProductTable employeeUser={true} products={products} edit={edit} remove={remove}></ProductTable>
+          <ProductFilter productFilters={productFilters} setProductFilters={setProductFilters} filter={filter}></ProductFilter>
+          <ProductTable products={products} edit={edit} remove={remove} options={true}></ProductTable>
         </Flex>
 
       </Flex>

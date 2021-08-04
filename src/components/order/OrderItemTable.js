@@ -8,12 +8,15 @@ import {
   Th,
   Td,
   Tbody,
-  Tfoot,
   useColorModeValue
 } from "@chakra-ui/react";
+import { useState } from "react";
 
-function OrderItemTable() {
-  const tableBackgroud = useColorModeValue("gray.100", "gray.700")
+function OrderItemTable({items}) {
+  const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
   return (
 
     <Flex background={tableBackgroud} 
@@ -34,22 +37,33 @@ function OrderItemTable() {
       <Table variant="simple" colorScheme="blue" size="lg">
         <Thead>
           <Tr>
-            <Th isNumeric>ID</Th>
-            <Th>PRODUCTO</Th>
-            <Th isNumeric>CANTIDAD</Th>
-            <Th isNumeric>SUBTOTAL</Th>
+            <Th>ID PRODUCTO</Th>
+            <Th>CANTIDAD</Th>
+            <Th>SUBTOTAL</Th>
           </Tr>
         </Thead>
         <Tbody>
-
-          
+          {renderBody(items, totalPrice, setTotalPrice)}
         </Tbody>
       </Table>
 
-      <Text>Total</Text>
+      <Text>Total = {totalPrice}</Text>
 
     </Flex>
   );
+}
+
+function renderBody(items, totalPrice, setTotalPrice) {
+  return items.map((item) => {
+    setTotalPrice(totalPrice + item.price);
+    return (
+      <Tr>
+        <Td>{item.productId}</Td>
+        <Td>{item.quantity}</Td>
+        <Td>{item.price}</Td>
+      </Tr>
+    )
+  })
 }
 
 export default OrderItemTable;
