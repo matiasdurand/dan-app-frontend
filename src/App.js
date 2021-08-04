@@ -2,7 +2,6 @@ import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './components/login/Login'
 import EmployeeHome from './components/home/employee/EmployeeHome';
-import CustomerHome from './components/home/customer/CustomerHome';
 import CustomerRegister from './components/customer/CustomerRegister';
 import Payment from './components/accounting/Payment';
 import OrderRegister from './components/order/OrderRegister';
@@ -11,8 +10,7 @@ import CustomerPayments from './components/accounting/CustomerPayment';
 import EmployeeProfile from './components/employee/EmployeeProfile';
 import CustomerManagment from './components/customer/CustomerManagment';
 import EmployeeManagment from './components/employee/EmployeeManagment';
-import Products from './components/product/Products'
-import CustomerProfile from './components/customer/CustomerProfile';
+import Products from './components/product/Products';
 
 function App() {
   return (

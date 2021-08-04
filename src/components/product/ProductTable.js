@@ -12,8 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
-function ProductTable({employeeUser, products, edit, remove}) {
+function ProductTable({products, edit, remove, options, setProductId}) {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
+
   const handleEditClick = (event, productId) => {
     event.preventDefault();
     edit(productId);
@@ -22,6 +23,11 @@ function ProductTable({employeeUser, products, edit, remove}) {
   const handleDeleteClick = (event, productId) => {
     event.preventDefault();
     remove(productId);
+  };
+
+  const handleRowClick = (event, productId) => {
+    event.preventDefault();
+    setProductId(productId);
   };
 
   return (
@@ -47,12 +53,13 @@ function ProductTable({employeeUser, products, edit, remove}) {
             <Th>Descripción</Th>
             <Th>Unidad</Th>
             <Th isNumeric>Precio</Th>
-            {employeeUser && <Th isNumeric>Stock mínimo</Th>}
-            {employeeUser && <Th isNumeric>Stock actual</Th>}
+            {options && <Th isNumeric>Stock mínimo</Th>}
+            {options && <Th isNumeric>Stock actual</Th>}
           </Tr>
         </Thead>
         <Tbody>
-          {renderBody(products, handleEditClick, handleDeleteClick)}
+          {options && renderBodyWithOptions(products, handleEditClick, handleDeleteClick)}
+          {!options && renderBody(products, handleRowClick)}
         </Tbody>
       </Table>
 
@@ -60,7 +67,20 @@ function ProductTable({employeeUser, products, edit, remove}) {
   );
 }
 
-function renderBody(products, handleEditClick, handleDeleteClick) {
+function renderBody(products, handleRowClick) {
+  return products.map((product) => {
+    return (
+      <Tr key={product.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, product.id)}>
+        <Td>{product.name}</Td>
+        <Td>{product.description}</Td>
+        <Td>{product.unitDescription}</Td>
+        <Td>{product.price}</Td>
+      </Tr>
+    )
+  })
+}
+
+function renderBodyWithOptions(products, handleEditClick, handleDeleteClick) {
   return products.map((product) => {
     return (
       <Tr key={product.id}>

@@ -9,16 +9,37 @@ import {
   Th,
   Tbody,
   FormControl,
-  FormLabel,
   Input,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { useHistory } from 'react-router-dom';
 
-const EmployeeTable = () => {
-  const tableBackgroud = useColorModeValue("gray.100", "gray.700")
-  const history = useHistory();
+const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) => {
+
+  const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const handleEditClick = (event, employeeId) => {
+    event.preventDefault();
+    edit(employeeId);
+  };
+
+  const handleDeleteClick = (event, employeeId) => {
+    event.preventDefault();
+    remove(employeeId);
+  };
+
+  const handleInputChange = (event) => {
+    setFilters({
+      ...filters,
+      [event.target.name] : event.target.value
+    });
+  };
+
+  const handleKeyUp = (event) => {
+    event.preventDefault();
+    if (event.key === 'Enter') filter();
+  }
+
   return(
     <Flex 
     background={tableBackgroud} 
@@ -36,7 +57,13 @@ const EmployeeTable = () => {
     >
 
       <FormControl id="name" p={2}>
-        <Input variant="filled" placeholder="Buscar por nombre..."></Input>
+        <Input 
+          name="name" 
+          onChange={handleInputChange} 
+          onKeyUp={handleKeyUp}
+          variant="filled" 
+          placeholder="Buscar por nombre...">
+        </Input>
       </FormControl>
 
       <Heading as="h4" size="md" p={1}>Personal</Heading>
@@ -45,33 +72,13 @@ const EmployeeTable = () => {
       
         <Thead>
           <Tr>
-            <Th>Something</Th>
-            <Th>Something</Th>
-            <Th isNumeric>Something</Th>
+            <Th>Nombre</Th>
+            <Th>Email</Th>
           </Tr>
         </Thead>
 
         <Tbody>
-          <Td>DATA</Td>
-          <Td>DATA</Td>
-          <Td>
-            <IconButton
-              onClick={()=>history.push("/clientes")} 
-              colorScheme="blue" 
-              variant="ghost" 
-              aria-label="Edit" 
-              icon={<EditIcon/>} 
-            ></IconButton>
-
-            <IconButton
-              onClick
-              colorScheme="blue" 
-              variant="ghost" 
-              aria-label="Delete" 
-              icon={<DeleteIcon/>} 
-            ></IconButton> 
-            
-          </Td>
+          {renderBody(employees, handleEditClick, handleDeleteClick)}
         </Tbody>
 
       </Table>  
@@ -79,4 +86,34 @@ const EmployeeTable = () => {
     </Flex>
   )
 }
+
+function renderBody(employees, handleEditClick, handleDeleteClick) {
+  return employees.map((employee) => {
+    return (
+      <Tr key={employee.id}>
+        <Td>{employee.name}</Td>
+        <Td>{employee.email}</Td>
+        <Td>
+          <IconButton
+            onClick={(event) => handleEditClick(event, employee.id)} 
+            colorScheme="blue" 
+            variant="ghost" 
+            aria-label="Edit" 
+            icon={<EditIcon/>}>
+          </IconButton>
+        </Td>
+        <Td>
+          <IconButton
+            onClick={(event) => handleDeleteClick(event, employee.id)}
+            colorScheme="blue" 
+            variant="ghost" 
+            aria-label="Delete" 
+            icon={<DeleteIcon/>}>
+          </IconButton> 
+        </Td>
+      </Tr>
+    )
+  })
+}
+
 export default EmployeeTable;

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react"
 import React from 'react'
 
-function ProductForm({product, setProduct}) {
+function ProductForm({product, setProduct, postOrPut, clean}) {
   const formBackground = useColorModeValue("gray.100", "gray.700")
   const handleInputChange = (event) => {
     setProduct({
@@ -87,8 +87,8 @@ function ProductForm({product, setProduct}) {
       </Flex>
 
       <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue">Aceptar</Button>
-        <Button mr={8} variant="ghost">Cancelar</Button>
+        <Button mr={8} variant="solid" colorScheme="blue" onClick={postOrPut}>Aceptar</Button>
+        <Button mr={8} variant="ghost" onClick={clean}>Cancelar</Button>
       </Flex>
       
     </Flex>

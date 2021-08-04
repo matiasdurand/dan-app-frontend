@@ -9,7 +9,7 @@ const EmployeeProfile = () => {
 
     <Flex h="100vh" justifyContent="center" p={8}>
 
-      <EmployeeForm></EmployeeForm>
+      {/* <EmployeeForm></EmployeeForm> */}
 
     </Flex>
   )

@@ -6,40 +6,30 @@ import {
   Input,
   NumberInput,
   NumberInputField,
-  Select,
   Heading,
-  NumberInputStepper,
-  useColorModeValue,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  useColorModeValue
 } from "@chakra-ui/react"
 import React from 'react'
 
-const OrderForm = () => {
-  const formBackgroud = useColorModeValue("gray.100", "gray.700")
+const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
+
+  const formBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const handleInputChange = (event) => {
+    if (event.target.name === "date") { setShippingDate(event.target.value); }
+    else { setQuantity(event.target.value); }
+  };
+
   return (
     <Flex direction="column" h="fit-content" background={formBackgroud} p={12} rounded={6} m={2}>
 
       <Heading nb={6}>Arma tu Pedido</Heading>
 
       <Flex>
-        <Flex direction="column" p={8}>
-        
-          <FormControl id="constructionType" mt={6} isRequired>
-            <FormLabel>Tipo de Construcción</FormLabel>
-            <Select variant="filled">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
-          </FormControl>
-
-          <FormControl id="constructionType" mt={4} isRequired>
-            <FormLabel>Fecha de envío</FormLabel>
-            <Input type="date" variant="filled"/>
-          </FormControl>
-
-        </Flex>
+        <FormControl id="date" mt={4} isRequired>
+          <FormLabel>Fecha de envío</FormLabel>
+          <Input type="date" name="name" onChange={handleInputChange} variant="filled"/>
+        </FormControl>
 
         <Flex direction="column" p={8}>
 
@@ -47,21 +37,17 @@ const OrderForm = () => {
               <FormLabel>Cantidad</FormLabel>
               <NumberInput defaultValue={1} min={1} max={1000} variant="filled">
                 <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper/>
-                  <NumberDecrementStepper/>
-                </NumberInputStepper>
               </NumberInput>
             </FormControl>
             
-            <Button variant="outline" colorScheme="blue" mt={12}>Añadir</Button>
+            <Button variant="outline" colorScheme="blue" mt={12} onClick={(e) => {e.preventDefault(); addItem()}}>Añadir</Button>
 
         </Flex>
       </Flex>
 
       <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue">Confirmar Pedido</Button>
-        <Button mr={8} variant="ghost">Cancelar</Button>
+        <Button mr={8} variant="solid" colorScheme="blue" onClick={(e) => {e.preventDefault(); confirm()}}>Confirmar Pedido</Button>
+        <Button mr={8} variant="ghost" onClick={(e) => {e.preventDefault(); clean(true)}}>Cancelar</Button>
       </Flex>
       
     </Flex>
