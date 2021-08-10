@@ -11,9 +11,9 @@ function Products() {
     id: null,
     name: "",
     description: "",
-    price: 0,
-    currentStock: 0,
-    minimumStock: 0,
+    price: "",
+    currentStock: "",
+    minimumStock: "",
     unitId: 1
   };
 
@@ -52,25 +52,44 @@ function Products() {
 
     if (editMode) {
 
-      console.log("put " + product);
-      
+      let updatedProduct = {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: parseFloat(product.price),
+        minimumStock: parseInt(product.minimumStock),
+        unitId: parseInt(product.unitId)
+      };
+
+      console.log("put " + JSON.stringify(updatedProduct));
+
       axios
-        .put("http://localhost:9100/products/" + product.id, product)
+        .put("http://localhost:9100/products/" + updatedProduct.id, JSON.stringify(updatedProduct),
+          { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          clean();
+          alert("Datos del producto modificados.");
+          window.location.href = window.location.href;
         });
     }
     else {
       
-      console.log("post " + product);
+      let newProduct = {
+        name: product.name,
+        description: product.description,
+        price: parseFloat(product.price),
+        currentStock: parseInt(product.currentStock),
+        minimumStock: parseInt(product.minimumStock),
+        unitId: parseInt(product.unitId)
+      };
+
+      console.log("post " + JSON.stringify(newProduct));
 
       axios
-        .post("http://localhost:9100/products", product)
-        .then(response => {
-          let updatedProducts = products.slice();
-          updatedProducts.push(response.data);
-          setProducts(updatedProducts);
-          clean();
+        .post("http://localhost:9100/products", JSON.stringify(newProduct), 
+          { headers: {'Content-Type':'application/json'} })
+        .then((response) => {
+          alert("Producto agregado correctamente.");
+          window.location.href = window.location.href;
         });
     }
   };
@@ -80,8 +99,8 @@ function Products() {
     axios
       .delete("http://localhost:9100/products/" + productId)
       .then(() => {
-        setProducts(products.slice().filter(p => p.id !== productId));
-        clean();
+        alert("Se eliminó el producto.");
+        window.location.href = window.location.href;
       });
 
   };
@@ -93,7 +112,10 @@ function Products() {
           .get("http://localhost:9100/products?name=" + productFilters.name)
           .then(response => {
             console.log(response.data);
-            setProducts(products);
+            setProducts([response.data]);
+          })
+          .catch(() => {
+            alert("No hay coincidencias.")
           });
     }
     else if (productFilters.type === "stockRange") {
@@ -102,7 +124,7 @@ function Products() {
             + "&maximumStock=" + productFilters.maximumStock)
           .then(response => {
             console.log(response.data);
-            setProducts(products);
+            setProducts(response.data);
           });
     }
     else if (productFilters.type === "priceRange") {
@@ -111,7 +133,7 @@ function Products() {
             + "&maximumPrice=" + productFilters.maximumPrice)
           .then(response => {
             console.log(response.data);
-            setProducts(products);
+            setProducts(response.data);
           });
     }
   };
