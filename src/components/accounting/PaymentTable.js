@@ -10,7 +10,7 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 
-function PaymentTable({payments}) {
+function PaymentTable({payments, customerUser}) {
 
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
 
@@ -38,13 +38,14 @@ function PaymentTable({payments}) {
         <Thead>
           <Tr>
             <Th>ID PAGO</Th>
-            <Th>ID CLIENTE</Th>
+            {!customerUser && <Th>ID CLIENTE</Th>}
             <Th>FECHA</Th>
             <Th>MÉTODO DE PAGO</Th>
+            <Th>COMENTARIO</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {renderBody(payments)}
+          {renderBody(payments, customerUser)}
         </Tbody>
       </Table>
 
@@ -52,14 +53,15 @@ function PaymentTable({payments}) {
   );
 }
 
-function renderBody(payments) {
+function renderBody(payments, customerUser) {
   return payments.map((payment) => {
     return (
       <Tr key={payment.id}>
         <Td>{payment.id}</Td>
-        <Td>{payment.customerId}</Td>
+        {!customerUser && <Td>{payment.customerId}</Td>}
         <Td>{payment.date}</Td>
         <Td>{payment.method.type}</Td>
+        <Td>{payment.method.comment}</Td>
       </Tr>
     )
   })

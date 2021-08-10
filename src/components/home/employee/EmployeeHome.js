@@ -7,9 +7,12 @@ import CustomerTable from '../../customer/CustomerTable'
 import Nav from './EmployeeNav'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 const EmployeeHome = () => {
 
+  const history = useHistory();
+  
   const [customers, setCustomers] = useState([]);
 
   const [orders, setOrders] = useState([]);
@@ -32,6 +35,10 @@ const EmployeeHome = () => {
     
   }, []);
 
+  const generateOrder = () => {
+    history.push('/pedidos/agregar');
+  }
+
   return (
      
     <Flex h="100vh" direction="column">
@@ -46,7 +53,7 @@ const EmployeeHome = () => {
 
         <Flex justify="space-between">
 
-          <OrderTable orders={orders}>
+          <OrderTable orders={orders} generateOrder={generateOrder}>
           </OrderTable>
 
           <DeliveryTable>

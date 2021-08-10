@@ -1,8 +1,11 @@
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Route, Switch } from 'react-router-dom';
+import { React } from 'react'
 import Login from './components/login/Login'
 import EmployeeHome from './components/home/employee/EmployeeHome';
 import CustomerRegister from './components/customer/CustomerRegister';
+import CustomerProfile from './components/customer/CustomerProfile';
+import ConstructionRegister from './components/construction/ConstructionRegister';
 import Payment from './components/accounting/Payment';
 import OrderRegister from './components/order/OrderRegister';
 import Truck from './components/truck/Truck';
@@ -11,25 +14,31 @@ import EmployeeProfile from './components/employee/EmployeeProfile';
 import CustomerManagment from './components/customer/CustomerManagment';
 import EmployeeManagment from './components/employee/EmployeeManagment';
 import Products from './components/product/Products';
+import CustomerHome from './components/home/customer/CustomerHome';
 
 function App() {
+
   return (
  
     <ChakraProvider>
       <CSSReset /> 
       <Switch>
 
-        <Route path='/login' exact component={Login}></Route>
+        <Route path='/' exact component={Login}></Route>
 
-        <Route path='/' exact component={EmployeeHome}></Route>
+        <Route path='/home/employee' exact component={EmployeeHome}></Route>
+
+        <Route path='/home/customer/:cuit' exact component={CustomerHome}></Route>
+
+        <Route path='/mi-perfil/:cuit' exact component={CustomerProfile}></Route>
+
+        <Route path='/perfil' exact component={EmployeeProfile}></Route>
 
         <Route path='/login/registro' exact component={CustomerRegister}></Route>
 
-        <Route path='/mis-pagos' exact component={CustomerPayments}></Route>
+        <Route path='/construction/registro/:cuit/:constructionId' exact component={ConstructionRegister}></Route>
 
-        <Route path='/mi-perfil' exact component={EmployeeProfile}></Route>
-
-        <Route path='/perfil' exact component={EmployeeProfile}></Route>
+        <Route path='/mis-pagos/:cuit' exact component={CustomerPayments}></Route>
 
         <Route path='/clientes' exact component={CustomerManagment}></Route>
 
@@ -43,7 +52,7 @@ function App() {
 
         <Route path='/cliente/registro' exact component={CustomerRegister}></Route> 
 
-        <Route path='/pedidos/agregar' exact component={OrderRegister}></Route>
+        <Route path='/pedidos/agregar/:cuit' exact component={OrderRegister}></Route>
         
       </Switch>
 

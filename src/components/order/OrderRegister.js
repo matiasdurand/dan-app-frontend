@@ -9,8 +9,11 @@ import OrderForm from "./OrderForm";
 import ConstructionTable from "../construction/ConstructionTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function OrderGeneration() {
+function OrderRegister() {
+
+  let { cuit } = useParams();
 
   const [shippingDate, setShippingDate] = useState("04/08/2021");
 
@@ -35,12 +38,22 @@ function OrderGeneration() {
         setProducts(response.data);
       });
 
-    axios
-      .get("http://localhost:9100/constructions")
-      .then(response => {
-        console.log(response.data);
-        setConstructions(response.data);
-      });
+    if (cuit !== "0") {
+      axios
+        .get("http://localhost:9100/constructions?cuit=" + cuit)
+        .then(response => {
+          console.log(response.data);
+          setConstructions(response.data);
+        });
+    }
+    else {
+      axios
+        .get("http://localhost:9100/constructions")
+        .then(response => {
+          console.log(response.data);
+          setConstructions(response.data);
+        });
+    }
 
   }, []);
 
@@ -145,4 +158,4 @@ function OrderGeneration() {
   );
 }
 
-export default OrderGeneration;
+export default OrderRegister;

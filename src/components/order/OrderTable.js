@@ -13,7 +13,7 @@ import {
 import { AddIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom'
 
-const OrdersTable = ({orders}) => {
+const OrdersTable = ({orders, generateOrder}) => {
   const tableBackgroud = useColorModeValue("gray.100", "gray.700")
   const history = useHistory();
   return (
@@ -33,7 +33,7 @@ const OrdersTable = ({orders}) => {
     >
 
       <IconButton 
-      onClick={() => history.push('pedidos/agregar')} 
+      onClick={() => generateOrder()} 
       m={1} 
       colorScheme="blue" 
       variant="ghost" 
