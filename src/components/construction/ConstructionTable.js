@@ -10,11 +10,12 @@ import {
   Th,
   Heading
 } from '@chakra-ui/react'
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, AddIcon } from '@chakra-ui/icons';
 
 const ConstructionsTable = ({constructions, edit, remove, options, setContructionId}) => {
-
+  
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+  
   const handleEditClick = (event, constructionId) => {
     event.preventDefault();
     edit(constructionId);
@@ -45,6 +46,14 @@ const ConstructionsTable = ({constructions, edit, remove, options, setContructio
     justify="center" 
     wrap="wrap"
     >
+      {options && <IconButton 
+        onClick={() => {edit(0);}} 
+        m={1} 
+        colorScheme="blue" 
+        variant="ghost" 
+        aria-label="Add" 
+        icon={<AddIcon/>} >
+      </IconButton>}
 
       <Heading as="h4" size="md" p={1}>Construcciones</Heading>
       
@@ -57,7 +66,7 @@ const ConstructionsTable = ({constructions, edit, remove, options, setContructio
             {options && <Th>Longitud</Th>}
             <Th>Dirección</Th>
             {options && <Th>Área</Th>}
-            <Th>Cliente</Th>
+            {!options && <Th>Cliente</Th>}
           </Tr>
         </Thead>
 
@@ -90,10 +99,9 @@ function renderBodyWithOptions(constructions, handleEditClick, handleDeleteClick
       <Tr key={construction.id}>
         <Td>{construction.description}</Td>
         <Td>{construction.latitude}</Td>
-        <Td>{construction.logitude}</Td>
+        <Td>{construction.longitude}</Td>
         <Td>{construction.address}</Td>
-        <Td>{construction.area}</Td>
-        <Td>{construction.customerBusinessName}</Td>
+        <Td>{construction.area}</Td>  
         <Td>
           <IconButton
             onClick={(event) => handleEditClick(event, construction.id)} 
