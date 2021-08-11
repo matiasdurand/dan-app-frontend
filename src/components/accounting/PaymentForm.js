@@ -29,12 +29,10 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
   };
 
   const handleMethodInputChange = (event) => {
-    if (event.target.name !== undefined) {
-      setPaymentMethod({
-        ...paymentMethod,
-        [event.target.name] : event.target.value
-      });
-    }
+    setPaymentMethod({
+      ...paymentMethod,
+      [event.target.name] : event.target.value
+    });
   };
 
   return (
@@ -45,17 +43,17 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
       <Flex direction="column" p={8}>
         <FormControl id="cuit" mt={6} isRequired>
           <FormLabel>CUIT</FormLabel>
-          <Input name="cuit" onChange={handlePaymentInputChange} variant="filled" placeholder="CUIT"/>
+          <Input value={payment.cuit} name="cuit" onChange={handlePaymentInputChange} variant="filled" placeholder="CUIT"/>
         </FormControl>
 
         <FormControl id="date" mt={4} isRequired>
           <FormLabel>Fecha Pago</FormLabel>
-          <Input name="date" onChange={handlePaymentInputChange} type="date" variant="filled"/>
+          <Input value={payment.date} name="date" onChange={handlePaymentInputChange} type="date" variant="filled"/>
         </FormControl>
         
         <FormControl id="comment" mt={4} isRequired>
           <FormLabel>Comentario</FormLabel>
-          <Textarea name="comment" onChange={handleMethodInputChange} variant="filled" placeholder="Ingresa un comentario" resize="none"/>
+          <Textarea value={paymentMethod.comment} name="comment" onChange={handleMethodInputChange} variant="filled" placeholder="Ingresa un comentario" resize="none"/>
         </FormControl>
 
         <FormControl id="type" mt={4} isRequired>
@@ -73,8 +71,8 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
         <Flex w="100%">
           <FormControl id="billNumber" mt={4} isRequired>
             <FormLabel>Código</FormLabel>
-            <NumberInput name="billNumber" onChange={handleMethodInputChange} variant="filled" placeholder="Código">
-              <NumberInputField />
+            <NumberInput value={paymentMethod.billNumber} variant="filled" placeholder="Código">
+              <NumberInputField name="billNumber" onChange={handleMethodInputChange} />
             </NumberInput>
           </FormControl>
         </Flex>}
@@ -83,15 +81,15 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
         <Flex w="100%">
           <FormControl id="cbuOrigin" mt={4} isRequired>
               <FormLabel>CBU Cliente</FormLabel>
-              <NumberInput name="cbuOrigin" onChange={handleMethodInputChange} mr={4} variant="filled">
-                <NumberInputField />
+              <NumberInput value={paymentMethod.cbuOrigin} mr={4} variant="filled">
+                <NumberInputField name="cbuOrigin" onChange={handleMethodInputChange}/>
               </NumberInput>
             </FormControl>
             
             <FormControl id="code" mt={4} isRequired>
               <FormLabel>Código</FormLabel>
-              <NumberInput name="code" onChange={handleMethodInputChange} variant="filled">
-                <NumberInputField />
+              <NumberInput value={paymentMethod.code} variant="filled">
+                <NumberInputField name="code" onChange={handleMethodInputChange}/>
               </NumberInput>
             </FormControl>
         </Flex>}
@@ -102,8 +100,8 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
             
             <FormControl id="number" mt={4} mr={4} isRequired>
               <FormLabel>Número</FormLabel>
-              <NumberInput name="number" onChange={handleMethodInputChange} variant="filled">
-                <NumberInputField />
+              <NumberInput value={paymentMethod.number} variant="filled">
+                <NumberInputField name="number" onChange={handleMethodInputChange} />
               </NumberInput>
             </FormControl>
             
@@ -116,7 +114,7 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
           
           <FormControl id="bank" mt={4} isRequired>
             <FormLabel>Banco</FormLabel>
-            <Input name="bank" onChange={handleMethodInputChange} width="50%" variant="filled"/>
+            <Input value={paymentMethod.bank} name="bank" onChange={handleMethodInputChange} width="50%" variant="filled"/>
           </FormControl>
 
         </Flex>}

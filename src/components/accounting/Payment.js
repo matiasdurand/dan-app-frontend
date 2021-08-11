@@ -8,12 +8,12 @@ function Payments() {
 
   const emptyPayment = {
     cuit: "",
-    date: "",
+    date: "2021-08-01",
     method: null
   };
 
   const emptyPaymentMethod = {
-    type: "",
+    type: "cash",
     comment: "",
     billNumber: 0, //cash
     number: 0, //check
@@ -38,56 +38,56 @@ function Payments() {
   };
 
   const post = () => {
-
+    console.log(payment.cuit);
     axios
       .get("http://localhost:9100/customers?cuit=" + payment.cuit)
       .then(response => {
-        console.log(response.data);
-        
+        console.log(response.data)
         let newPaymentMethod;
-
+        console.log(paymentMethod.type);
         if (paymentMethod.type === "cash") {
           newPaymentMethod = {
             type: paymentMethod.type,
             comment: paymentMethod.comment,
-            billNumber: paymentMethod.billNumber,
+            billNumber: parseInt(paymentMethod.billNumber),
           }
         }
         else if (paymentMethod.type === "transfer") {
           newPaymentMethod = {
             type: paymentMethod.type,
             comment: paymentMethod.comment,
-            cbuOrigin: paymentMethod.cbuOrigin.toString(),
-            cbuDestination: "1010101010101010101010",
-            code: paymentMethod.code
+            cbuOrigin: paymentMethod.cbuOrigin,
+            cbuDestination: "1010101010101010101011",
+            code: parseInt(paymentMethod.code)
           }
         }
         else if (paymentMethod.type === "check") {
           newPaymentMethod = {
             type: paymentMethod.type,
             comment: paymentMethod.comment,
-            number: paymentMethod.number,
-            paymentDate: paymentMethod.date,
+            number: parseInt(paymentMethod.number),
+            paymentDate: paymentMethod.paymentDate + "T00:00:00Z",
             bank: paymentMethod.bank
           }
         }
 
         let newPayment = {
           id: null,
-          customerId: response.customerId,
-          date: payment.date,
+          customerId: response.data.id,
+          date: payment.date + "T00:00:00Z",
           method: newPaymentMethod,
         }
         
-        console.log(newPayment);
+        console.log(JSON.stringify(newPayment));
 
         axios
-          .post("http://localhost:9100/accounting", newPayment)
-          .then(response => {
-            let updatedPayments = payments.slice();
-            updatedPayments.push(response.data);
-            setPayments(updatedPayments);
-          });
+          .post("http://localhost:9100/accounting", JSON.stringify(newPayment),
+            { headers: {'Content-Type':'application/json'} })
+          .then(() => {
+            alert("Pago registrado correctamente.");
+            window.location.href = window.location.href;
+          })
+          .catch((error) => {console.log(error.response.data)});
       });
   };
 
@@ -96,7 +96,6 @@ function Payments() {
     axios
       .get("http://localhost:9100/accounting")
       .then(response => {
-        console.log(response.data);
         setPayments(response.data);
       });
 

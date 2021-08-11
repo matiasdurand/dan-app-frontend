@@ -59,7 +59,7 @@ function renderBody(payments, customerUser) {
       <Tr key={payment.id}>
         <Td>{payment.id}</Td>
         {!customerUser && <Td>{payment.customerId}</Td>}
-        <Td>{payment.date}</Td>
+        <Td>{payment.date.replace("T00:00:00Z", "")}</Td>
         <Td>{payment.method.type}</Td>
         <Td>{payment.method.comment}</Td>
       </Tr>
