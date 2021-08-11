@@ -36,12 +36,11 @@ const CustomerManagment = () => {
 
   const remove = (customerId) => {
 
-    console.log("delete " + customerId);
-
     axios
       .delete("http://localhost:9100/customers/" + customerId)
       .then(() => {
-        setCustomers(customers.slice().filter(c => c.id !== customerId));
+        alert("Cliente dado de baja.");
+        window.location.href = window.location.href;
       });
 
     ;
@@ -49,8 +48,9 @@ const CustomerManagment = () => {
 
   const getConstructions = (customerId) => {
 
+    console.log(customerId);
     axios
-      .get("http://localhost:9100/constructions?customerId=" + customerId)
+      .get("http://localhost:9100/constructions?customerId=" + customerId + "&constructionTypeId=")
       .then(response => {
         console.log(response.data);
         setConstructions(response.data);
@@ -59,14 +59,15 @@ const CustomerManagment = () => {
 
   const filter = () => {
 
-    console.log("filter " + filters.type)
-
     if (filters.type === "cuit") {
       axios
         .get("http://localhost:9100/customers?cuit=" + filters.value)
         .then(response => {
           console.log(response.data);
-          setCustomers(response.data);
+          setCustomers([response.data]);
+        })
+        .catch(() => {
+          alert("No hay coincidencias.")
         });
     }
     else if (filters.type === "businessName") {
@@ -74,7 +75,10 @@ const CustomerManagment = () => {
         .get("http://localhost:9100/customers?businessName=" + filters.value)
         .then(response => {
           console.log(response.data);
-          setCustomers(response.data);
+          setCustomers([response.data]);
+        })
+        .catch(() => {
+          alert("No hay coincidencias.")
         });
     }
   };
