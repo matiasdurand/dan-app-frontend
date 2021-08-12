@@ -28,15 +28,15 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
       <Flex>
         <FormControl id="date" mt={4} isRequired>
           <FormLabel>Fecha de envío</FormLabel>
-          <Input type="date" name="name" onChange={handleInputChange} variant="filled"/>
+          <Input defaultValue="2021-09-01" type="date" name="date" onChange={handleInputChange} variant="filled"/>
         </FormControl>
 
         <Flex direction="column" p={8}>
 
           <FormControl id="quantity" mt={6} isRequired>
               <FormLabel>Cantidad</FormLabel>
-              <NumberInput defaultValue={1} min={1} max={1000} variant="filled">
-                <NumberInputField />
+              <NumberInput defaultValue={1}  min={1} max={1000} variant="filled">
+                <NumberInputField onChange={handleInputChange} />
               </NumberInput>
             </FormControl>
             

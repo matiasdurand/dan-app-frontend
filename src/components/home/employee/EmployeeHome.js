@@ -36,7 +36,11 @@ const EmployeeHome = () => {
   }, []);
 
   const generateOrder = () => {
-    history.push('/pedidos/agregar');
+    history.push('/pedidos/agregar/0');
+  }
+
+  const edit = (orderId) => {
+    history.push('/pedidos/editar/' + orderId);
   }
 
   return (
@@ -53,7 +57,7 @@ const EmployeeHome = () => {
 
         <Flex justify="space-between">
 
-          <OrderTable orders={orders} generateOrder={generateOrder}>
+          <OrderTable orders={orders} generateOrder={generateOrder} options={true} edit={edit}>
           </OrderTable>
 
           <DeliveryTable>

@@ -15,7 +15,7 @@ function OrderRegister() {
 
   let { cuit } = useParams();
 
-  const [shippingDate, setShippingDate] = useState("04/08/2021");
+  const [shippingDate, setShippingDate] = useState("2021-09-01");
 
   const [quantity, setQuantity] = useState(1);
   
@@ -59,15 +59,21 @@ function OrderRegister() {
 
   const filter = (name) => {
     
-    axios
-      .get("http://localhost:9100/products?name=" + name)
-      .then(response => {
-        console.log(response.data);
-        setProducts(products);
-      });
+    if (name === "") {
+      axios
+        .get("http://localhost:9100/products")
+        .then(response => { setProducts(response.data); });
+    }
+    else {
+      axios
+        .get("http://localhost:9100/products?name=" + name)
+        .then((response) => { setProducts([response.data]); })
+        .catch(() => { alert("No hay coincidencias.") });
+    }
   };
 
   const addItem = () => {
+
     if (quantity < 1) {
       alert("Cantidad inválida.");
     }
@@ -81,14 +87,21 @@ function OrderRegister() {
 
       let selectedProduct = products.filter(p => p.id === productId)[0];
 
-      let updatedItems = items.slice();
-      updatedItems.push({
-        quantity: quantity,
-        price: (selectedProduct.price * quantity),
-        productId: selectedProduct.id
-      });
+      if (items.filter(i => i.productId === productId).length === 0) {
 
-      setItems(updatedItems);
+        let updatedItems = items.slice();
+
+        updatedItems.push({
+          quantity: parseInt(quantity),
+          price: (parseFloat(selectedProduct.price) * parseInt(quantity)),
+          productId: selectedProduct.id
+        });
+
+        setItems(updatedItems);
+      }
+      else {
+        alert("El producto seleccionado ya forma parte del pedido.")
+      }
       
       clean(false);
     }
@@ -97,23 +110,28 @@ function OrderRegister() {
   const confirm = () => {
 
     let newOrder = {
-      shippingDate: shippingDate,
-      constructionId: constructionId,
+      shippingDate: shippingDate  + "T00:00:00Z",
+      constructionId: parseInt(constructionId),
       items: items
     };
 
+    console.log(JSON.stringify(newOrder))
+    
     axios
-      .post("http://localhost:9100/orders", newOrder)
+      .post("http://localhost:9100/orders", JSON.stringify(newOrder),
+        { headers: {'Content-Type':'application/json'} })
       .then(response => {
-        alert("Pedido generado");
+        alert("Pedido generado.");
         clean(true);
+      })
+      .catch((error) => {
+        console.log(error.response.data)
       });
   }
 
   const clean = (cleanItems) => {
 
     setProductId(0);
-    setConstructionId(0);
     setQuantity(1);
 
     if (cleanItems) {
@@ -136,7 +154,7 @@ function OrderRegister() {
           </Input>
         </FormControl>
         
-        <ProductTable products={[]} edit={() => {}} remove={() => {}} options={false} setProductId={setProductId}></ProductTable>
+        <ProductTable products={products} edit={() => {}} remove={() => {}} options={false} setProductId={setProductId}></ProductTable>
 
       </Flex>
   
