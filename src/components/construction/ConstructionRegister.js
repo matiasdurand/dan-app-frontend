@@ -61,7 +61,7 @@ function ConstructionRegister() {
         .put("http://localhost:9100/constructions/" + constructionId, JSON.stringify(updatedConstruction),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          alert("Datos de la construcción modificados.")
+          alert("Datos de la construcción modificados.");
           goBack();
         });
     }

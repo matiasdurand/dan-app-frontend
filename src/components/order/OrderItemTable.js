@@ -2,7 +2,6 @@ import {
   Flex,
   Table,
   Heading,
-  Text,
   Thead,
   Tr,
   Th,
@@ -10,12 +9,10 @@ import {
   Tbody,
   useColorModeValue
 } from "@chakra-ui/react";
-import { useState } from "react";
 
 function OrderItemTable({items}) {
+  
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
-
-  const [totalPrice, setTotalPrice] = useState(0);
 
   return (
 
@@ -43,19 +40,15 @@ function OrderItemTable({items}) {
           </Tr>
         </Thead>
         <Tbody>
-          {renderBody(items, totalPrice, setTotalPrice)}
+          {renderBody(items)}
         </Tbody>
       </Table>
-
-      <Text>Total = {totalPrice}</Text>
-
     </Flex>
   );
 }
 
-function renderBody(items, totalPrice, setTotalPrice) {
+function renderBody(items) {
   return items.map((item) => {
-    setTotalPrice(totalPrice + item.price);
     return (
       <Tr>
         <Td>{item.productId}</Td>

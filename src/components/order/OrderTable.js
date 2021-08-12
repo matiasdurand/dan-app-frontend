@@ -10,12 +10,17 @@ import {
   IconButton,
   Heading
 } from '@chakra-ui/react'
-import { AddIcon } from '@chakra-ui/icons';
-import { useHistory } from 'react-router-dom'
+import { AddIcon, EditIcon } from '@chakra-ui/icons';
 
-const OrdersTable = ({orders, generateOrder}) => {
-  const tableBackgroud = useColorModeValue("gray.100", "gray.700")
-  const history = useHistory();
+const OrdersTable = ({orders, generateOrder, options, edit}) => {
+
+  const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const handleEditClick = (event, orderId) => {
+    event.preventDefault();
+    edit(orderId);
+  };
+
   return (
     
     <Flex 
@@ -56,7 +61,8 @@ const OrdersTable = ({orders, generateOrder}) => {
         </Thead>
 
         <Tbody>
-          {renderBody(orders)}
+          {!options && renderBody(orders)}
+          {options && renderBodyWithOptions(orders, handleEditClick)}
         </Tbody>
 
       </Table>
@@ -69,11 +75,34 @@ function renderBody(orders) {
   return orders.map((order) => {
     return (
       <Tr key={order.id}>
-        <Td>{order.shippingDate}</Td>
+        <Td>{order.shippingDate.replace("T00:00:00Z", "")}</Td>
         <Td>{order.stateDescription}</Td>
         <Td>{order.constructionDescription}</Td>
         <Td>{order.itemCount}</Td>
         <Td>{order.totalPrice}</Td>
+      </Tr>
+    )
+  })
+}
+
+function renderBodyWithOptions(orders, handleEditClick) {
+  return orders.map((order) => {
+    return (
+      <Tr key={order.id}>
+        <Td>{order.shippingDate.replace("T00:00:00Z", "")}</Td>
+        <Td>{order.stateDescription}</Td>
+        <Td>{order.constructionDescription}</Td>
+        <Td>{order.itemCount}</Td>
+        <Td>{order.totalPrice}</Td>
+        <Td>
+          <IconButton
+            onClick={(event) => handleEditClick(event, order.id)} 
+            colorScheme="blue" 
+            variant="ghost" 
+            aria-label="Edit" 
+            icon={<EditIcon/>}>
+          </IconButton>
+        </Td>
       </Tr>
     )
   })

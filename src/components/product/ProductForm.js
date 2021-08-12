@@ -74,12 +74,24 @@ function ProductForm({product, setProduct, postOrPut, clean}) {
             </NumberInput>
           </FormControl>
 
-          <FormControl id="unit" mt={4} isRequired>
+          <FormControl id="unitId" mt={4} isRequired>
             <FormLabel>Unidad de medida</FormLabel>
             <Select value={product.unitId} name="unitId" onChange={handleInputChange} variant="filled">
-              <option value="1">Kilos</option>
-              <option value="2">Litros</option>
-              <option value="3">Metros</option>
+              <option value="1">UN</option>
+              <option value="2">M</option>
+              <option value="3">CM</option>
+              <option value="4">MM</option>
+              <option value="5">INCH</option>
+              <option value="6">KG</option>
+              <option value="7">G</option>
+              <option value="8">MG</option>
+              <option value="9">M2</option>
+              <option value="10">M3</option>
+              <option value="11">CC</option>
+              <option value="12">L</option>
+              <option value="13">ML</option>
+              <option value="14">PPM</option>
+              <option value="15">PSI</option>
             </Select>
           </FormControl>
 

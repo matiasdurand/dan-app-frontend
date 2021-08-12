@@ -42,49 +42,56 @@ function EmployeeManagment() {
 
     if (editMode) {
 
-      console.log("put " + employee);
+      let updatedEmployee = {
+        id: employee.id,
+        name: employee.name,
+        email: employee.email
+      };
       
       axios
-        .put("http://localhost:9100/employees/" + employee.id, employee)
+        .put("http://localhost:9100/employees/" + employee.id, JSON.stringify(updatedEmployee),
+          { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          clean();
+          alert("Datos del empleado modificados.");
+          window.location.href = window.location.href;
         });
     }
     else {
       
-      console.log("post " + employee);
+      let newEmployee = {
+        name: employee.name,
+        email: employee.email
+      };
 
       axios
-        .post("http://localhost:9100/employees", employee)
+        .post("http://localhost:9100/employees", JSON.stringify(newEmployee), 
+          { headers: {'Content-Type':'application/json'} })
         .then(response => {
-          let updatedEmployees = employees.slice();
-          updatedEmployees.push(response.data);
-          setEmployees(updatedEmployees);
-          clean();
+          alert("Empleado agregado correctamente.");
+          window.location.href = window.location.href;
         });
     }
   };
 
   const remove = (employeeId) => {
 
-    console.log("delete " + employeeId);
-
     axios
       .delete("http://localhost:9100/employees/" + employeeId)
       .then(() => {
-        setEmployees(employees.slice().filter(e => e.id !== employeeId));
-        clean();
+        alert("Se eliminó el empleado.");
+        window.location.href = window.location.href;
       });
   };
 
   const filter = () => {
 
-    console.log("get name = " + filters.name);
-
     axios
       .get("http://localhost:9100/employees?name=" + filters.name)
       .then(response => {
-        setEmployees(response.data);
+        setEmployees([response.data]);
+      })
+      .catch(() => {
+        alert("No hay coincidencias.");
       });
   };
 
@@ -93,7 +100,6 @@ function EmployeeManagment() {
     axios
       .get("http://localhost:9100/employees")
       .then(response => {
-        console.log(response.data);
         setEmployees(response.data);
       });
 

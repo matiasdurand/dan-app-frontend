@@ -68,7 +68,7 @@ const CustomerHome = () => {
 
         <Flex justify="space-between">
 
-          <OrderTable orders={orders} generateOrder={generateOrder}>
+          <OrderTable orders={orders} generateOrder={generateOrder} options={false} edit={() => {}}>
           </OrderTable>
 
           <DeliveryTable>

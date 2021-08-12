@@ -15,6 +15,7 @@ import CustomerManagment from './components/customer/CustomerManagment';
 import EmployeeManagment from './components/employee/EmployeeManagment';
 import Products from './components/product/Products';
 import CustomerHome from './components/home/customer/CustomerHome';
+import OrderEdit from './components/order/OrderEdit';
 
 function App() {
 
@@ -54,6 +55,8 @@ function App() {
 
         <Route path='/pedidos/agregar/:cuit' exact component={OrderRegister}></Route>
         
+        <Route path='/pedidos/editar/:orderId' exact component={OrderEdit}></Route>
+
       </Switch>
 
     </ChakraProvider>
