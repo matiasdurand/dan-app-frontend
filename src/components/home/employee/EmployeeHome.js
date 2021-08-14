@@ -17,6 +17,8 @@ const EmployeeHome = () => {
 
   const [orders, setOrders] = useState([]);
 
+  const [deliveries, setDeliveries] = useState([]);
+
   useEffect(() => {
 
     axios
@@ -33,10 +35,21 @@ const EmployeeHome = () => {
         setOrders(response.data);
       });
     
+    axios
+      .get("http://localhost:9100/deliveries")
+      .then(response => {
+        console.log(response.data);
+        setDeliveries(response.data);
+      });
+
   }, []);
 
   const generateOrder = () => {
     history.push('/pedidos/agregar/0');
+  }
+
+  const generateDelivery = () => {
+    history.push('/envios/agregar');
   }
 
   const edit = (orderId) => {
@@ -55,12 +68,12 @@ const EmployeeHome = () => {
         <CustomerTable customers={customers} deleteCustomer={() => {}} deleteOption={false} getConstructions={() => {}}>
         </CustomerTable>
 
-        <Flex justify="space-between">
+        <Flex justify="space-between" mt={8}>
 
-          <OrderTable orders={orders} generateOrder={generateOrder} options={true} edit={edit}>
+          <OrderTable orders={orders} generateOrder={generateOrder} options={true} edit={edit} setOrderId={() => {}} showAdd={true}>
           </OrderTable>
 
-          <DeliveryTable>
+          <DeliveryTable deliveries={deliveries} generateDelivery={generateDelivery} showAdd={true}>
           </DeliveryTable>
 
         </Flex>

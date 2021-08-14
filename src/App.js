@@ -16,6 +16,8 @@ import EmployeeManagment from './components/employee/EmployeeManagment';
 import Products from './components/product/Products';
 import CustomerHome from './components/home/customer/CustomerHome';
 import OrderEdit from './components/order/OrderEdit';
+import Package from './components/package/Package';
+import Delivery from './components/delivery/Delivery';
 
 function App() {
 
@@ -56,6 +58,10 @@ function App() {
         <Route path='/pedidos/agregar/:cuit' exact component={OrderRegister}></Route>
         
         <Route path='/pedidos/editar/:orderId' exact component={OrderEdit}></Route>
+
+        <Route path='/paquetes' exact component={Package}></Route>
+
+        <Route path='/envios/agregar' exact component={Delivery}></Route>
 
       </Switch>
 

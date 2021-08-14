@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
-const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) => {
+const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter, options, setEmployeeId}) => {
 
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
 
@@ -39,6 +39,10 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) =
     event.preventDefault();
     if (event.key === 'Enter') filter();
   }
+  const handleRowClick = (event, employeeId) => {
+    event.preventDefault();
+    setEmployeeId(employeeId);
+  };
 
   return(
     <Flex 
@@ -56,6 +60,7 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) =
     wrap="wrap"
     >
 
+      {options && 
       <FormControl id="name" p={2}>
         <Input 
           name="name" 
@@ -64,9 +69,9 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) =
           variant="filled" 
           placeholder="Buscar por nombre...">
         </Input>
-      </FormControl>
+      </FormControl>}
 
-      <Heading as="h4" size="md" p={1}>Personal</Heading>
+      <Heading as="h4" size="md" mt={4}>Personal</Heading>
       
       <Table variant="simple" colorScheme="blue" size="lg">
       
@@ -78,7 +83,8 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) =
         </Thead>
 
         <Tbody>
-          {renderBody(employees, handleEditClick, handleDeleteClick)}
+          {options && renderBodyWithOptions(employees, handleEditClick, handleDeleteClick)}
+          {!options && renderBody(employees, handleRowClick)}
         </Tbody>
 
       </Table>  
@@ -87,7 +93,18 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter}) =
   )
 }
 
-function renderBody(employees, handleEditClick, handleDeleteClick) {
+function renderBody(employees, handleRowClick) {
+  return employees.map((employee) => {
+    return (
+      <Tr key={employee.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, employee.id)}>
+        <Td>{employee.name}</Td>
+        <Td>{employee.email}</Td>
+      </Tr>
+    )
+  })
+}
+
+function renderBodyWithOptions(employees, handleEditClick, handleDeleteClick) {
   return employees.map((employee) => {
     return (
       <Tr key={employee.id}>

@@ -34,7 +34,6 @@ const CustomerTable = ({customers, deleteCustomer, deleteOption, getConstruction
     rounded={6} 
     w="100%"
     h="fit-content" 
-    m={2}
     boxSizing="border-box"
     align="center" 
     direction="column"
@@ -42,7 +41,7 @@ const CustomerTable = ({customers, deleteCustomer, deleteOption, getConstruction
     wrap="wrap"
     >
 
-      <Heading as="h4" size="md" p={1}>Clientes</Heading>
+      <Heading as="h4" size="md" mt={4}>Clientes</Heading>
       
       <Table variant="simple" colorScheme="blue" size="lg">
       
