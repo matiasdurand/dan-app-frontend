@@ -14,7 +14,7 @@ const Nav = () => {
     wrap="wrap" 
     w="100%" 
     background={navBackground}
-    mb={8} p={8}
+    mb={4} p={8}
     >
 
       <DrawerHome>

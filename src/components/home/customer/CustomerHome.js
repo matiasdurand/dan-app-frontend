@@ -19,6 +19,8 @@ const CustomerHome = () => {
 
   const [orders, setOrders] = useState([]);
 
+  const [deliveries, setDeliveries] = useState([]);
+
   useEffect(() => {
 
     axios
@@ -28,12 +30,18 @@ const CustomerHome = () => {
         setConstructions(response.data);
       });
 
-
     axios
       .get("http://localhost:9100/orders?cuit=" + cuit)
       .then(response => {
         console.log(response.data);
         setOrders(response.data);
+      });
+
+    axios
+      .get("http://localhost:9100/deliveries?cuit=" + cuit)
+      .then(response => {
+        console.log(response.data);
+        setDeliveries(response.data);
       });
     
   }, []);
@@ -68,10 +76,10 @@ const CustomerHome = () => {
 
         <Flex justify="space-between">
 
-          <OrderTable orders={orders} generateOrder={generateOrder} options={false} edit={() => {}}>
+          <OrderTable orders={orders} generateOrder={generateOrder} options={false} edit={() => {}} setOrderId={() => {}} showAdd={true}>
           </OrderTable>
 
-          <DeliveryTable>
+          <DeliveryTable deliveries={deliveries} generateDelivery={() => {}} showAdd={false}>
           </DeliveryTable>
 
         </Flex>
