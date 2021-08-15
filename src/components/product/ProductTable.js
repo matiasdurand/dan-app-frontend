@@ -44,7 +44,7 @@ function ProductTable({products, edit, remove, options, setProductId}) {
     justify="center" 
     wrap="wrap">
 
-      <Heading as="h4" size="md" p={1}>Productos</Heading>
+      <Heading as="h4" size="md" mt={2}>Productos</Heading>
 
       <Table variant="simple" colorScheme="blue" size="lg">
         <Thead>

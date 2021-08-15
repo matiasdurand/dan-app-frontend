@@ -15,6 +15,8 @@ import { EditIcon, DeleteIcon, AddIcon } from '@chakra-ui/icons';
 const ConstructionsTable = ({constructions, edit, remove, options, setContructionId}) => {
   
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
+
+  const visibility = options? 'visible' : 'hidden';
   
   const handleEditClick = (event, constructionId) => {
     event.preventDefault();
@@ -33,29 +35,33 @@ const ConstructionsTable = ({constructions, edit, remove, options, setContructio
 
   return(
     <Flex 
-    background={tableBackgroud} 
-    border="1px" 
-    borderColor={tableBackgroud} 
-    rounded={6} 
-    w="100%"
-    h="fit-content" 
-    m={2}
-    boxSizing="border-box"
-    align="center" 
-    direction="column"
-    justify="center" 
-    wrap="wrap"
-    >
-      {options && <IconButton 
-        onClick={() => {edit(0);}} 
-        m={1} 
-        colorScheme="blue" 
-        variant="ghost" 
-        aria-label="Add" 
-        icon={<AddIcon/>} >
-      </IconButton>}
+      background={tableBackgroud} 
+      border="1px" 
+      borderColor={tableBackgroud} 
+      rounded={6} 
+      w="100%"
+      h="fit-content" 
+      boxSizing="border-box"
+      align="center" 
+      direction="column"
+      justify="center" 
+      wrap="wrap">
 
-      <Heading as="h4" size="md" p={1}>Construcciones</Heading>
+      <Flex direction="row-reverse" alignItems="center" w="100%">
+
+        <IconButton 
+          onClick={() => {edit(0);}} 
+          m={1} 
+          visibility={visibility}
+          colorScheme="blue" 
+          variant="ghost" 
+          aria-label="Add" 
+          icon={<AddIcon/>}>
+        </IconButton>
+
+        <Heading as="h4" size="md" width="54%" mt={2}>Construcciones</Heading>
+        
+      </Flex>
       
       <Table variant="simple" colorScheme="blue" size="lg">
       
@@ -84,7 +90,10 @@ const ConstructionsTable = ({constructions, edit, remove, options, setContructio
 function renderBody(constructions, handleRowClick) {
   return constructions.map((construction) => {
     return (
-      <Tr key={construction.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, construction.id)}>
+      <Tr 
+        key={construction.id} 
+        _hover={{ bg: "gray.600" }} 
+        onClick={(event) => handleRowClick(event, construction.id)}>
         <Td>{construction.description}</Td>
         <Td>{construction.address}</Td>
         <Td>{construction.customerBusinessName}</Td>
@@ -125,5 +134,4 @@ function renderBodyWithOptions(constructions, handleEditClick, handleDeleteClick
   })
 }
 
-export default ConstructionsTable; 
-
+export default ConstructionsTable;

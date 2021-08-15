@@ -21,36 +21,62 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
   };
 
   return (
-    <Flex direction="column" h="fit-content" background={formBackgroud} p={12} rounded={6} m={2}>
+    <Flex 
+      direction="column" 
+      h="fit-content" 
+      background={formBackgroud} 
+      rounded={6}
+      w="100%"
+      p={12}>
 
-      <Heading nb={6}>Arma tu Pedido</Heading>
+      <Heading>Arma tu Pedido</Heading>
 
-      <Flex>
-        <FormControl id="date" mt={4} isRequired>
-          <FormLabel>Fecha de envío</FormLabel>
-          <Input defaultValue="2021-09-01" type="date" name="date" onChange={handleInputChange} variant="filled"/>
+      <FormControl w="68%" mt={6} isRequired>
+        <FormLabel>Fecha de envío</FormLabel>
+        <Input 
+          defaultValue="2021-09-01" 
+          type="date" 
+          name="date" 
+          onChange={handleInputChange} 
+          variant="filled"/>
+      </FormControl>
+
+      <Flex align="center" mt={6}>
+        
+        <FormControl w="40%" mr={4} isRequired>
+          <FormLabel>Cantidad</FormLabel>
+          <NumberInput defaultValue={1}  min={1} max={1000} variant="filled">
+            <NumberInputField onChange={handleInputChange}/>
+          </NumberInput>
         </FormControl>
-
-        <Flex direction="column" p={8}>
-
-          <FormControl id="quantity" mt={6} isRequired>
-              <FormLabel>Cantidad</FormLabel>
-              <NumberInput defaultValue={1}  min={1} max={1000} variant="filled">
-                <NumberInputField onChange={handleInputChange} />
-              </NumberInput>
-            </FormControl>
             
-            <Button variant="outline" colorScheme="blue" mt={12} onClick={(e) => {e.preventDefault(); addItem()}}>Añadir</Button>
+        <Button 
+          mt={8}
+          variant="outline" 
+          colorScheme="blue" 
+          onClick={(e) => { e.preventDefault(); addItem(); }}>
+          Añadir
+        </Button>
 
-        </Flex>
       </Flex>
 
-      <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue" onClick={(e) => {e.preventDefault(); confirm()}}>Confirmar Pedido</Button>
-        <Button mr={8} variant="ghost" onClick={(e) => {e.preventDefault(); clean(true)}}>Cancelar</Button>
+      <Flex direction="row-reverse" mt={12}>
+        <Button 
+          variant="solid" 
+          colorScheme="blue" 
+          onClick={(e) => { e.preventDefault(); confirm(); }}>
+          Confirmar Pedido
+        </Button>
+        <Button 
+          mr={8} 
+          variant="ghost" 
+          onClick={(e) => { e.preventDefault(); clean(true); }}>
+          Cancelar
+        </Button>
       </Flex>
       
     </Flex>
   );
 }
+
 export default OrderForm;

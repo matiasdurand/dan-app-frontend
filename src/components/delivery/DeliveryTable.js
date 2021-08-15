@@ -49,7 +49,7 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
 
         <Thead>
           <Tr>
-            <Th>Id</Th>
+            {showAdd && <Th>Id</Th>}
             <Th>Fecha partida</Th>
             <Th>Camión</Th>
             <Th>Conductor</Th>
@@ -57,7 +57,7 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
         </Thead>
 
         <Tbody>
-          {renderBody(deliveries)}
+          {renderBody(deliveries, showAdd)}
         </Tbody>
  
       </Table>
@@ -67,12 +67,12 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
   )
 }
 
-function renderBody(deliveries) {
+function renderBody(deliveries, showAdd) {
   return deliveries.map((delivery) => {
     return (
       <Tr 
         key={delivery.id}>
-        <Td>{delivery.id}</Td>
+        {showAdd && <Td>{delivery.id}</Td>}
         <Td>{delivery.departure}</Td>
         <Td>{delivery.truckDescription}</Td>
         <Td>{delivery.employeeName}</Td>

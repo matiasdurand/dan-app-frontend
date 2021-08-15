@@ -116,7 +116,7 @@ function Package() {
       <FormControl w="25%" mt={4} isRequired>
         <NumberInput ml={4} mr={4} variant="filled">
           <NumberInputField 
-            placeholder="Ingrese CUIT" 
+            placeholder="Ingrese un CUIT" 
             onKeyUp={(event) => { if (event.key === 'Enter') { filter(event.target.value); }}}/>  
         </NumberInput>
         <FormHelperText ml={6} mb={4}>Presione enter para buscar los pedidos.</FormHelperText>

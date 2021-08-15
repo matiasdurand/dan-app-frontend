@@ -1,7 +1,8 @@
 import { 
   Flex,
   FormControl,
-  Input
+  Input,
+  FormHelperText
 } from "@chakra-ui/react";
 import ProductTable from "../product/ProductTable";
 import OrderItemTable from "./OrderItemTable"
@@ -16,43 +17,28 @@ function OrderRegister() {
   let { cuit } = useParams();
 
   const [shippingDate, setShippingDate] = useState("2021-09-01");
-
   const [quantity, setQuantity] = useState(1);
-  
   const [products, setProducts] = useState([]);
-
   const [productId, setProductId] = useState(0);
-
   const [constructions, setConstructions] = useState([]);
-
   const [constructionId, setConstructionId] = useState(0);
-
   const [items, setItems] = useState([]);
 
   useEffect(() => {
 
     axios
       .get("http://localhost:9100/products")
-      .then(response => {
-        console.log(response.data);
-        setProducts(response.data);
-      });
+      .then(response => { setProducts(response.data); });
 
     if (cuit !== "0") {
       axios
         .get("http://localhost:9100/constructions?cuit=" + cuit)
-        .then(response => {
-          console.log(response.data);
-          setConstructions(response.data);
-        });
+        .then(response => { setConstructions(response.data); });
     }
     else {
       axios
         .get("http://localhost:9100/constructions")
-        .then(response => {
-          console.log(response.data);
-          setConstructions(response.data);
-        });
+        .then(response => { setConstructions(response.data); });
     }
 
   }, []);
@@ -120,12 +106,13 @@ function OrderRegister() {
     axios
       .post("http://localhost:9100/orders", JSON.stringify(newOrder),
         { headers: {'Content-Type':'application/json'} })
-      .then(response => {
+      .then(() => {
         alert("Pedido generado.");
         clean(true);
       })
       .catch((error) => {
-        console.log(error.response.data)
+        alert("Error al intentar generar el pedido.")
+        console.log(error.response.data);
       });
   }
 
@@ -134,27 +121,38 @@ function OrderRegister() {
     setProductId(0);
     setQuantity(1);
 
-    if (cleanItems) {
-      setItems([]);
-    }
+    if (cleanItems) { setItems([]); }
   }
 
   return (
-    <Flex justify="space-between" h="100vh" p="32px">
+    <Flex justify="space-around" h="100vh" p="32px">
 
       <Flex direction="column" align="center">
 
-        <ConstructionTable constructions={constructions} edit={() => {}} remove={() => {}} options={false} setContructionId={setConstructionId}></ConstructionTable>
+        <ConstructionTable 
+          constructions={constructions} 
+          edit={() => {}} 
+          remove={() => {}} 
+          options={false} 
+          setContructionId={setConstructionId}>
+        </ConstructionTable>
 
-        <FormControl id="name" p={2}>
+        <FormControl mt={8}>
           <Input 
             onKeyUp={(event) => { if (event.key === 'Enter') {filter(event.target.value)}}}
             variant="filled" 
-            placeholder="Buscar por nombre...">
+            placeholder="Ingrese un Nombre">
           </Input>
+          <FormHelperText mb={2} ml={2}>Presione enter para buscar el producto.</FormHelperText>
         </FormControl>
         
-        <ProductTable products={products} edit={() => {}} remove={() => {}} options={false} setProductId={setProductId}></ProductTable>
+        <ProductTable 
+          products={products} 
+          edit={() => {}} 
+          remove={() => {}} 
+          options={false} 
+          setProductId={setProductId}>
+        </ProductTable>
 
       </Flex>
   
