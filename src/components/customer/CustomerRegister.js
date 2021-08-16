@@ -1,9 +1,5 @@
-import { 
-  useState
-} from "react";
-import { 
-  Flex
-} from "@chakra-ui/react";
+import { useState } from "react";
+import { Flex } from "@chakra-ui/react";
 import CustomerForm from "./CustomerForm";
 import ConstructionForm from "../construction/ConstructionForm";
 import axios from "axios";
@@ -18,7 +14,6 @@ function CustomerRegister() {
     cuit: "", 
     email: "",
     maxCurrentAccount: "",
-    constructions: null 
   };
 
   const emptyConstruction = {
@@ -30,7 +25,6 @@ function CustomerRegister() {
   };
 
   const [customer, setCustomer] = useState(emptyCustomer);
-
   const [construction, setConstruction] = useState(emptyConstruction);
 
   const post = () => {
@@ -49,26 +43,32 @@ function CustomerRegister() {
     axios
       .post("http://localhost:9100/customers", JSON.stringify(customer), 
         { headers: {'Content-Type':'application/json'} })
-      .then(response => {
-        console.log(response.status);
-        console.log(response.data);
-        history.push('/home/customer/' + response.data.cuit);
-      })
-      .catch(() => {
+      .then((response) => { history.push('/home/customer/' + response.data.cuit); })
+      .catch((error) => {
         alert("Error en los datos ingresados.");
+        console.log(error.response.data);
       });
   }
 
-  const goBack = () => {
-    history.goBack();
-  }
+  const goBack = () => { history.goBack(); }
 
   return (
     <Flex h="100vh" justifyContent="center" p={8}>
      
-      <CustomerForm customer={customer} setCustomer={setCustomer} post={post} goBack={goBack}></CustomerForm>
+      <CustomerForm 
+        customer={customer} 
+        setCustomer={setCustomer} 
+        post={post} 
+        goBack={goBack}>
+      </CustomerForm>
       
-      <ConstructionForm construction={construction} setConstruction={setConstruction} withButtons={false} put={() => {}} goBack={() => {}}></ConstructionForm>
+      <ConstructionForm 
+        construction={construction} 
+        setConstruction={setConstruction} 
+        withButtons={false} 
+        put={() => {}} 
+        goBack={() => {}}>
+      </ConstructionForm>
       
     </Flex>
   );

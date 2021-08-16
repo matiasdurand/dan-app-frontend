@@ -16,29 +16,39 @@ function ConstructionForm({construction, setConstruction, withButtons, postOrPut
   const formBackground = useColorModeValue("gray.100", "gray.700");
   
   const handleInputChange = (event) => {
-
-    setConstruction({
-      ...construction,
-      [event.target.name] : event.target.value
-    })
+    setConstruction({...construction, [event.target.name] : event.target.value});
   };
 
   return (
-    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
+    <Flex 
+      direction="column" 
+      h="fit-content" 
+      background={formBackground} 
+      p={10} 
+      rounded={6} 
+      m={2}>
 
       <Heading nb={6}>Obra</Heading>
 
       <Flex>
-        <Flex direction="column" p={8}>
 
-          <FormControl id="description" mt={6} isRequired>
+        <Flex direction="column" mt={6} p={8}>
+          <FormControl isRequired>
             <FormLabel>Descripción</FormLabel>
-            <Input value={construction.description} name="description" onChange={handleInputChange} variant="filled" placeholder="Descripción"/>
+            <Input 
+              value={construction.description} 
+              name="description" 
+              onChange={handleInputChange} 
+              variant="filled"/>
           </FormControl>
 
-          <FormControl id="constructionTypeId" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Tipo de Construcción</FormLabel>
-            <Select value={construction.constructionTypeId} name="constructionTypeId" onChange={handleInputChange} variant="filled">
+            <Select 
+              value={construction.constructionTypeId} 
+              name="constructionTypeId" 
+              onChange={handleInputChange} 
+              variant="filled">
               <option value="1">Reforma</option>
               <option value="2">Casa</option>
               <option value="3">Edificio</option>
@@ -49,42 +59,54 @@ function ConstructionForm({construction, setConstruction, withButtons, postOrPut
           <FormControl id="area" mt={4} isRequired>
             <FormLabel>Superficie</FormLabel>
             <NumberInput value={construction.area} min={0} max={100000} variant="filled">
-              <NumberInputField name="area" onChange={handleInputChange} placeholder="Superficie"/>
+              <NumberInputField name="area" onChange={handleInputChange}/>
             </NumberInput>
           </FormControl>
-
         </Flex>
         
-        <Flex direction="column" p={8}>
-
-          <FormControl id="address" mt={6} isRequired>
+        <Flex direction="column" mt={6} p={8}>
+          <FormControl isRequired>
             <FormLabel>Dirección</FormLabel>
-            <Input value={construction.address} name="address" onChange={handleInputChange} variant="filled" placeholder="Dirección"/>
+            <Input 
+              value={construction.address} 
+              name="address" 
+              onChange={handleInputChange} 
+              variant="filled"/>
           </FormControl>
 
-          <FormControl id="latitude" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Latitud</FormLabel>
             <NumberInput value={construction.latitude} variant="filled">
-              <NumberInputField name="latitude" onChange={handleInputChange} placeholder="Latitud"/>
+              <NumberInputField name="latitude" onChange={handleInputChange}/>
             </NumberInput>
           </FormControl>
 
-          <FormControl id="longitude"  mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Longitud</FormLabel>
             <NumberInput value={construction.longitude} variant="filled" >
-              <NumberInputField name="longitude" onChange={handleInputChange} placeholder="Longitud"/>
+              <NumberInputField name="longitude" onChange={handleInputChange}/>
             </NumberInput>
           </FormControl>
-
         </Flex>
+
       </Flex>
 
       { withButtons &&
-      <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue" onClick={(e) => {e.preventDefault(); postOrPut()}}>Aceptar</Button>
-        <Button mr={8} variant="ghost" onClick={(e) => {e.preventDefault(); goBack()} }>Cancelar</Button>
-      </Flex>
-      }
+      <Flex direction="row-reverse" mt={8}>
+        <Button 
+          mr={8} 
+          variant="solid" 
+          colorScheme="blue" 
+          onClick={(e) => { e.preventDefault(); postOrPut(); }}>
+          Aceptar
+        </Button>
+        <Button 
+          mr={8} 
+          variant="ghost" 
+          onClick={(e) => { e.preventDefault(); goBack(); }}>
+          Cancelar
+        </Button>
+      </Flex>}
 
     </Flex>
   );

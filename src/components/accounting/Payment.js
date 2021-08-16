@@ -9,7 +9,6 @@ function Payments() {
   const emptyPayment = {
     cuit: "",
     date: "2021-08-01",
-    method: null
   };
 
   const emptyPaymentMethod = {
@@ -25,9 +24,7 @@ function Payments() {
   }
 
   const [payment, setPayment] = useState(emptyPayment);
-
   const [paymentMethod, setPaymentMethod] = useState(emptyPaymentMethod);
-
   const [payments, setPayments] = useState([]);
 
   const clean = () => {
@@ -38,13 +35,13 @@ function Payments() {
   };
 
   const post = () => {
-    console.log(payment.cuit);
+    
     axios
       .get("http://localhost:9100/customers?cuit=" + payment.cuit)
-      .then(response => {
-        console.log(response.data)
+      .then((response) => {
+        
         let newPaymentMethod;
-        console.log(paymentMethod.type);
+        
         if (paymentMethod.type === "cash") {
           newPaymentMethod = {
             type: paymentMethod.type,
@@ -72,8 +69,7 @@ function Payments() {
         }
 
         let newPayment = {
-          id: null,
-          customerId: response.data.id,
+          customerId: parseInt(response.data.id),
           date: payment.date + "T00:00:00Z",
           method: newPaymentMethod,
         }
@@ -87,7 +83,10 @@ function Payments() {
             alert("Pago registrado correctamente.");
             window.location.href = window.location.href;
           })
-          .catch((error) => {console.log(error.response.data)});
+          .catch((error) => {
+            alert("Error al intentar registrar el pago.")
+            console.log(error.response.data)
+          });
       });
   };
 
@@ -95,9 +94,7 @@ function Payments() {
 
     axios
       .get("http://localhost:9100/accounting")
-      .then(response => {
-        setPayments(response.data);
-      });
+      .then(response => { setPayments(response.data); });
 
   }, []);
 
@@ -113,7 +110,6 @@ function Payments() {
         clean={clean}>
       </PaymentForm>
         
-      
       <PaymentTable payments={payments}></PaymentTable>
 
     </Flex>

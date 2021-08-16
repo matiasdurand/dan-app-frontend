@@ -20,7 +20,7 @@ const CustomerNav = ({cuit}) => {
     wrap="wrap" 
     w="100%" 
     background={navBackground}
-    mb={8} p={8}
+    mb={4} p={8}
     >
 
       <Heading>

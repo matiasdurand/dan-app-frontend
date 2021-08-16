@@ -16,6 +16,8 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
 
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
 
+  const visibility = showAdd? 'visible' : 'hidden';
+
   return (
     <Flex 
       background={tableBackgroud} 
@@ -31,25 +33,25 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
       wrap="wrap">
 
       <Flex direction="row-reverse" alignItems="center" w="100%">
-        {showAdd &&
+
         <IconButton 
           onClick={() => generateDelivery()} 
           m={1} 
+          visibility={visibility}
           colorScheme="blue" 
           variant="ghost" 
           aria-label="Add" 
           icon={<AddIcon/>}>
         </IconButton>
-        }
         
-        <Heading as="h4" size="md" width="50%" mt={3}>Envíos</Heading>
+        <Heading as="h4" size="md" width="48%" mt={2}>Envíos</Heading>
       </Flex>
 
       <Table variant="simple" colorScheme="blue" size="lg">
 
         <Thead>
           <Tr>
-            <Th>Id</Th>
+            {showAdd && <Th>Id</Th>}
             <Th>Fecha partida</Th>
             <Th>Camión</Th>
             <Th>Conductor</Th>
@@ -57,7 +59,7 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
         </Thead>
 
         <Tbody>
-          {renderBody(deliveries)}
+          {renderBody(deliveries, showAdd)}
         </Tbody>
  
       </Table>
@@ -67,12 +69,12 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
   )
 }
 
-function renderBody(deliveries) {
+function renderBody(deliveries, showAdd) {
   return deliveries.map((delivery) => {
     return (
       <Tr 
         key={delivery.id}>
-        <Td>{delivery.id}</Td>
+        {showAdd && <Td>{delivery.id}</Td>}
         <Td>{delivery.departure}</Td>
         <Td>{delivery.truckDescription}</Td>
         <Td>{delivery.employeeName}</Td>

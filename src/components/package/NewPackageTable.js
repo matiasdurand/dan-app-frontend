@@ -28,7 +28,7 @@ const NewPackageTable = ({ordersToDispatch}) => {
       alignItems="center" 
       wrap="wrap">
 
-      <Heading as="h4" size="md" mt={3}>Nuevo Paquete</Heading>
+      <Heading as="h4" size="md" mt={4} mb={2}>Nuevo Paquete</Heading>
       
       <Table variant="simple" colorScheme="blue" size="lg">
 

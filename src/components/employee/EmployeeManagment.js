@@ -7,7 +7,6 @@ import EmployeeTable from "./EmployeeTable";
 function EmployeeManagment() {
 
   const emptyEmployee = {
-    id: null,
     name: "",
     email: "",
   };
@@ -17,11 +16,8 @@ function EmployeeManagment() {
   };
 
   const [employee, setEmployee] = useState(emptyEmployee);
-
   const [employees, setEmployees] = useState([]);
-
   const [filters, setFilters] = useState(defaultFilters);
-
   const [editMode, setEditMode] = useState(false);
 
   const clean = () => {
@@ -43,17 +39,23 @@ function EmployeeManagment() {
     if (editMode) {
 
       let updatedEmployee = {
-        id: employee.id,
+        id: parseInt(employee.id),
         name: employee.name,
         email: employee.email
       };
       
+      console.log("updated employee = " + JSON.stringify(updatedEmployee));
+
       axios
-        .put("http://localhost:9100/employees/" + employee.id, JSON.stringify(updatedEmployee),
+        .put("http://localhost:9100/employees/" + updatedEmployee.id, JSON.stringify(updatedEmployee),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
           alert("Datos del empleado modificados.");
           window.location.href = window.location.href;
+        })
+        .catch((error) => {
+          alert("Error al intentar modificar los datos del empleado");
+          console.log(error.response.data);
         });
     }
     else {
@@ -66,9 +68,13 @@ function EmployeeManagment() {
       axios
         .post("http://localhost:9100/employees", JSON.stringify(newEmployee), 
           { headers: {'Content-Type':'application/json'} })
-        .then(response => {
+        .then(() => {
           alert("Empleado agregado correctamente.");
           window.location.href = window.location.href;
+        })
+        .catch((error) => {
+          alert("Error al intentar registrar el empleado");
+          console.log(error.response.data);
         });
     }
   };
@@ -85,30 +91,37 @@ function EmployeeManagment() {
 
   const filter = () => {
 
-    axios
-      .get("http://localhost:9100/employees?name=" + filters.name)
-      .then(response => {
-        setEmployees([response.data]);
-      })
-      .catch(() => {
-        alert("No hay coincidencias.");
-      });
+    if (filters.name !== "") {
+      axios
+        .get("http://localhost:9100/employees?name=" + filters.name)
+        .then(response => { setEmployees([response.data]); })
+        .catch(() => { alert("No hay coincidencias."); });
+    }
+    else {
+      axios
+        .get("http://localhost:9100/employees")
+        .then(response => { setEmployees(response.data); });
+    }
+
   };
 
   useEffect(() => {
 
     axios
       .get("http://localhost:9100/employees")
-      .then(response => {
-        setEmployees(response.data);
-      });
+      .then(response => { setEmployees(response.data); });
 
   }, []);
 
   return (
-    <Flex  h="100vh" justify="center" p={8}>
+    <Flex  h="100vh" justify="space-around" p={12}>
       
-      <EmployeeForm employee={employee} setEmployee={setEmployee} postOrPut={postOrPut} clean={clean}></EmployeeForm>
+      <EmployeeForm 
+        employee={employee} 
+        setEmployee={setEmployee} 
+        postOrPut={postOrPut} 
+        clean={clean}>
+      </EmployeeForm>
 
       <EmployeeTable 
         employees={employees} 
@@ -116,10 +129,13 @@ function EmployeeManagment() {
         remove={remove} 
         filters={filters} 
         setFilters={setFilters} 
-        filter={filter}>
+        filter={filter}
+        options={true}
+        setEmployeeId={() => {}}>
       </EmployeeTable>
 
     </Flex>
   );
 }
+
 export default EmployeeManagment;

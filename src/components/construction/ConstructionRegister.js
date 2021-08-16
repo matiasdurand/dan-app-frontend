@@ -1,10 +1,5 @@
-import { 
-  useEffect,
-  useState
-} from "react";
-import { 
-  Flex
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import ConstructionForm from "../construction/ConstructionForm";
 import axios from "axios";
 import { useHistory } from 'react-router'
@@ -30,13 +25,9 @@ function ConstructionRegister() {
   useEffect(() => {
 
     if (constructionId !== "0") {
-
       axios
         .get("http://localhost:9100/constructions/" + constructionId)
-        .then(response => {
-          console.log(response.data);
-          setConstruction(response.data);
-        });
+        .then(response => { setConstruction(response.data); });
     }
     
   }, []);
@@ -55,7 +46,7 @@ function ConstructionRegister() {
         constructionTypeId: parseInt(construction.constructionTypeId)
       };
 
-      console.log(JSON.stringify(updatedConstruction));
+      console.log("updated construction = " + JSON.stringify(updatedConstruction));
 
       axios
         .put("http://localhost:9100/constructions/" + constructionId, JSON.stringify(updatedConstruction),
@@ -63,10 +54,14 @@ function ConstructionRegister() {
         .then(() => {
           alert("Datos de la construcción modificados.");
           goBack();
+        })
+        .catch((error) => {
+          alert("Se produjo un error al intentar modificar la construcción.");
+          console.log(error.response.data);
         });
     }
     else {
-      // obtener id de cliente
+
       axios
         .get("http://localhost:9100/customers?cuit=" + cuit)
         .then((response) => {
@@ -91,23 +86,28 @@ function ConstructionRegister() {
               goBack();
             })
             .catch((error) => {
-              alert("Error en los datos ingresados.");
+              alert("Se produjo un error al intentar registrar la construcción..");
               console.log(error.response.data);
             });;
         })
     }
   }
 
-  const goBack = () => {
-    history.goBack();
-  }
+  const goBack = () => { history.goBack(); }
 
   return (
-    <Flex h="100vh" justifyContent="center" p={8}>
+    <Flex h="100vh" justifyContent="center" pt={12}>
       
-      <ConstructionForm construction={construction} setConstruction={setConstruction} withButtons={true} postOrPut={postOrPut} goBack={goBack}></ConstructionForm>
+      <ConstructionForm 
+        construction={construction} 
+        setConstruction={setConstruction} 
+        withButtons={true} 
+        postOrPut={postOrPut} 
+        goBack={goBack}>
+      </ConstructionForm>
       
     </Flex>
   );
 }
+
 export default ConstructionRegister;

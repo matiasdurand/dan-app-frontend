@@ -16,6 +16,8 @@ const OrderTable = ({orders, generateOrder, options, edit, setOrderId, showAdd})
 
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
 
+  const visibility = showAdd? 'visible' : 'hidden';
+
   const handleEditClick = (event, orderId) => {
     event.preventDefault();
     edit(orderId);
@@ -29,29 +31,29 @@ const OrderTable = ({orders, generateOrder, options, edit, setOrderId, showAdd})
   return (
     
     <Flex 
-    background={tableBackgroud} 
-    border="1px" 
-    borderColor={tableBackgroud} 
-    rounded={6} 
-    w="100%"
-    h="fit-content" 
-    mr={4}
-    boxSizing="border-box"
-    wrap="wrap" 
-    >
+      background={tableBackgroud} 
+      border="1px" 
+      borderColor={tableBackgroud} 
+      rounded={6} 
+      w="100%"
+      h="fit-content" 
+      mr={4}
+      boxSizing="border-box"
+      wrap="wrap">
 
       <Flex direction="row-reverse" alignItems="center" w="100%">
-        {showAdd && 
+
         <IconButton 
           onClick={() => generateOrder()} 
           m={1} 
+          visibility={visibility}
           colorScheme="blue" 
           variant="ghost" 
           aria-label="Add" 
           icon={<AddIcon/>} >
-        </IconButton>}
+        </IconButton>
 
-        <Heading as="h4" size="md" width="50%" mt={3}>Pedidos</Heading>
+        <Heading as="h4" size="md" width="50%" mt={2}>Pedidos</Heading>
       </Flex>
       
       <Table variant="simple" colorScheme="blue" size="lg">
@@ -62,8 +64,7 @@ const OrderTable = ({orders, generateOrder, options, edit, setOrderId, showAdd})
             <Th>Fecha envío</Th>
             <Th>Estado</Th>
             <Th>Costrucción</Th>
-            <Th>Cant. ítems</Th>
-            <Th>Total</Th>
+            <Th>Precio</Th>
           </Tr>
         </Thead>
 
@@ -85,7 +86,6 @@ function renderBody(orders) {
         <Td>{order.shippingDate.replace("T00:00:00Z", "")}</Td>
         <Td>{order.stateDescription}</Td>
         <Td>{order.constructionDescription}</Td>
-        <Td>{order.itemCount}</Td>
         <Td>{order.totalPrice}</Td>
       </Tr>
     )
@@ -95,12 +95,13 @@ function renderBody(orders) {
 function renderBodyWithOptions(orders, handleEditClick, handleRowClick) {
   return orders.map((order) => {
     return (
-      <Tr key={order.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, order.id)}>
+      <Tr key={order.id} 
+        _hover={{ bg: "gray.600" }} 
+        onClick={(event) => handleRowClick(event, order.id)}>
         <Td>{order.id}</Td>
         <Td>{order.shippingDate.replace("T00:00:00Z", "")}</Td>
         <Td>{order.stateDescription}</Td>
         <Td>{order.constructionDescription}</Td>
-        <Td>{order.itemCount}</Td>
         <Td>{order.totalPrice}</Td>
         <Td>
           <IconButton

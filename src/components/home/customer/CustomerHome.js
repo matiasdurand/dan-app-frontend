@@ -1,6 +1,4 @@
-import { 
-  Flex
-} from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import CustomerNav from './CustomerNav'
 import ConstructionTable from '../../construction/ConstructionTable'
 import DeliveryTable from '../../delivery/DeliveryTable'
@@ -16,47 +14,41 @@ const CustomerHome = () => {
   let { cuit } = useParams();
   
   const [constructions, setConstructions] = useState([]);
-
   const [orders, setOrders] = useState([]);
-
   const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
 
     axios
       .get("http://localhost:9100/constructions?cuit=" + cuit)
-      .then(response => {
-        console.log(response.data);
-        setConstructions(response.data);
-      });
+      .then((response) => { setConstructions(response.data); });
 
     axios
       .get("http://localhost:9100/orders?cuit=" + cuit)
-      .then(response => {
-        console.log(response.data);
-        setOrders(response.data);
-      });
+      .then((response) => { setOrders(response.data); });
 
     axios
       .get("http://localhost:9100/deliveries?cuit=" + cuit)
-      .then(response => {
-        console.log(response.data);
-        setDeliveries(response.data);
-      });
+      .then((response) => { setDeliveries(response.data); });
     
   }, []);
 
   const edit = (constructionId) => {
-    history.push('/construction/registro/' + cuit + "/" + constructionId);
+    history.push('/construction/registro/' + cuit + '/' + constructionId);
   }
 
   const remove = (constructionId) => {
+
     axios
       .delete("http://localhost:9100/constructions/" + constructionId)
       .then(() => {
-        alert("Se eliminó la construcción");
+        alert("Se eliminó la construcción.");
         window.location.href = window.location.href;
       })
+      .catch((error) => {
+        alert("Se produjo un error al intentar eliminar la construccion.");
+        console.log(error.response.data);
+      });
   }
 
   const generateOrder = () => {
@@ -64,29 +56,41 @@ const CustomerHome = () => {
   }
 
   return (
-     
     <Flex h="100vh" direction="column">
 
       <CustomerNav cuit={cuit}></CustomerNav>
 
-      <Flex direction="column" p={2}>
+      <Flex direction="column" p={4}>
 
-        <ConstructionTable constructions={constructions} edit={edit} remove={remove} options={true} setContructionId={() => {}}>
+        <ConstructionTable 
+          constructions={constructions} 
+          edit={edit} 
+          remove={remove} 
+          options={true} 
+          setContructionId={() => {}}>
         </ConstructionTable>
 
-        <Flex justify="space-between">
-
-          <OrderTable orders={orders} generateOrder={generateOrder} options={false} edit={() => {}} setOrderId={() => {}} showAdd={true}>
+        <Flex justify="space-between" mt={8}>
+          <OrderTable 
+            orders={orders} 
+            generateOrder={generateOrder} 
+            options={false} 
+            edit={() => {}} 
+            setOrderId={() => {}} 
+            showAdd={true}>
           </OrderTable>
 
-          <DeliveryTable deliveries={deliveries} generateDelivery={() => {}} showAdd={false}>
+          <DeliveryTable 
+            deliveries={deliveries} 
+            generateDelivery={() => {}} 
+            showAdd={false}>
           </DeliveryTable>
-
         </Flex>
+
       </Flex>
-      
+
     </Flex>
   )
 }
-export default CustomerHome;
 
+export default CustomerHome;

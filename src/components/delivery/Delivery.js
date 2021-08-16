@@ -64,7 +64,7 @@ function Delivery() {
   return (
     <Flex h="100vh" direction="column" p={8}>
 
-      <Heading nb={6} m={2} align="center">Generar Envío</Heading>
+      <Heading nb={6} mb={8} align="center">Generar Envío</Heading>
 
       <Flex p={2}>
         <PackageTable 
@@ -84,16 +84,18 @@ function Delivery() {
           setTruckId={setTruckId}>
         </TruckTable>
 
-        <EmployeeTable 
-          employees={employees}
-          edit={() => {}}
-          remove={() => {}}
-          filters={null}
-          setFilters={() => {}}
-          filter={() => {}}
-          options={false}
-          setEmployeeId={setEmployeeId}>
-        </EmployeeTable>
+        <Flex w="40%">
+          <EmployeeTable 
+            employees={employees}
+            edit={() => {}}
+            remove={() => {}}
+            filters={null}
+            setFilters={() => {}}
+            filter={() => {}}
+            options={false}
+            setEmployeeId={setEmployeeId}>
+          </EmployeeTable>
+        </Flex>
       </Flex>
 
       <Flex justify="center" mt={12}>

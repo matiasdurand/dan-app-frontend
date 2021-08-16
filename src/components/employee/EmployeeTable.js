@@ -29,16 +29,14 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter, op
   };
 
   const handleInputChange = (event) => {
-    setFilters({
-      ...filters,
-      [event.target.name] : event.target.value
-    });
+    setFilters({...filters, [event.target.name] : event.target.value });
   };
 
   const handleKeyUp = (event) => {
     event.preventDefault();
     if (event.key === 'Enter') filter();
-  }
+  };
+
   const handleRowClick = (event, employeeId) => {
     event.preventDefault();
     setEmployeeId(employeeId);
@@ -46,19 +44,18 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter, op
 
   return(
     <Flex 
-    background={tableBackgroud} 
-    border="1px" 
-    borderColor={tableBackgroud} 
-    rounded={6} 
-    w="100%"
-    h="fit-content" 
-    m={2}
-    boxSizing="border-box"
-    align="center" 
-    direction="column"
-    justify="center" 
-    wrap="wrap"
-    >
+      background={tableBackgroud} 
+      border="1px" 
+      borderColor={tableBackgroud} 
+      rounded={6} 
+      w="100%"
+      h="fit-content" 
+      m={2}
+      boxSizing="border-box"
+      align="center" 
+      direction="column"
+      justify="center" 
+      wrap="wrap">
 
       {options && 
       <FormControl id="name" p={2}>
@@ -67,7 +64,7 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter, op
           onChange={handleInputChange} 
           onKeyUp={handleKeyUp}
           variant="filled" 
-          placeholder="Buscar por nombre...">
+          placeholder="Ingrese un Nombre">
         </Input>
       </FormControl>}
 
@@ -96,7 +93,9 @@ const EmployeeTable = ({employees, edit, remove, filters, setFilters, filter, op
 function renderBody(employees, handleRowClick) {
   return employees.map((employee) => {
     return (
-      <Tr key={employee.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, employee.id)}>
+      <Tr key={employee.id} 
+        _hover={{ bg: "gray.600" }} 
+        onClick={(event) => handleRowClick(event, employee.id)}>
         <Td>{employee.name}</Td>
         <Td>{employee.email}</Td>
       </Tr>

@@ -29,7 +29,6 @@ function PackageTable({packages, remove, options}) {
       rounded={6} 
       w="100%"
       h="fit-content"
-      mt={4}
       boxSizing="border-box"
       align="center" 
       direction="column"
@@ -65,13 +64,12 @@ function PackageTable({packages, remove, options}) {
 function renderBody(packages) {
   return packages.map((p) => {
     return (
-      <Tr 
-        key={p.id}>
+      <Tr key={p.id}>
         <Td>{p.id}</Td>
-        <Td>{p.cuit}</Td>
+        <Td>{p.customerCuit}</Td>
         <Td>{p.weight}</Td>
         <Td>{p.volume}</Td>
-        <Td>{p.packageState}</Td>
+        <Td>{p.state}</Td>
         <Td>{p.arrivalDate}</Td>
       </Tr>
     )
@@ -81,13 +79,12 @@ function renderBody(packages) {
 function renderBodyWithOptions(packages, handleDeleteClick) {
   return packages.map((p) => {
     return (
-      <Tr 
-        key={p.id}>
+      <Tr key={p.id}>
         <Td>{p.id}</Td>
-        <Td>{p.cuit}</Td>
+        <Td>{p.customerCuit}</Td>
         <Td>{p.weight}</Td>
         <Td>{p.volume}</Td>
-        <Td>{p.packageState}</Td>
+        <Td>{p.state}</Td>
         <Td>{p.arrivalDate}</Td>
         <Td>
           <IconButton 
