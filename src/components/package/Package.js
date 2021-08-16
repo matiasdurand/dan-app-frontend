@@ -30,7 +30,7 @@ function Package() {
       ordersToDispatch.map((o) => ordersIds.push(o.id));
 
       let newPackage = {
-        cuit: cuit,
+        customerCuit: cuit,
         ordersIds: ordersIds
       };
 
@@ -71,18 +71,25 @@ function Package() {
   const add = () => {
 
     if (orderId !== 0) {
+
       let selectedOrder = orders.filter(o => o.id === orderId)[0];
 
-      if (ordersToDispatch.filter(o => o.id === orderId).length === 0) {
+      if (selectedOrder.stateDescription === "Confirmado") {
+
+        if (ordersToDispatch.filter(o => o.id === orderId).length === 0) {
   
-        let copy = ordersToDispatch.slice();
-  
-        copy.push(selectedOrder);
-  
-        setOrdersToDispatch(copy);
+          let copy = ordersToDispatch.slice();
+    
+          copy.push(selectedOrder);
+    
+          setOrdersToDispatch(copy);
+        }
+        else {
+          alert("La orden seleccionada ya forma parte del paquete.");
+        }
       }
       else {
-        alert("La orden seleccionada ya forma parte del paquete.");
+        alert("solo puedes seleccionar pedidos confirmados.");
       }
     }
     else {
@@ -137,7 +144,7 @@ function Package() {
 
       </Flex>
 
-      <Flex direction="row-reverse" m={4}>
+      <Flex direction="row-reverse" m={8}>
         <Button 
           mr={8}
           variant="solid" 
@@ -154,7 +161,11 @@ function Package() {
         </Button>
       </Flex>
 
-      <PackageTable packages={packages} remove={remove} options={true}></PackageTable>
+      <PackageTable 
+        packages={packages} 
+        remove={remove} 
+        options={true}>
+      </PackageTable>
 
     </Flex>
   );

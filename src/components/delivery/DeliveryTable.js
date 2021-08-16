@@ -16,6 +16,8 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
 
   const tableBackgroud = useColorModeValue("gray.100", "gray.700");
 
+  const visibility = showAdd? 'visible' : 'hidden';
+
   return (
     <Flex 
       background={tableBackgroud} 
@@ -31,18 +33,18 @@ const DeliveryTable = ({deliveries, generateDelivery, showAdd}) => {
       wrap="wrap">
 
       <Flex direction="row-reverse" alignItems="center" w="100%">
-        {showAdd &&
+
         <IconButton 
           onClick={() => generateDelivery()} 
           m={1} 
+          visibility={visibility}
           colorScheme="blue" 
           variant="ghost" 
           aria-label="Add" 
           icon={<AddIcon/>}>
         </IconButton>
-        }
         
-        <Heading as="h4" size="md" width="50%" mt={3}>Envíos</Heading>
+        <Heading as="h4" size="md" width="48%" mt={2}>Envíos</Heading>
       </Flex>
 
       <Table variant="simple" colorScheme="blue" size="lg">

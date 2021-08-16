@@ -156,7 +156,7 @@ function OrderRegister() {
 
       </Flex>
   
-      <Flex direction="column" align="center">
+      <Flex direction="column" w="40%">
         
         <OrderForm 
           setShippingDate={setShippingDate}

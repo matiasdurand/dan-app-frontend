@@ -31,7 +31,7 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
 
       <Heading>Arma tu Pedido</Heading>
 
-      <FormControl w="68%" mt={6} isRequired>
+      <FormControl w="50%" mt={6} isRequired>
         <FormLabel>Fecha de envío</FormLabel>
         <Input 
           defaultValue="2021-09-01" 
@@ -41,7 +41,7 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
           variant="filled"/>
       </FormControl>
 
-      <Flex align="center" mt={6}>
+      <Flex align="flex-end" mt={6}>
         
         <FormControl w="40%" mr={4} isRequired>
           <FormLabel>Cantidad</FormLabel>
@@ -51,7 +51,6 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
         </FormControl>
             
         <Button 
-          mt={8}
           variant="outline" 
           colorScheme="blue" 
           onClick={(e) => { e.preventDefault(); addItem(); }}>
@@ -65,7 +64,7 @@ const OrderForm = ({setShippingDate, setQuantity, addItem, confirm, clean}) => {
           variant="solid" 
           colorScheme="blue" 
           onClick={(e) => { e.preventDefault(); confirm(); }}>
-          Confirmar Pedido
+          Confirmar
         </Button>
         <Button 
           mr={8} 

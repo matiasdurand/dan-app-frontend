@@ -5,10 +5,9 @@ import ProductTable from "./ProductTable";
 import ProductFilter from "./ProductFilter";
 import axios from 'axios';
 
-function Products() {
+function Product() {
 
   const emptyProduct = {
-    id: null,
     name: "",
     description: "",
     price: "",
@@ -27,11 +26,8 @@ function Products() {
   };
 
   const [product, setProduct] = useState(emptyProduct);
-
   const [products, setProducts] = useState([]);
-
   const [productFilters, setProductFilters] = useState(defaultFilters);
-
   const [editMode, setEditMode] = useState(false);
 
   const clean = () => {
@@ -53,7 +49,7 @@ function Products() {
     if (editMode) {
 
       let updatedProduct = {
-        id: product.id,
+        id: parseInt(product.id),
         name: product.name,
         description: product.description,
         price: parseFloat(product.price),
@@ -61,7 +57,7 @@ function Products() {
         unitId: parseInt(product.unitId)
       };
 
-      console.log("put " + JSON.stringify(updatedProduct));
+      console.log("put = " + JSON.stringify(updatedProduct));
 
       axios
         .put("http://localhost:9100/products/" + updatedProduct.id, JSON.stringify(updatedProduct),
@@ -69,6 +65,10 @@ function Products() {
         .then(() => {
           alert("Datos del producto modificados.");
           window.location.href = window.location.href;
+        })
+        .catch((error) => {
+          alert("Error al intentar modificar los datos del producto");
+          console.log(error.response.data);
         });
     }
     else {
@@ -82,14 +82,18 @@ function Products() {
         unitId: parseInt(product.unitId)
       };
 
-      console.log("post " + JSON.stringify(newProduct));
+      console.log("post = " + JSON.stringify(newProduct));
 
       axios
         .post("http://localhost:9100/products", JSON.stringify(newProduct), 
           { headers: {'Content-Type':'application/json'} })
-        .then((response) => {
+        .then(() => {
           alert("Producto agregado correctamente.");
           window.location.href = window.location.href;
+        })
+        .catch((error) => {
+          alert("Error al intentar registrar el producto.");
+          console.log(error.response.data);
         });
     }
   };
@@ -110,31 +114,20 @@ function Products() {
     if (productFilters.type === "name") {
         axios
           .get("http://localhost:9100/products?name=" + productFilters.name)
-          .then(response => {
-            console.log(response.data);
-            setProducts([response.data]);
-          })
-          .catch(() => {
-            alert("No hay coincidencias.")
-          });
+          .then(response => { setProducts([response.data]); })
+          .catch(() => { alert("No hay coincidencias.") });
     }
     else if (productFilters.type === "stockRange") {
         axios
           .get("http://localhost:9100/products?minimumStock=" + productFilters.minimumStock
             + "&maximumStock=" + productFilters.maximumStock)
-          .then(response => {
-            console.log(response.data);
-            setProducts(response.data);
-          });
+          .then((response) => { setProducts(response.data); });
     }
     else if (productFilters.type === "priceRange") {
         axios
           .get("http://localhost:9100/products?minimumPrice=" + productFilters.minimumPrice
             + "&maximumPrice=" + productFilters.maximumPrice)
-          .then(response => {
-            console.log(response.data);
-            setProducts(response.data);
-          });
+          .then((response) => { setProducts(response.data); });
     }
   };
 
@@ -142,32 +135,39 @@ function Products() {
 
     axios
       .get("http://localhost:9100/products")
-      .then(response => {
-        console.log(response.data);
-        setProducts(response.data);
-      });
+      .then(response => { setProducts(response.data); });
+
   }, []);
 
   return (
     <Flex h="100vh" justify="center" p={8}>
 
-      <Flex p={4}>
+      <ProductForm 
+        product={product} 
+        setProduct={setProduct} 
+        postOrPut={postOrPut} 
+        clean={clean}>
+      </ProductForm>
         
-        <Flex direction="column" p={4}>
+      <Flex direction="column">
 
-          <ProductForm product={product} setProduct={setProduct} postOrPut={postOrPut} clean={clean}></ProductForm>
-          
-        </Flex>
-        
-        <Flex direction="column" p="16px">
-          <ProductFilter productFilters={productFilters} setProductFilters={setProductFilters} filter={filter}></ProductFilter>
-          <ProductTable products={products} edit={edit} remove={remove} options={true}></ProductTable>
-        </Flex>
+        <ProductFilter 
+          productFilters={productFilters} 
+          setProductFilters={setProductFilters} 
+          filter={filter}>
+        </ProductFilter>
+
+        <ProductTable 
+          products={products} 
+          edit={edit} 
+          remove={remove} 
+          options={true}>
+        </ProductTable>
 
       </Flex>
-
+      
     </Flex>
   );
 }
 
-export default Products;
+export default Product;

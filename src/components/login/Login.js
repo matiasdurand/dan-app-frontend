@@ -34,7 +34,7 @@ const Login = () => {
     if (credentials.email === "admin" 
         && credentials.password === "admin") {
           
-          history.push("/home/employee");
+          history.push("/home/employee/1");
     }
     else if (credentials.email === "customer" 
         && credentials.password === "customer") {

@@ -22,43 +22,64 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
   const [value, setValue] = React.useState("cash");
 
   const handlePaymentInputChange = (event) => {
-    setPayment({
-      ...payment,
-      [event.target.name] : event.target.value
-    });
+    setPayment({...payment, [event.target.name] : event.target.value});
   };
 
   const handleMethodInputChange = (event) => {
-    setPaymentMethod({
-      ...paymentMethod,
-      [event.target.name] : event.target.value
-    });
+    setPaymentMethod({...paymentMethod, [event.target.name] : event.target.value});
   };
 
   return (
-    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
+    <Flex 
+      direction="column" 
+      h="fit-content" 
+      background={formBackground} 
+      w="60%"
+      p={8} 
+      rounded={6} 
+      m={2}>
       
-      <Heading nb={6}>Pagos</Heading>
+      <Heading>Pagos</Heading>
 
-      <Flex direction="column" p={8}>
-        <FormControl id="cuit" mt={6} isRequired>
-          <FormLabel>CUIT</FormLabel>
-          <Input value={payment.cuit} name="cuit" onChange={handlePaymentInputChange} variant="filled" placeholder="CUIT"/>
-        </FormControl>
+      <Flex direction="column" mt={4} p={4}>
 
-        <FormControl id="date" mt={4} isRequired>
-          <FormLabel>Fecha Pago</FormLabel>
-          <Input value={payment.date} name="date" onChange={handlePaymentInputChange} type="date" variant="filled"/>
-        </FormControl>
+        <Flex>
+          <FormControl mr={4} isRequired>
+            <FormLabel>CUIT</FormLabel>
+            <Input 
+              value={payment.cuit} 
+              name="cuit" 
+              onChange={handlePaymentInputChange} 
+              variant="filled"/>
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel>Fecha Pago</FormLabel>
+            <Input 
+              value={payment.date} 
+              name="date" 
+              onChange={handlePaymentInputChange} 
+              type="date" 
+              variant="filled"/>
+          </FormControl>
+        </Flex>
         
-        <FormControl id="comment" mt={4} isRequired>
+        <FormControl mt={4} isRequired>
           <FormLabel>Comentario</FormLabel>
-          <Textarea value={paymentMethod.comment} name="comment" onChange={handleMethodInputChange} variant="filled" placeholder="Ingresa un comentario" resize="none"/>
+          <Textarea 
+            value={paymentMethod.comment} 
+            name="comment" 
+            onChange={handleMethodInputChange} 
+            variant="filled" 
+            resize="none"/>
         </FormControl>
 
-        <FormControl id="type" mt={4} isRequired>
+        <FormControl mt={4} isRequired>
           <FormLabel>Método de Pago</FormLabel>
-          <RadioGroup name="type" onClick={(event) => {handleMethodInputChange(event); setValue(event.target.value); }} value={value}>
+          <RadioGroup 
+            name="type" 
+            onClick={(event) => {handleMethodInputChange(event); setValue(event.target.value); }} 
+            value={value}>
             <Stack direction="row">
               <Radio value="cash">Efectivo</Radio>
               <Radio value="transfer">Transferencia</Radio>
@@ -68,25 +89,25 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
         </FormControl>
 
         {value === "cash" && 
-        <Flex w="100%">
-          <FormControl id="billNumber" mt={4} isRequired>
+        <Flex w="50%" mt={4}>
+          <FormControl isRequired>
             <FormLabel>Código</FormLabel>
-            <NumberInput value={paymentMethod.billNumber} variant="filled" placeholder="Código">
+            <NumberInput value={paymentMethod.billNumber} variant="filled">
               <NumberInputField name="billNumber" onChange={handleMethodInputChange} />
             </NumberInput>
           </FormControl>
         </Flex>}
 
         {value === "transfer" && 
-        <Flex w="100%">
-          <FormControl id="cbuOrigin" mt={4} isRequired>
+        <Flex w="100%" mt={4}>
+          <FormControl isRequired>
               <FormLabel>CBU Cliente</FormLabel>
               <NumberInput value={paymentMethod.cbuOrigin} mr={4} variant="filled">
                 <NumberInputField name="cbuOrigin" onChange={handleMethodInputChange}/>
               </NumberInput>
             </FormControl>
             
-            <FormControl id="code" mt={4} isRequired>
+            <FormControl isRequired>
               <FormLabel>Código</FormLabel>
               <NumberInput value={paymentMethod.code} variant="filled">
                 <NumberInputField name="code" onChange={handleMethodInputChange}/>
@@ -95,35 +116,43 @@ function PaymentForm({payment, setPayment, paymentMethod, setPaymentMethod, post
         </Flex>}
 
         {value === "check" && 
-        <Flex w="100%" wrap="wrap">
+        <Flex w="100%" mt={4} wrap="wrap">
           <Flex>
-            
-            <FormControl id="number" mt={4} mr={4} isRequired>
+            <FormControl mr={4} isRequired>
               <FormLabel>Número</FormLabel>
               <NumberInput value={paymentMethod.number} variant="filled">
                 <NumberInputField name="number" onChange={handleMethodInputChange} />
               </NumberInput>
             </FormControl>
             
-            <FormControl id="paymentDate" mt={4} isRequired>
+            <FormControl isRequired>
               <FormLabel>Fecha Pago</FormLabel>
               <Input name="paymentDate" onChange={handleMethodInputChange} type="date" variant="filled"/>
             </FormControl>
-
           </Flex>
           
           <FormControl id="bank" mt={4} isRequired>
             <FormLabel>Banco</FormLabel>
             <Input value={paymentMethod.bank} name="bank" onChange={handleMethodInputChange} width="50%" variant="filled"/>
           </FormControl>
-
         </Flex>}
       
       </Flex>
 
-      <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue" onClick={post}>Aceptar</Button>
-        <Button mr={8} variant="ghost" onClick={clean}>Cancelar</Button>
+      <Flex direction="row-reverse" mt={8}>
+        <Button 
+          mr={8} 
+          variant="solid" 
+          colorScheme="blue" 
+          onClick={(e) => { e.preventDefault(); post(); }}>
+          Aceptar
+        </Button>
+        <Button 
+          mr={8} 
+          variant="ghost" 
+          onClick={(e) => { e.preventDefault(); clean(); }}>
+          Cancelar
+        </Button>
       </Flex>
     </Flex>
   );

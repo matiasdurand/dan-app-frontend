@@ -13,33 +13,47 @@ import {
 import React from 'react'
 
 function ProductForm({product, setProduct, postOrPut, clean}) {
-  const formBackground = useColorModeValue("gray.100", "gray.700")
+
+  const formBackground = useColorModeValue("gray.100", "gray.700");
+
   const handleInputChange = (event) => {
-    setProduct({
-      ...product,
-      [event.target.name] : event.target.value
-    });
+    setProduct({...product, [event.target.name] : event.target.value });
   };
 
   return (
-    <Flex direction="column" h="fit-content" background={formBackground} p={12} rounded={6} m={2}>
+    <Flex 
+      direction="column" 
+      h="fit-content" 
+      background={formBackground} 
+      p={8} 
+      rounded={6} 
+      m={2}>
 
       <Heading nb={6}>Productos</Heading>
 
-      <Flex>
-        <Flex direction="column" p={8}>
+      <Flex m={2}>
+
+        <Flex direction="column" p={4}>
         
-          <FormControl id="name" mt={6} isRequired>
+          <FormControl isRequired>
             <FormLabel>Nombre</FormLabel>
-            <Input value={product.name} name="name" onChange={handleInputChange} variant="filled" placeholder="Nombre"/>
+            <Input 
+              value={product.name} 
+              name="name" 
+              onChange={handleInputChange} 
+              variant="filled"/>
           </FormControl>
 
-          <FormControl id="description" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Descripción</FormLabel>
-            <Input value={product.description} name="description" onChange={handleInputChange} variant="filled" placeholder="Descripción"/>
+            <Input 
+              value={product.description} 
+              name="description" 
+              onChange={handleInputChange} 
+              variant="filled"/>
           </FormControl>
 
-          <FormControl id="price" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Precio</FormLabel>
             <NumberInput 
               value={product.price}
@@ -52,9 +66,9 @@ function ProductForm({product, setProduct, postOrPut, clean}) {
 
         </Flex>
 
-        <Flex direction="column" p={8}>
+        <Flex direction="column" p={4}>
 
-          <FormControl id="currentStock" mt={6} isRequired>
+          <FormControl isRequired>
             <FormLabel>Stock actual</FormLabel>
             <NumberInput 
               value={product.currentStock}
@@ -64,7 +78,7 @@ function ProductForm({product, setProduct, postOrPut, clean}) {
             </NumberInput>
           </FormControl>
 
-          <FormControl id="minimumStock" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Stock mínimo</FormLabel>
             <NumberInput 
               value={product.minimumStock}
@@ -74,9 +88,13 @@ function ProductForm({product, setProduct, postOrPut, clean}) {
             </NumberInput>
           </FormControl>
 
-          <FormControl id="unitId" mt={4} isRequired>
+          <FormControl mt={4} isRequired>
             <FormLabel>Unidad de medida</FormLabel>
-            <Select value={product.unitId} name="unitId" onChange={handleInputChange} variant="filled">
+            <Select 
+              value={product.unitId} 
+              name="unitId" 
+              onChange={handleInputChange} 
+              variant="filled">
               <option value="1">UN</option>
               <option value="2">M</option>
               <option value="3">CM</option>
@@ -96,11 +114,22 @@ function ProductForm({product, setProduct, postOrPut, clean}) {
           </FormControl>
 
         </Flex>
+        
       </Flex>
 
-      <Flex direction="row-reverse">
-        <Button mr={8} variant="solid" colorScheme="blue" onClick={postOrPut}>Aceptar</Button>
-        <Button mr={8} variant="ghost" onClick={clean}>Cancelar</Button>
+      <Flex direction="row-reverse" mt={4} mr={8}>
+        <Button 
+          variant="solid" 
+          colorScheme="blue" 
+          onClick={(e) => { e.preventDefault(); postOrPut(); }}>
+          Aceptar
+        </Button>
+        <Button 
+          mr={8} 
+          variant="ghost" 
+          onClick={(e) => { e.preventDefault(); clean(); }}>
+          Cancelar
+        </Button>
       </Flex>
       
     </Flex>

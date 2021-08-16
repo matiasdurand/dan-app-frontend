@@ -29,13 +29,13 @@ function OrderItemTable({items}) {
       justify="center" 
       wrap="wrap">
 
-      <Heading as="h4" size="md" mt={2}>Detalle</Heading>
+      <Heading as="h4" size="md" mt={4}>Detalle</Heading>
 
       <Table variant="simple" colorScheme="blue" size="lg">
 
         <Thead>
           <Tr>
-            <Th>Id Producto</Th>
+            <Th>Nombre</Th>
             <Th>Cantidad</Th>
             <Th>Subtotal</Th>
           </Tr>
@@ -55,7 +55,7 @@ function renderBody(items) {
   return items.map((item) => {
     return (
       <Tr>
-        <Td>{item.productId}</Td>
+        <Td>{item.productName}</Td>
         <Td>{item.quantity}</Td>
         <Td>{item.price}</Td>
       </Tr>

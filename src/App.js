@@ -13,7 +13,7 @@ import CustomerPayments from './components/accounting/CustomerPayment';
 import EmployeeProfile from './components/employee/EmployeeProfile';
 import CustomerManagment from './components/customer/CustomerManagment';
 import EmployeeManagment from './components/employee/EmployeeManagment';
-import Products from './components/product/Products';
+import Product from './components/product/Product';
 import CustomerHome from './components/home/customer/CustomerHome';
 import OrderEdit from './components/order/OrderEdit';
 import Package from './components/package/Package';
@@ -29,13 +29,13 @@ function App() {
 
         <Route path='/' exact component={Login}></Route>
 
-        <Route path='/home/employee' exact component={EmployeeHome}></Route>
+        <Route path='/home/employee/:employeeId' exact component={EmployeeHome}></Route>
 
         <Route path='/home/customer/:cuit' exact component={CustomerHome}></Route>
 
         <Route path='/mi-perfil/:cuit' exact component={CustomerProfile}></Route>
 
-        <Route path='/perfil' exact component={EmployeeProfile}></Route>
+        <Route path='/perfil/:employeeId' exact component={EmployeeProfile}></Route>
 
         <Route path='/login/registro' exact component={CustomerRegister}></Route>
 
@@ -49,7 +49,7 @@ function App() {
 
         <Route path='/camiones' exact component={Truck}></Route>
 
-        <Route path='/productos' exact component={Products}></Route>
+        <Route path='/productos' exact component={Product}></Route>
 
         <Route path='/empleados' exact component={EmployeeManagment}></Route> 
 

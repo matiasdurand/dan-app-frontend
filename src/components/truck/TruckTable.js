@@ -71,8 +71,7 @@ const TruckTable = ({trucks, remove, options, setTruckId}) => {
 function renderBody(trucks, handleRowClick) {
   return trucks.map((truck) => {
     return (
-      <Tr 
-        key={truck.id} 
+      <Tr key={truck.id} 
         _hover={{ bg: "gray.600" }} 
         onClick={(event) => handleRowClick(event, truck.id)}>
         <Td>{truck.id}</Td>
@@ -81,7 +80,7 @@ function renderBody(trucks, handleRowClick) {
         <Td>{truck.tare}</Td>
         <Td>{truck.maxWeight}</Td>
         <Td>{truck.maxVolume}</Td>
-        <Td>{truck.truckState}</Td>
+        <Td>{truck.state}</Td>
       </Tr>
     )
   })
@@ -90,15 +89,14 @@ function renderBody(trucks, handleRowClick) {
 function renderBodyWithOptions(trucks, handleDeleteClick) {
   return trucks.map((truck) => {
     return (
-      <Tr 
-        key={truck.id}>
+      <Tr key={truck.id}>
         <Td>{truck.id}</Td>
         <Td>{truck.description}</Td>
         <Td>{truck.license}</Td>
         <Td>{truck.tare}</Td>
         <Td>{truck.maxWeight}</Td>
         <Td>{truck.maxVolume}</Td>
-        <Td>{truck.truckState}</Td>
+        <Td>{truck.state}</Td>
         <Td>
           <IconButton 
             onClick={(event) => handleDeleteClick(event, truck.id)} 

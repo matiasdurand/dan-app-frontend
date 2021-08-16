@@ -29,7 +29,7 @@ function CustomerForm({customer, setCustomer, post, goBack}) {
 
       <Heading nb={6}>Cliente</Heading>
 
-      <Flex direction="column" mt={2} p={8}>
+      <Flex direction="column" mt={6} p={8}>
         
         <FormControl isRequired>
           <FormLabel>Razón Social</FormLabel>

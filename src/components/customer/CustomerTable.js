@@ -28,20 +28,19 @@ const CustomerTable = ({customers, deleteCustomer, deleteOption, getConstruction
 
   return(
     <Flex 
-    background={tableBackgroud} 
-    border="1px" 
-    borderColor={tableBackgroud} 
-    rounded={6} 
-    w="100%"
-    h="fit-content" 
-    boxSizing="border-box"
-    align="center" 
-    direction="column"
-    justify="center" 
-    wrap="wrap"
-    >
+      background={tableBackgroud} 
+      border="1px" 
+      borderColor={tableBackgroud} 
+      rounded={6} 
+      w="100%"
+      h="fit-content" 
+      boxSizing="border-box"
+      align="center" 
+      direction="column"
+      justify="center" 
+      wrap="wrap">
 
-      <Heading as="h4" size="md" mt={4}>Clientes</Heading>
+      <Heading as="h4" size="md" mt={4} mb={2}>Clientes</Heading>
       
       <Table variant="simple" colorScheme="blue" size="lg">
       
@@ -81,7 +80,9 @@ function renderBody(customers) {
 function renderBodyWithDeleteOption(customers, handleRowClick, handleDeleteClick) {
   return customers.map((customer) => {
     return (
-      <Tr key={customer.id} _hover={{ bg: "gray.600" }} onClick={(event) => handleRowClick(event, customer.id)}>
+      <Tr key={customer.id} 
+        _hover={{ bg: "gray.600" }} 
+        onClick={(event) => handleRowClick(event, customer.id)}>
         <Td>{customer.businessName}</Td>
         <Td>{customer.cuit}</Td>
         <Td>{customer.email}</Td>
