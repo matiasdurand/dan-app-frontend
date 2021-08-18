@@ -20,7 +20,7 @@ const CustomerProfile = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/customers?cuit=" + cuit)
+      .get("http://localhost:9100/users/api/customers?cuit=" + cuit)
       .then(response => { setCustomer(response.data); });
 
   }, []);
@@ -31,17 +31,24 @@ const CustomerProfile = () => {
       id: parseInt(customer.id),
       businessName: customer.businessName,
       email: customer.email,
-      maxCurrentAccount: customer.maxCurrentAccount
-    }
+      maxCurrentAccount: parseFloat(customer.maxCurrentAccount)
+    };
 
     console.log(JSON.stringify(updatedCustomer));
 
     axios
-      .put("http://localhost:9100/customers/" + updatedCustomer.id, JSON.stringify(updatedCustomer), 
+      .put("http://localhost:9100/users/api/customers/" + updatedCustomer.id, JSON.stringify(updatedCustomer), 
         { headers: {'Content-Type':'application/json'} })
       .then(() => {
-        alert("Datos modificados exitosamente.");
-        window.location.href = window.location.href;
+        alert("Datos modificados correctamente.");
+
+        setCustomer({
+          id: parseInt(customer.id),
+          businessName: customer.businessName,
+          cuit: customer.cuit,
+          email: customer.email,
+          maxCurrentAccount: parseFloat(customer.maxCurrentAccount)
+        });
       })
       .catch((error) => {
         alert("Error al intentar modificar los datos.");

@@ -96,7 +96,7 @@ function renderBodyWithOptions(products, handleEditClick, handleDeleteClick) {
         <Td>{product.price}</Td>
         <Td>{product.minimumStock}</Td>
         <Td>{product.currentStock}</Td>
-        <Td>
+        <Td p={1}>
           <IconButton 
             onClick={(event) => handleEditClick(event, product.id)} 
             variant="ghost" 
@@ -105,7 +105,7 @@ function renderBodyWithOptions(products, handleEditClick, handleDeleteClick) {
             Editar
           </IconButton>
         </Td>
-        <Td>
+        <Td p={1}>
           <IconButton 
             onClick={(event) => handleDeleteClick(event, product.id)} 
             variant="ghost" 

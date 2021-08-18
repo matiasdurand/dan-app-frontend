@@ -20,15 +20,15 @@ const CustomerHome = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/constructions?cuit=" + cuit)
+      .get("http://localhost:9100/users/api/constructions?cuit=" + cuit)
       .then((response) => { setConstructions(response.data); });
 
     axios
-      .get("http://localhost:9100/orders?cuit=" + cuit)
+      .get("http://localhost:9100/orders/api/orders?cuit=" + cuit)
       .then((response) => { setOrders(response.data); });
 
     axios
-      .get("http://localhost:9100/deliveries?cuit=" + cuit)
+      .get("http://localhost:9100/delivery/api/deliveries?cuit=" + cuit)
       .then((response) => { setDeliveries(response.data); });
     
   }, []);
@@ -40,13 +40,13 @@ const CustomerHome = () => {
   const remove = (constructionId) => {
 
     axios
-      .delete("http://localhost:9100/constructions/" + constructionId)
+      .delete("http://localhost:9100/users/api/constructions/" + constructionId)
       .then(() => {
         alert("Se eliminó la construcción.");
-        window.location.href = window.location.href;
+        setConstructions(constructions.filter(c => c.id !== constructionId));
       })
       .catch((error) => {
-        alert("Se produjo un error al intentar eliminar la construccion.");
+        alert("Se produjo un error al intentar eliminar la construcción.");
         console.log(error.response.data);
       });
   }

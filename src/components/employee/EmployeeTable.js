@@ -109,7 +109,7 @@ function renderBodyWithOptions(employees, handleEditClick, handleDeleteClick) {
       <Tr key={employee.id}>
         <Td>{employee.name}</Td>
         <Td>{employee.email}</Td>
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleEditClick(event, employee.id)} 
             colorScheme="blue" 
@@ -118,7 +118,7 @@ function renderBodyWithOptions(employees, handleEditClick, handleDeleteClick) {
             icon={<EditIcon/>}>
           </IconButton>
         </Td>
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleDeleteClick(event, employee.id)}
             colorScheme="blue" 

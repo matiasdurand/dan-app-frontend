@@ -47,6 +47,7 @@ function PackageTable({packages, remove, options}) {
             <Th>Volumen</Th>
             <Th>Estado</Th>
             <Th>Fecha arribo</Th>
+            <Th>Id Envío</Th>
           </Tr>
         </Thead>
 
@@ -71,6 +72,7 @@ function renderBody(packages) {
         <Td>{p.volume}</Td>
         <Td>{p.state}</Td>
         <Td>{p.arrivalDate}</Td>
+        <Td>{p.deliveryId}</Td>
       </Tr>
     )
   })
@@ -86,7 +88,8 @@ function renderBodyWithOptions(packages, handleDeleteClick) {
         <Td>{p.volume}</Td>
         <Td>{p.state}</Td>
         <Td>{p.arrivalDate}</Td>
-        <Td>
+        <Td>{p.deliveryId}</Td>
+        <Td p={1}>
           <IconButton 
             onClick={(event) => handleDeleteClick(event, p.id)} 
             variant="ghost" 

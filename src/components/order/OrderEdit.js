@@ -28,11 +28,11 @@ const OrderEdit = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/orders/" + orderId + "/items")
+      .get("http://localhost:9100/orders/api/orders/" + orderId + "/items")
       .then((response) => { setOrderItems(response.data) })
 
     axios
-      .get("http://localhost:9100/orders/" + orderId)
+      .get("http://localhost:9100/orders/api/orders/" + orderId)
       .then((response) => {
         console.log(response.data);
         setOrderStateInfo({ id: response.data.stateId, description: response.data.stateDescription });
@@ -53,14 +53,14 @@ const OrderEdit = () => {
       console.log(JSON.stringify(newOrderState));
 
       axios
-        .patch("http://localhost:9100/orders/" + orderId, JSON.stringify(newOrderState),
+        .patch("http://localhost:9100/orders/api/orders/" + orderId, JSON.stringify(newOrderState),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          alert("El estado se actualizó correctamente.");
+          alert("El estado del pedido se actualizó correctamente.");
           history.goBack();
         })
         .catch((error) => {
-          alert("Error al intentar actualizar el estado.");
+          alert("Error al intentar actualizar el estado del pedido.");
           console.log(error.response.data);
         });
     }
@@ -91,15 +91,6 @@ const OrderEdit = () => {
             type="text" 
             variant="filled"/>
         </FormControl>
-
-        {orderStateInfo.description === "" &&
-        <FormControl w="75%" ml={4} mt={4} isRequired>
-          <FormLabel>Nuevo Estado</FormLabel>
-          <Select value={newOrderStateId} onChange={(e) => setNewOrderStateId(e.target.value)} variant="filled">
-            <option value="2">Confirmado</option>
-            <option value="4">Cancelado</option>
-          </Select>
-        </FormControl>}
 
         {orderStateInfo.description === "Nuevo" &&
         <FormControl mt={4} isRequired>

@@ -60,14 +60,27 @@ function Product() {
       console.log("put = " + JSON.stringify(updatedProduct));
 
       axios
-        .put("http://localhost:9100/products/" + updatedProduct.id, JSON.stringify(updatedProduct),
+        .put("http://localhost:9100/products/api/products/" + updatedProduct.id, JSON.stringify(updatedProduct),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          alert("Datos del producto modificados.");
-          window.location.href = window.location.href;
+          alert("Datos del producto modificados correctamente.");
+
+          let copy = products.filter(p => p.id !== updatedProduct.id);
+
+          copy.push({
+            id: parseInt(product.id),
+            name: product.name,
+            description: product.description,
+            currentStock: parseInt(product.currentStock),
+            minimumStock: parseInt(product.minimumStock),
+            price: parseFloat(product.price),
+            unitId: parseInt(product.unitId)
+          });
+
+          setProducts(copy);
         })
         .catch((error) => {
-          alert("Error al intentar modificar los datos del producto");
+          alert("Error al intentar modificar los datos del producto.");
           console.log(error.response.data);
         });
     }
@@ -85,11 +98,14 @@ function Product() {
       console.log("post = " + JSON.stringify(newProduct));
 
       axios
-        .post("http://localhost:9100/products", JSON.stringify(newProduct), 
+        .post("http://localhost:9100/products/api/products", JSON.stringify(newProduct), 
           { headers: {'Content-Type':'application/json'} })
-        .then(() => {
-          alert("Producto agregado correctamente.");
-          window.location.href = window.location.href;
+        .then((response) => {
+          alert("Producto registrado correctamente.");
+          let copy = products.slice();
+          copy.push(response.data);
+          setProducts(copy);
+          clean();
         })
         .catch((error) => {
           alert("Error al intentar registrar el producto.");
@@ -101,10 +117,14 @@ function Product() {
   const remove = (productId) => {
 
     axios
-      .delete("http://localhost:9100/products/" + productId)
+      .delete("http://localhost:9100/products/api/products/" + productId)
       .then(() => {
         alert("Se eliminó el producto.");
-        window.location.href = window.location.href;
+        setProducts(products.filter(p => p.id !== productId));
+      })
+      .catch((error) => {
+        alert("Se produjo un error al intentar eliminar el producto.");
+        console.log(error.response.data);
       });
 
   };
@@ -113,19 +133,19 @@ function Product() {
 
     if (productFilters.type === "name") {
         axios
-          .get("http://localhost:9100/products?name=" + productFilters.name)
+          .get("http://localhost:9100/products/api/products?name=" + productFilters.name)
           .then(response => { setProducts([response.data]); })
           .catch(() => { alert("No hay coincidencias.") });
     }
     else if (productFilters.type === "stockRange") {
         axios
-          .get("http://localhost:9100/products?minimumStock=" + productFilters.minimumStock
+          .get("http://localhost:9100/products/api/products?minimumStock=" + productFilters.minimumStock
             + "&maximumStock=" + productFilters.maximumStock)
           .then((response) => { setProducts(response.data); });
     }
     else if (productFilters.type === "priceRange") {
         axios
-          .get("http://localhost:9100/products?minimumPrice=" + productFilters.minimumPrice
+          .get("http://localhost:9100/products/api/products?minimumPrice=" + productFilters.minimumPrice
             + "&maximumPrice=" + productFilters.maximumPrice)
           .then((response) => { setProducts(response.data); });
     }
@@ -134,7 +154,7 @@ function Product() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/products")
+      .get("http://localhost:9100/products/api/products")
       .then(response => { setProducts(response.data); });
 
   }, []);

@@ -41,7 +41,7 @@ function CustomerRegister() {
     console.log(JSON.stringify(customer));
 
     axios
-      .post("http://localhost:9100/customers", JSON.stringify(customer), 
+      .post("http://localhost:9100/users/api/customers", JSON.stringify(customer), 
         { headers: {'Content-Type':'application/json'} })
       .then((response) => { history.push('/home/customer/' + response.data.cuit); })
       .catch((error) => {

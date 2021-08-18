@@ -26,7 +26,7 @@ const EmployeeProfile = () => {
     console.log("updated employee = " + JSON.stringify(updatedEmployee));
 
     axios
-      .put("http://localhost:9100/employees/" + updatedEmployee.id, JSON.stringify(updatedEmployee),
+      .put("http://localhost:9100/users/api/employees/" + updatedEmployee.id, JSON.stringify(updatedEmployee),
         { headers: {'Content-Type':'application/json'} })
       .then(() => {
         alert("Datos del empleado modificados.");
@@ -43,7 +43,7 @@ const EmployeeProfile = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/employees/" + employeeId)
+      .get("http://localhost:9100/users/api/employees/" + employeeId)
       .then((response) => { setEmployee(response.data); });
 
   }, []);

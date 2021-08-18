@@ -20,7 +20,7 @@ const Truck = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/trucks")
+      .get("http://localhost:9100/delivery/api/trucks")
       .then((response) => { setTrucks(response.data); });
     
   }, []);
@@ -38,11 +38,13 @@ const Truck = () => {
     console.log("post " + JSON.stringify(newTruck));
 
     axios
-      .post("http://localhost:9100/trucks", JSON.stringify(newTruck), 
+      .post("http://localhost:9100/delivery/api/trucks", JSON.stringify(newTruck), 
         { headers: {'Content-Type':'application/json'} })
-      .then(() => {
+      .then((response) => {
         alert("Camión registrado correctamente.");
-        window.location.href = window.location.href;
+        let copy = trucks.slice();
+        copy.push(response.data);
+        setTrucks(copy);
       })
       .catch((error) => {
         alert("Se produjo un error al intentar registrar el camión.");
@@ -54,10 +56,10 @@ const Truck = () => {
   const remove = (truckId) => {
 
     axios
-      .delete("http://localhost:9100/trucks/" + truckId)
+      .delete("http://localhost:9100/delivery/api/trucks/" + truckId)
       .then(() => {
         alert("Se eliminó el camión.");
-        window.location.href = window.location.href;
+        setTrucks(trucks.filter(t => t.id !== truckId));
       })
       .catch((error) => {
         alert("Se produjo un error al intentar eliminar el camión.");

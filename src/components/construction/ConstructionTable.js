@@ -111,7 +111,7 @@ function renderBodyWithOptions(constructions, handleEditClick, handleDeleteClick
         <Td>{construction.longitude}</Td>
         <Td>{construction.address}</Td>
         <Td>{construction.area}</Td>  
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleEditClick(event, construction.id)} 
             colorScheme="blue" 
@@ -120,7 +120,7 @@ function renderBodyWithOptions(constructions, handleEditClick, handleDeleteClick
             icon={<EditIcon/>}>
           </IconButton>
         </Td>
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleDeleteClick(event, construction.id)}
             colorScheme="blue" 

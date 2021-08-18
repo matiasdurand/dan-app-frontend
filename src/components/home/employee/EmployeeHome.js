@@ -20,15 +20,15 @@ const EmployeeHome = () => {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/customers")
+      .get("http://localhost:9100/users/api/customers")
       .then((response) => { setCustomers(response.data); });
 
     axios
-      .get("http://localhost:9100/orders")
+      .get("http://localhost:9100/orders/api/orders")
       .then((response) => { setOrders(response.data); });
     
     axios
-      .get("http://localhost:9100/deliveries")
+      .get("http://localhost:9100/delivery/api/deliveries")
       .then((response) => { setDeliveries(response.data); });
 
   }, []);

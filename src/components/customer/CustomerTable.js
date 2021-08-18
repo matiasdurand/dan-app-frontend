@@ -87,7 +87,7 @@ function renderBodyWithDeleteOption(customers, handleRowClick, handleDeleteClick
         <Td>{customer.cuit}</Td>
         <Td>{customer.email}</Td>
         <Td>{customer.maxCurrentAccount}</Td>
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleDeleteClick(event, customer.id)}
             colorScheme="blue" 

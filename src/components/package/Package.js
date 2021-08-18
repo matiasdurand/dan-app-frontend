@@ -37,14 +37,16 @@ function Package() {
       console.log("post " + JSON.stringify(newPackage));
 
       axios
-        .post("http://localhost:9100/packages", JSON.stringify(newPackage), 
+        .post("http://localhost:9100/delivery/api/packages", JSON.stringify(newPackage), 
           { headers: {'Content-Type':'application/json'} })
-        .then(() => {
-          alert("Paquete generado correctamente.");
-          window.location.href = window.location.href;
+        .then((response) => {
+          alert("Paquete registrado correctamente.");
+          let copy = packages.slice();
+          copy.push(response.data);
+          setPackages(copy);
         })
         .catch((error) => {
-          alert("Se produjo un error al intentar generar el paquete.");
+          alert("Se produjo un error al intentar registrar el paquete.");
           console.log(error.response.data);
         });
 
@@ -63,7 +65,7 @@ function Package() {
     setCuit(cuit);
 
     axios
-      .get("http://localhost:9100/orders?cuit=" + cuit)
+      .get("http://localhost:9100/orders/api/orders?cuit=" + cuit)
       .then((response) => { setOrders(response.data); })
       .catch(() => { alert("No hay coincidencias."); });
   };
@@ -100,17 +102,17 @@ function Package() {
   const remove = (packageId) => {
 
     axios
-      .delete("http://localhost:9100/packages/" + packageId)
+      .delete("http://localhost:9100/delivery/api/packages/" + packageId)
       .then(() => {
-        alert("El paquete ha sido eliminado.");
-        window.location.href = window.location.href;
+        alert("Se eliminó el paquete.");
+        setPackages(packages.filter(p => p.id !== packageId));
       })
   }
 
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/packages")
+      .get("http://localhost:9100/delivery/api/packages")
       .then(response => { setPackages(response.data); });
     
   }, []);

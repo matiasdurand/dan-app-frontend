@@ -13,7 +13,7 @@ function CustomerPayments() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/accounting?cuit=" + cuit)
+      .get("http://localhost:9100/accounting/api/accounting?cuit=" + cuit)
       .then((response) => { setPayments(response.data); });
 
   }, []);

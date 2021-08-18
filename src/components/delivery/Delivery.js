@@ -28,7 +28,7 @@ function Delivery() {
       console.log("post " + JSON.stringify(newDelivery));
   
       axios
-        .post("http://localhost:9100/deliveries", JSON.stringify(newDelivery), 
+        .post("http://localhost:9100/delivery/api/deliveries", JSON.stringify(newDelivery), 
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
           alert("Envío registrado correctamente.");
@@ -48,15 +48,15 @@ function Delivery() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/packages")
+      .get("http://localhost:9100/delivery/api/packages")
       .then((response) => { setPackages(response.data); });
 
     axios
-      .get("http://localhost:9100/trucks/availables")
+      .get("http://localhost:9100/delivery/api/trucks/availables")
       .then((response) => { setTrucks(response.data); });
 
     axios
-      .get("http://localhost:9100/employees")
+      .get("http://localhost:9100/users/api/employees")
       .then((response) => { setEmployees(response.data); });
 
   }, []);

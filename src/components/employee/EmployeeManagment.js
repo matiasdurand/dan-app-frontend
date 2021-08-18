@@ -47,11 +47,18 @@ function EmployeeManagment() {
       console.log("updated employee = " + JSON.stringify(updatedEmployee));
 
       axios
-        .put("http://localhost:9100/employees/" + updatedEmployee.id, JSON.stringify(updatedEmployee),
+        .put("http://localhost:9100/users/api/employees/" + updatedEmployee.id, JSON.stringify(updatedEmployee),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          alert("Datos del empleado modificados.");
-          window.location.href = window.location.href;
+          alert("Datos del empleado modificados correctamente.");
+
+          let copy = employees.filter(e => e.id !== updatedEmployee.id);
+
+          copy.push(updatedEmployee);
+
+          setEmployees(copy);
+
+          clean();
         })
         .catch((error) => {
           alert("Error al intentar modificar los datos del empleado");
@@ -66,14 +73,16 @@ function EmployeeManagment() {
       };
 
       axios
-        .post("http://localhost:9100/employees", JSON.stringify(newEmployee), 
+        .post("http://localhost:9100/users/api/employees", JSON.stringify(newEmployee), 
           { headers: {'Content-Type':'application/json'} })
-        .then(() => {
-          alert("Empleado agregado correctamente.");
-          window.location.href = window.location.href;
+        .then((response) => {
+          alert("Empleado registrado correctamente.");
+          let copy = employees.slice();
+          copy.push(response.data);
+          setEmployees(copy);
         })
         .catch((error) => {
-          alert("Error al intentar registrar el empleado");
+          alert("Error al intentar registrar el empleado.");
           console.log(error.response.data);
         });
     }
@@ -82,10 +91,14 @@ function EmployeeManagment() {
   const remove = (employeeId) => {
 
     axios
-      .delete("http://localhost:9100/employees/" + employeeId)
+      .delete("http://localhost:9100/users/api/employees/" + employeeId)
       .then(() => {
         alert("Se eliminó el empleado.");
-        window.location.href = window.location.href;
+        setEmployees(employees.filter(e => e.id !== employeeId));
+      })
+      .catch((error) => {
+        alert("Se produjo un error al intentar eliminar el empleado.");
+        console.log(error.response.data);
       });
   };
 
@@ -93,13 +106,13 @@ function EmployeeManagment() {
 
     if (filters.name !== "") {
       axios
-        .get("http://localhost:9100/employees?name=" + filters.name)
+        .get("http://localhost:9100/users/api/employees?name=" + filters.name)
         .then(response => { setEmployees([response.data]); })
         .catch(() => { alert("No hay coincidencias."); });
     }
     else {
       axios
-        .get("http://localhost:9100/employees")
+        .get("http://localhost:9100/users/api/employees")
         .then(response => { setEmployees(response.data); });
     }
 
@@ -108,7 +121,7 @@ function EmployeeManagment() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/employees")
+      .get("http://localhost:9100/users/api/employees")
       .then(response => { setEmployees(response.data); });
 
   }, []);

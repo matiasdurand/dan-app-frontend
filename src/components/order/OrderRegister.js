@@ -27,17 +27,17 @@ function OrderRegister() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/products")
+      .get("http://localhost:9100/products/api/products")
       .then(response => { setProducts(response.data); });
 
     if (cuit !== "0") {
       axios
-        .get("http://localhost:9100/constructions?cuit=" + cuit)
+        .get("http://localhost:9100/users/api/constructions?cuit=" + cuit)
         .then(response => { setConstructions(response.data); });
     }
     else {
       axios
-        .get("http://localhost:9100/constructions")
+        .get("http://localhost:9100/users/api/constructions")
         .then(response => { setConstructions(response.data); });
     }
 
@@ -47,12 +47,12 @@ function OrderRegister() {
     
     if (name === "") {
       axios
-        .get("http://localhost:9100/products")
+        .get("http://localhost:9100/products/api/products")
         .then(response => { setProducts(response.data); });
     }
     else {
       axios
-        .get("http://localhost:9100/products?name=" + name)
+        .get("http://localhost:9100/products/api/products?name=" + name)
         .then((response) => { setProducts([response.data]); })
         .catch(() => { alert("No hay coincidencias.") });
     }
@@ -104,14 +104,14 @@ function OrderRegister() {
     console.log(JSON.stringify(newOrder))
     
     axios
-      .post("http://localhost:9100/orders", JSON.stringify(newOrder),
+      .post("http://localhost:9100/orders/api/orders", JSON.stringify(newOrder),
         { headers: {'Content-Type':'application/json'} })
       .then(() => {
-        alert("Pedido generado.");
+        alert("Pedido registrado correctamente.");
         clean(true);
       })
       .catch((error) => {
-        alert("Error al intentar generar el pedido.")
+        alert("Error al intentar registrar el pedido.")
         console.log(error.response.data);
       });
   }

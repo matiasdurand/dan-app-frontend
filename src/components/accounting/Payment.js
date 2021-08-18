@@ -16,7 +16,7 @@ function Payments() {
     comment: "",
     billNumber: 0, //cash
     number: 0, //check
-    paymentDate: "", //check
+    paymentDate: "2021-08-01", //check
     bank: "", //check
     cbuOrigin: "", //transfer
     cbuDestination: "", //transfer
@@ -37,7 +37,7 @@ function Payments() {
   const post = () => {
     
     axios
-      .get("http://localhost:9100/customers?cuit=" + payment.cuit)
+      .get("http://localhost:9100/users/api/customers?cuit=" + payment.cuit)
       .then((response) => {
         
         let newPaymentMethod;
@@ -77,11 +77,13 @@ function Payments() {
         console.log(JSON.stringify(newPayment));
 
         axios
-          .post("http://localhost:9100/accounting", JSON.stringify(newPayment),
+          .post("http://localhost:9100/accounting/api/accounting", JSON.stringify(newPayment),
             { headers: {'Content-Type':'application/json'} })
-          .then(() => {
+          .then((response) => {
             alert("Pago registrado correctamente.");
-            window.location.href = window.location.href;
+            let copy = payments.slice();
+            copy.push(response.data);
+            setPayments(copy);
           })
           .catch((error) => {
             alert("Error al intentar registrar el pago.")
@@ -93,7 +95,7 @@ function Payments() {
   useEffect(() => {
 
     axios
-      .get("http://localhost:9100/accounting")
+      .get("http://localhost:9100/accounting/api/accounting")
       .then(response => { setPayments(response.data); });
 
   }, []);

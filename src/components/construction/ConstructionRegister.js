@@ -26,7 +26,7 @@ function ConstructionRegister() {
 
     if (constructionId !== "0") {
       axios
-        .get("http://localhost:9100/constructions/" + constructionId)
+        .get("http://localhost:9100/users/api/constructions/" + constructionId)
         .then(response => { setConstruction(response.data); });
     }
     
@@ -49,21 +49,21 @@ function ConstructionRegister() {
       console.log("updated construction = " + JSON.stringify(updatedConstruction));
 
       axios
-        .put("http://localhost:9100/constructions/" + constructionId, JSON.stringify(updatedConstruction),
+        .put("http://localhost:9100/users/api/constructions/" + constructionId, JSON.stringify(updatedConstruction),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
-          alert("Datos de la construcción modificados.");
+          alert("Datos de la construcción modificados correctamente.");
           goBack();
         })
         .catch((error) => {
-          alert("Se produjo un error al intentar modificar la construcción.");
+          alert("Error al intentar modificar los datos de la construcción.");
           console.log(error.response.data);
         });
     }
     else {
 
       axios
-        .get("http://localhost:9100/customers?cuit=" + cuit)
+        .get("http://localhost:9100/users/api/customers?cuit=" + cuit)
         .then((response) => {
 
           let newConstruction = {
@@ -79,14 +79,14 @@ function ConstructionRegister() {
           console.log("new construction = " + JSON.stringify(newConstruction));
 
           axios
-            .post("http://localhost:9100/constructions", JSON.stringify(newConstruction),
+            .post("http://localhost:9100/users/api/constructions", JSON.stringify(newConstruction),
               { headers: {'Content-Type':'application/json'} })
             .then(() => {
               alert("Construcción registrada correctamente.");
               goBack();
             })
             .catch((error) => {
-              alert("Se produjo un error al intentar registrar la construcción..");
+              alert("Se produjo un error al intentar registrar la construcción.");
               console.log(error.response.data);
             });;
         })

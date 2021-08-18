@@ -97,7 +97,7 @@ function renderBodyWithOptions(trucks, handleDeleteClick) {
         <Td>{truck.maxWeight}</Td>
         <Td>{truck.maxVolume}</Td>
         <Td>{truck.state}</Td>
-        <Td>
+        <Td p={1}>
           <IconButton 
             onClick={(event) => handleDeleteClick(event, truck.id)} 
             variant="ghost" 

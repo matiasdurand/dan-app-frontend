@@ -103,7 +103,7 @@ function renderBodyWithOptions(orders, handleEditClick, handleRowClick) {
         <Td>{order.stateDescription}</Td>
         <Td>{order.constructionDescription}</Td>
         <Td>{order.totalPrice}</Td>
-        <Td>
+        <Td p={1}>
           <IconButton
             onClick={(event) => handleEditClick(event, order.id)} 
             colorScheme="blue" 
