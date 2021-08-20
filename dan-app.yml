@@ -1,0 +1,18 @@
+services:  
+  app-frontend: 
+    container_name: dan-app-frontend
+    image: dan-app-frontend
+    build: 
+      context: .
+    restart: always
+    ports: 
+      - 4000:4000
+    volumes: 
+      - "./src:/app/src"
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+      
