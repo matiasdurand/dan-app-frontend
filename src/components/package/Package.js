@@ -44,6 +44,8 @@ function Package() {
           let copy = packages.slice();
           copy.push(response.data);
           setPackages(copy);
+          setOrdersToDispatch([]);
+          setOrderId(0);
         })
         .catch((error) => {
           alert("Se produjo un error al intentar registrar el paquete.");
@@ -66,8 +68,7 @@ function Package() {
 
     axios
       .get("http://localhost:9100/orders/api/orders?cuit=" + cuit)
-      .then((response) => { setOrders(response.data); })
-      .catch(() => { alert("No hay coincidencias."); });
+      .then((response) => { setOrders(response.data); });
   };
 
   const add = () => {
@@ -76,7 +77,7 @@ function Package() {
 
       let selectedOrder = orders.filter(o => o.id === orderId)[0];
 
-      if (selectedOrder.stateDescription === "Confirmado") {
+      if (selectedOrder.stateDescription === "Aceptado") {
 
         if (ordersToDispatch.filter(o => o.id === orderId).length === 0) {
   
@@ -87,11 +88,11 @@ function Package() {
           setOrdersToDispatch(copy);
         }
         else {
-          alert("La orden seleccionada ya forma parte del paquete.");
+          alert("El pedido seleccionado ya forma parte del paquete.");
         }
       }
       else {
-        alert("solo puedes seleccionar pedidos confirmados.");
+        alert("Solo puedes seleccionar pedidos aceptados.");
       }
     }
     else {
@@ -113,7 +114,7 @@ function Package() {
 
     axios
       .get("http://localhost:9100/delivery/api/packages")
-      .then(response => { setPackages(response.data); });
+      .then((response) => { setPackages(response.data); });
     
   }, []);
 
