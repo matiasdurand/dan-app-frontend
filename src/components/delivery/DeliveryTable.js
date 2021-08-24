@@ -77,7 +77,7 @@ function renderBody(deliveries, showAdd) {
         {showAdd && <Td>{delivery.id}</Td>}
         <Td>{delivery.departure}</Td>
         <Td>{delivery.truckDescription}</Td>
-        <Td>{delivery.employeeName}</Td>
+        <Td>{delivery.employeeId}</Td>
       </Tr>
     )
   })
