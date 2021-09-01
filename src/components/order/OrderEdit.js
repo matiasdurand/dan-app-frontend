@@ -53,7 +53,7 @@ const OrderEdit = () => {
       console.log(JSON.stringify(newOrderState));
 
       axios
-        .patch("http://localhost:9100/orders/api/orders/" + orderId, JSON.stringify(newOrderState),
+        .patch("http://localhost:9100/orders/api/orders/" + orderId + "/update-state", JSON.stringify(newOrderState),
           { headers: {'Content-Type':'application/json'} })
         .then(() => {
           alert("El estado del pedido se actualizó correctamente.");
@@ -93,7 +93,7 @@ const OrderEdit = () => {
         </FormControl>
 
         {orderStateInfo.description === "Nuevo" &&
-        <FormControl mt={4} isRequired>
+        <FormControl w="75%" ml={4} mt={4} isRequired>
           <FormLabel>Nuevo Estado</FormLabel>
           <Select value={newOrderStateId} onChange={(e) => setNewOrderStateId(e.target.value)} variant="filled">
             <option value="1">Nuevo</option>
@@ -103,7 +103,7 @@ const OrderEdit = () => {
         </FormControl>}
 
         {orderStateInfo.description === "Pendiente" &&
-        <FormControl mt={4} isRequired>
+        <FormControl w="75%" ml={4} mt={4} isRequired>
           <FormLabel>Nuevo Estado</FormLabel>
           <Select value={newOrderStateId} onChange={(e) => setNewOrderStateId(e.target.value)} variant="filled">
             <option value="3">Pendiente</option>
@@ -114,7 +114,7 @@ const OrderEdit = () => {
         </FormControl>}
 
         {orderStateInfo.description === "En preparacion" &&
-        <FormControl mt={4} isRequired>
+        <FormControl w="75%" ml={4} mt={4} isRequired>
           <FormLabel>Nuevo Estado</FormLabel>
           <Select value={newOrderStateId} onChange={(e) => setNewOrderStateId(e.target.value)} variant="filled">
             <option value="7">En Preparación</option>

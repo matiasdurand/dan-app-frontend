@@ -54,8 +54,8 @@ function OrderItemTable({items}) {
 function renderBody(items) {
   return items.map((item) => {
     return (
-      <Tr>
-        <Td>{item.productName}</Td>
+      <Tr key={item.productId}>
+        <Td>{item.productId}</Td>
         <Td>{item.quantity}</Td>
         <Td>{item.price}</Td>
       </Tr>
