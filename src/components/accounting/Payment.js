@@ -84,6 +84,7 @@ function Payments() {
             let copy = payments.slice();
             copy.push(response.data);
             setPayments(copy);
+            clean();
           })
           .catch((error) => {
             alert("Error al intentar registrar el pago.")

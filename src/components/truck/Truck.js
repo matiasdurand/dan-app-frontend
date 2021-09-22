@@ -45,6 +45,7 @@ const Truck = () => {
         let copy = trucks.slice();
         copy.push(response.data);
         setTrucks(copy);
+        clean();
       })
       .catch((error) => {
         alert("Se produjo un error al intentar registrar el camión.");
